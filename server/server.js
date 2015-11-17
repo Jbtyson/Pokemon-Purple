@@ -24,7 +24,13 @@ function init() {
   	user : DB_USERNAME,
   	password: DB_PASSWORD
   });
-  //connection.connect();
+  connection.connect();
+
+  connection.query('SELECT * FROM Users', function(err, rows, fields) {
+    if (err) throw err;
+
+    console.log(rows);
+  });
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);
