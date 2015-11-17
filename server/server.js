@@ -3,16 +3,19 @@ var util = require("util"),
     io = require("socket.io"),
     mysql = require("mysql"),
     User = require("./user").User;
+    Db = require("./db").Db;
 
 var PORT = 8080,
     DB_HOST = "mysql.cis.ksu.edu";
-    DB_USERNAME = "jbtyson@blazer.cis.ksu.edu";
-    DB_PASSWORD = "insecurepassword";
+    DB_USERNAME = "jbtyson";
+    DB_PASSWORD = "secretpassword"
+    DB_NAME = "jbtyson";
 
 
 var socket;
 var users;
 var dbConnection;
+var db;
 
 function init() {
   console.log("Initializing...");
@@ -22,15 +25,11 @@ function init() {
   connection =  mysql.createConnection({
   	host : DB_HOST,
   	user : DB_USERNAME,
-  	password: DB_PASSWORD
+  	password: DB_PASSWORD,
+    database: DB_NAME
   });
   connection.connect();
-
-  connection.query('SELECT * FROM Users', function(err, rows, fields) {
-    if (err) throw err;
-
-    console.log(rows);
-  });
+  db = new Db(connection);
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);
@@ -53,7 +52,7 @@ var onSocketConnection = function(client) {
 function onAuthenticate(message) {
   util.log(this.id + " attempting login using: " + message.username + ", " + message.password);
   var user = new User(this, message.username, message.password)
-  user.connect();
+  db.authenticate(user.username, user.password);
   if(user.playerId == -1) {
     // auth failed
     util.log(this.id + " login failed.");
