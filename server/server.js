@@ -86,6 +86,7 @@ function onRetrieveParty(message) {
 function onRetrievePokemonInstance(message) {
   util.log(this.id + "requesting pokemon instance: " + message.pokemonInstId);
   var pkmnInst = db.retruevePokemonInstance(message.pokemonInstId);
+
 }
 
 function onClientDisconnect() {
