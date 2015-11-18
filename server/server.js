@@ -11,7 +11,6 @@ var PORT = 8080,
     DB_PASSWORD = "secretpassword"
     DB_NAME = "jbtyson";
 
-
 var socket;
 var users;
 var dbConnection;
@@ -29,6 +28,7 @@ function init() {
     database: DB_NAME
   });
   connection.connect();
+  console.log("Db connection complete.")
   db = new Db(connection);
 
   console.log("Initialization complete.");
@@ -46,13 +46,16 @@ var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
 
   client.on("authenticate", onAuthenticate);
+  client.on("retrieve party", onRetrieveParty);
   client.on("disconnect", onClientDisconnect);
 }
 
+// Attempt authentication based on username and password
 function onAuthenticate(message) {
   util.log(this.id + " attempting login using: " + message.username + ", " + message.password);
   var user = new User(this, message.username, message.password)
-  db.authenticate(user.username, user.password);
+  var playerId = db.authenticate(user.username, user.password);
+
   if(user.playerId == -1) {
     // auth failed
     util.log(this.id + " login failed.");
@@ -61,9 +64,28 @@ function onAuthenticate(message) {
   else {
     // auth success
     util.log(this.id + " logged in with id: " + user.playerId);
+    user.player = new Player(playerId)
     users.push(user);
     this.emit("auth success", {username: user.username, playerId: user.playerId});
   }
+}
+
+// Retrieves a party for a specified party Id
+function onRetrieveParty(message) {
+  util.log(this.id + "requesting party of player: " + message.playerId);
+  var party = db.retrieveParty(message.playerId);
+  if(!!party) {
+    this.emit("party", {party:party});
+  }
+  else {
+    this.emit("party error");
+  }
+}
+
+// Retrieve a specific pokemon instance based on their id
+function onRetrievePokemonInstance(message) {
+  util.log(this.id + "requesting pokemon instance: " + message.pokemonInstId);
+  var pkmnInst = db.retruevePokemonInstance(message.pokemonInstId);
 }
 
 function onClientDisconnect() {
