@@ -1,5 +1,6 @@
 // db.js
 var Party = require("./party.js");
+var PokemonInstance = require("./pokemonInstance.js");
 
 var Db = function(p_connection) {
     var connection = p_connection;
@@ -24,20 +25,22 @@ var Db = function(p_connection) {
       });
     }
 
+    // Retrieve the data for all of the pokemon instances in a party belonging to a playerid
     var retrieveParty = function(playerId) {
-      var query = "SELECT * FROM Party WHERE playerId=" + playerId;
+      var query = "SELECT * FROM Pokemon_Instances JOIN Parties ON Pokemon_Instances.pokemon_instance_id = Parties.pokemon_instance_id WHERE Parties.player_id=" + playerId;
       connection.query(query, function(err, rows) {
         if(err) {
-          console.log(err)
+          console.log(err);
           return NULL;
         }
 
-        party = new Party();
+        var party = new Party();
         for(i = 0; i < rows.length; i++) {
-          party.addPokemonInstToParty(rows[i]);
+          var pkmn = new PokemonInstance();
+          party.addPokemon(pkmn);
         }
         return party;
-      })
+      });
     }
 
     var addPokemonInstToParty = function(pokemonInstId, playerId) {

@@ -56,7 +56,7 @@ function onAuthenticate(message) {
   var user = new User(this, message.username, message.password)
   var playerId = db.authenticate(user.username, user.password);
 
-  if(user.playerId == -1) {
+  if(playerId == -1) {
     // auth failed
     util.log(this.id + " login failed.");
     this.emit("auth failed");
@@ -74,18 +74,21 @@ function onAuthenticate(message) {
 function onRetrieveParty(message) {
   util.log(this.id + "requesting party of player: " + message.playerId);
   var party = db.retrieveParty(message.playerId);
-  if(!!party) {
-    this.emit("party", {party:party});
+
+  if(party == NULL) {
+    // retrieve party failed
+    this.emit("party error");
   }
   else {
-    this.emit("party error");
+    //retrieve party was successful
+    this.emit("party", {party:party});
   }
 }
 
 // Retrieve a specific pokemon instance based on their id
 function onRetrievePokemonInstance(message) {
-  util.log(this.id + "requesting pokemon instance: " + message.pokemonInstId);
-  var pkmnInst = db.retruevePokemonInstance(message.pokemonInstId);
+  util.log(this.id + "requesting pokemon instance: " + message.pokemonId + " - " + message.pokemonInstId);
+  var pkmnInst = db.retrievePokemonInstance(message.pokemonId, message.pokemonInstId);
 
 }
 

@@ -5,10 +5,10 @@ var Party = function() {
     var members = [];
 
     // Adds a pokemon instance id to the party
-    var addPokemon = function(pokemonInstId) {
+    var addPokemon = function(pokemonInst) {
       if(members.length < 6) {
         members.push(pokemonInstId);
-        return pokemonInstId;
+        return ++size;
       }
       else {
         console.log("Cannot add more than 6 Pokemon to a party");
@@ -17,11 +17,11 @@ var Party = function() {
     }
 
     // Removes a pokemon instance id from the party
-    var removePokemon = function(pokemonInstId) {
+    var removePokemon = function(pokemonInst) {
       for(i = 0; i < members.length; i++) {
-        if(members[i] === pokemonInstId) {
+        if(members[i].pokemonInstId === pokemonInstId) {
           members.splice(i, 1);
-          return pokemonInstId;
+          return --size;
         }
       }
       console.log("PokemonInstance was not found");

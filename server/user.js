@@ -5,11 +5,6 @@ var User = function(p_socket, p_username, p_password) {
         password = p_password,
         player;
 
-    // attempt authentication, -1 if failed
-    var connect = function() {
-      playerId = 12345678
-    }
-
     return {
         socket: socket,
         playerId: playerId,
