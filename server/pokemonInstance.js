@@ -14,7 +14,7 @@ var PokemonInstance = function(mod, base, maxHp, curHp, att, spcAtt, def,
 
     return {
       mod: mod,
-      base: base:
+      base: base,
       maxHp: maxHp,
       curHp: curHp,
       att: att,
