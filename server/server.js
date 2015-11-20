@@ -21,15 +21,8 @@ function init() {
   users = [];
 
   console.log("Connecting to db...");
-  connection =  mysql.createConnection({
-  	host : DB_HOST,
-  	user : DB_USERNAME,
-  	password: DB_PASSWORD,
-    database: DB_NAME
-  });
-  connection.connect();
+  db = new Db(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
   console.log("Db connection complete.")
-  db = new Db(connection);
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);

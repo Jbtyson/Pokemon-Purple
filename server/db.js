@@ -1,9 +1,15 @@
 // db.js
+var mysql = require("mysql");
 var Party = require("./party.js");
 var PokemonInstance = require("./pokemonInstance.js");
 
-var Db = function(p_connection) {
-    var connection = p_connection;
+var Db = function(host, username, password, database) {
+    var connection =  mysql.createConnection({
+    	host: host,
+    	user: username,
+    	password: password,
+      database: database
+    });
 
     // attempt authentication, -1 if failed
     var authenticate = function(username, password) {
@@ -52,6 +58,7 @@ var Db = function(p_connection) {
     }
 
     return {
+        connection: connection,
         authenticate: authenticate,
         addPokemonInstToParty: addPokemonInstToParty,
         removePokemonInstFromParty: removePokemonInstFromParty
