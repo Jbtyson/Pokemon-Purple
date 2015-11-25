@@ -2,8 +2,11 @@
 var util = require("util"),
     io = require("socket.io"),
     mysql = require("mysql"),
-    User = require("./user").User;
-    Db = require("./db").Db;
+    Db = require("./services/db").Db;
+    UserService = require("./services/userService/userService").UserService;
+    PlayerService = require("./services/playerService/playerService").PlayerService;
+    PokemonService = require("./services/pokemonService/pokemonService").PokemonService;
+    ItemService = require("./services/itemService/itemService").ItemService;
 
 var PORT = 8080,
     DB_HOST = "mysql.cis.ksu.edu";
@@ -15,6 +18,10 @@ var socket;
 var users;
 var dbConnection;
 var db;
+var userService,
+    playerService,
+    pokemonService,
+    itemService;
 
 function init() {
   console.log("Initializing...");
@@ -23,6 +30,11 @@ function init() {
   console.log("Connecting to db...");
   db = new Db(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
   console.log("Db connection complete.")
+
+  userService = new UserService(db);
+  playerService = new PlayerService(db);
+  pokemonService = new PokemonService(db);
+  itemService = new ItemService(db);
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);
@@ -42,7 +54,7 @@ var onSocketConnection = function(client) {
   client.on("retrieve party", onRetrieveParty);
   client.on("disconnect", onClientDisconnect);
 }
-
+/*
 // Attempt authentication based on username and password
 function onAuthenticate(message) {
   util.log(this.id + " attempting login using: " + message.username + ", " + message.password);
@@ -84,7 +96,7 @@ function onRetrievePokemonInstance(message) {
   var pkmnInst = db.retrievePokemonInstance(message.pokemonId, message.pokemonInstId);
 
 }
-
+*/
 function onClientDisconnect() {
     util.log("Player has disconnected: "+this.id);
 };
