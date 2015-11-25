@@ -27,7 +27,7 @@ function init() {
   console.log("Initialization complete.");
   socket = io.listen(PORT);
   console.log("Listening on port " + PORT);
-
+  console.log("=======================");
   setEventHandlers();
 }
 

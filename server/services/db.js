@@ -32,7 +32,7 @@ var Db = function(host, username, password, database) {
     }
 
     // Retrieve the data for all of the pokemon instances in a party belonging to a playerid
-    var retrieveParty = function(playerId) {
+    var retrieveParty = function(playerId, attributes) {
       var query = "SELECT * FROM Pokemon_Instances JOIN Parties ON Pokemon_Instances.pokemon_instance_id = Parties.pokemon_instance_id WHERE Parties.player_id=" + playerId;
       connection.query(query, function(err, rows) {
         if(err) {
