@@ -5,7 +5,11 @@ var PlayerService = function(db) {
     var playerDbao = new PlayerDbao(db);
 
     var retrievePlayerById = function(playerId) {
-      return -1;
+      var response = {
+        members: []
+      };
+
+      return response;
     }
 
     return {

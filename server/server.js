@@ -2,11 +2,15 @@
 var util = require("util"),
     io = require("socket.io"),
     mysql = require("mysql"),
-    Db = require("./services/db").Db;
-    UserService = require("./services/userService/userService").UserService;
-    PlayerService = require("./services/playerService/playerService").PlayerService;
-    PokemonService = require("./services/pokemonService/pokemonService").PokemonService;
-    ItemService = require("./services/itemService/itemService").ItemService;
+    // services
+    Db = require("./services/db").Db,
+    UserService = require("./services/userService/userService").UserService,
+    PlayerService = require("./services/playerService/playerService").PlayerService,
+    PokemonService = require("./services/pokemonService/pokemonService").PokemonService,
+    ItemService = require("./services/itemService/itemService").ItemService,
+    // game
+    GameManager = require("./game/gameManager").GameManager;
+
 
 var PORT = 8080,
     DB_HOST = "mysql.cis.ksu.edu";
@@ -31,7 +35,9 @@ function init() {
   db = new Db(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
   console.log("Db connection complete.")
 
-  userService = new UserService(db);
+  gameManager = new GameManager();
+
+  userService = new UserService(db, gameManager);
   playerService = new PlayerService(db);
   pokemonService = new PokemonService(db);
   itemService = new ItemService(db);
@@ -49,42 +55,23 @@ var setEventHandlers = function() {
 
 var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
+  client.on("disconnect", onClientDisconnect);
 
   // user messages
   client.on("authenticate", onAuthenticate);
 
   // player messages
   client.on("retrieve party", onRetrieveParty);
-
-  client.on("disconnect", onClientDisconnect);
 }
 
 // Attempt authentication based on username and password
 function onAuthenticate(message) {
   var username = message.username,
-      password = message.password;
+      password = message.password,
       response;
 
-  response = userService.attemptUserLogin()
-  this.emit(authResult, response);
-
-  // needs to be moved to player services
-  /*
-  var user = new User(this, message.username, message.password)
-  var playerId = db.authenticate(user.username, user.password);
-
-  if(playerId == -1) {
-    // auth failed
-    util.log(this.id + " login failed.");
-    this.emit("auth failed");
-  }
-  else {
-    // auth success
-    util.log(this.id + " logged in with id: " + user.playerId);
-    user.player = new Player(playerId)
-    users.push(user);
-    this.emit("auth success", {username: user.username, playerId: user.playerId});
-  }*/
+  response = userService.attemptUserLogin(username, password)
+  this.emit("authResult", response);
 }
 
 // Retrieves a party for a specified party Id
@@ -92,8 +79,8 @@ function onRetrieveParty(message) {
   var playerId = message.playerId,
       response;
 
-  response = playerSerivce.retrievePlayerById()
-  this.emit(party, response);
+  response = playerSerivce.retrievePlayerById(playerId)
+  this.emit("party", response);
 
   // needs to be moved to playerService
   /*
