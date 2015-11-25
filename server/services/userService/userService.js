@@ -4,8 +4,9 @@ var UserDbao = require("./userDbao").UserDbao;
 var UserService = function(db) {
     var userDbao = new UserDbao(db);
 
-    var attemptUserLogin = function(username, password) {
-      return -1;
+    var attemptUserLogin = function(data) {
+      console.log(this);
+      console.log(data);
     }
 
     return {

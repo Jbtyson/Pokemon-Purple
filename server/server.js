@@ -50,14 +50,26 @@ var setEventHandlers = function() {
 var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
 
+  // user messages
   client.on("authenticate", onAuthenticate);
+
+  // player messages
   client.on("retrieve party", onRetrieveParty);
+
   client.on("disconnect", onClientDisconnect);
 }
-/*
+
 // Attempt authentication based on username and password
 function onAuthenticate(message) {
-  util.log(this.id + " attempting login using: " + message.username + ", " + message.password);
+  var username = message.username,
+      password = message.password;
+      response;
+
+  response = userService.attemptUserLogin()
+  this.emit(authResult, response);
+
+  // needs to be moved to player services
+  /*
   var user = new User(this, message.username, message.password)
   var playerId = db.authenticate(user.username, user.password);
 
@@ -72,11 +84,19 @@ function onAuthenticate(message) {
     user.player = new Player(playerId)
     users.push(user);
     this.emit("auth success", {username: user.username, playerId: user.playerId});
-  }
+  }*/
 }
 
 // Retrieves a party for a specified party Id
 function onRetrieveParty(message) {
+  var playerId = message.playerId,
+      response;
+
+  response = playerSerivce.retrievePlayerById()
+  this.emit(party, response);
+
+  // needs to be moved to playerService
+  /*
   util.log(this.id + "requesting party of player: " + message.playerId);
   var party = db.retrieveParty(message.playerId);
 
@@ -87,16 +107,16 @@ function onRetrieveParty(message) {
   else {
     //retrieve party was successful
     this.emit("party", {party:party});
-  }
+  }*/
 }
-
+/*
 // Retrieve a specific pokemon instance based on their id
 function onRetrievePokemonInstance(message) {
   util.log(this.id + "requesting pokemon instance: " + message.pokemonId + " - " + message.pokemonInstId);
   var pkmnInst = db.retrievePokemonInstance(message.pokemonId, message.pokemonInstId);
 
-}
-*/
+}*/
+
 function onClientDisconnect() {
     util.log("Player has disconnected: "+this.id);
 };
