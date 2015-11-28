@@ -5,11 +5,13 @@ var PokemonService = function(db) {
     var pokemonDbao = new PokemonDbao(db);
 
     var retrievePokemonInstanceById = function(pkmnInstId) {
-      return -1;
+      var pkmnInst = pokemonDbao.retrievePokemonInstanceById(pkmnInstId);
+      return pkmnInst;
     }
 
     var retrievePokemonById = function(pkmnId) {
-      return -1;
+      var pkmn = pokemonDbao.retrievePokemonById(pkmnId);
+      return pkmn;
     }
 
     return {

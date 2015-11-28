@@ -1,4 +1,4 @@
-// player.js
+// pokemonInstance.js
 var PokemonInstance = function(mod, base, maxHp, curHp, att, spcAtt, def,
                         spcDef, spd, id) {
     var mod,
