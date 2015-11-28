@@ -2,16 +2,18 @@
 var UserDbao = function(_db) {
     var db = _db
 
-    var attemptLogin = function(username, password) {
+    var attemptUserLogin = function(username, password) {
       var playerId;
 
       var query = "SELECT player_id FROM Users WHERE username=\'" + username + "\' AND password=\'" + password + "\'";
       var results = db.query(query);
-      if(!!results[0]) {
+
+      // we only need the first result
+      if(!!results && !!results[0]) {
         playerId = results[0].playerId;
       }
+      // no results
       else {
-        // no results
         playerId = -1
       }
 
@@ -20,7 +22,7 @@ var UserDbao = function(_db) {
 
     return {
       db: db,
-      attemptLogin: attemptLogin
+      attemptUserLogin: attemptUserLogin
     }
 };
 exports.UserDbao = UserDbao;

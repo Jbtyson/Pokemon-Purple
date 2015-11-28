@@ -12,6 +12,11 @@ var PlayerService = function(db) {
       return response;
     }
 
+    // Retrieve the data for all of the pokemon instances in a party belonging to a playerid
+    var retrievePartyByPlayerId = function(playerId) {
+      var party = playerDbao.retrieveParty(playerId);
+    }
+
     return {
       playerDbao: playerDbao,
       retrievePlayerById: retrievePlayerById

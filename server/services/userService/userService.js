@@ -14,7 +14,7 @@ var UserService = function(db, _gameManager) {
       }
 
       var user = new User(this, username, password)
-      user.playerId = userDbao.attemptLogin(user.username, user.password);
+      user.playerId = userDbao.attemptUserLogin(user.username, user.password);
 
       if(user.playerId != -1) {
         util.log(user.username + " logged in with id: " + user.playerId);
