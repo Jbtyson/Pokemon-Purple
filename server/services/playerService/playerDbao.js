@@ -24,9 +24,36 @@ var PlayerDbao = function(_db) {
       return party;
     }
 
+    // Adds a speceified pokemon instance id to a player's party
+    var addPokemonToParty = function(playerId, pkmnInstId) {
+      var query = "INSERT INTO Parties (player_id, pokemon_instance_id) VALUES (" + playerId ", " + pkmnInstId + ");"
+      var results = db.query(query);
+
+      if(!!results) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    // Removes a specified pokemons instance id from a players party
+    var removePokemonFromParty = function(playerId, pkmnInstId) {
+      var query = "DELETE FROM Parties WHERE playerId=" + playerId + " AND pokemon_instance_id=" pkmnInstId;
+      var results = db.query(query);
+      if(!!results) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
     return {
       db: db,
-      retrievePartyByPlayerId: retrievePartyByPlayerId
+      retrievePartyByPlayerId: retrievePartyByPlayerId,
+      addPokemonToParty: addPokemonToParty,
+      removePokemonFromParty: removePokemonFromParty
     }
 };
 exports.PlayerDbao = PlayerDbao;
