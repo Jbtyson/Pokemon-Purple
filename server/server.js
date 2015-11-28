@@ -47,6 +47,8 @@ function init() {
   console.log("Listening on port " + PORT);
   console.log("=======================");
   setEventHandlers();
+
+  gameManager.startGame();
 }
 
 var setEventHandlers = function() {
