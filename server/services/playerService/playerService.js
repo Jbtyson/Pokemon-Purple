@@ -10,11 +10,13 @@ var PlayerService = function(db) {
       return party;
     }
 
+    // Adds a speceified pokemon instance id to a player's party
     var addPokemonToParty = function(playerId, pkmnInstId) {
       var success = playerDbao.addPokemonToParty(playerId, pkmnInstId);
       return success;
     }
 
+    // Removes a specified pokemons instance id from a players party
     var removePokemonFromParty = function(playerId, pkmnInstId) {
       var success = playerDbao.removePokemonFromParty(playerId, pkmnInstId);
       return success;
