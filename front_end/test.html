@@ -25,17 +25,17 @@
 
         //how we setup the two status bars
         var status1 = new StatusBar(gui, "Hitmonlee", 31, 30, 150, 50, 100);
-        status1.setPosition(350, 220);
+        status1.setPosition(350, 240);
         var status2 = new StatusBar(gui, "Alakazam", 31, 120, 150, 50, 100);
         status2.setPosition(10, 10);
-        var pokemon1 = new RenderableImage(gui, "img/back-106.gif", 3.5);
+        var pokemon1 = new RenderableImage(gui, "img/back-106.gif", 3.3);
         pokemon1.setPosition(60, 130);
         var pokemon2 = new RenderableImage(gui, "img/front-65.gif", 2.2);
-        pokemon2.setPosition(375, 40);
+        pokemon2.setPosition(360, 75);
 
         //how we setup the menu
-        var menu = new BattleMenu(gui, 145, 120, 50, 50);
-        menu.setPosition(0, 325);
+        var menu = new BattleMenu(gui, 145, 105, 40, 50);
+        menu.setPosition(0, 340);
         menu.onFight = function() {
           alert("fight!");
         }
@@ -52,10 +52,11 @@
         gui.add(menu);
 
         //lets add a nice background
+        var backgroundImg = new RenderableImage(gui, "img/test.gif", 2.4);
         var background = new Rectangle(gui, 600, 450);
         var grd = gui.context.createLinearGradient(0,0,0,450);
         grd.addColorStop(0, '#ccffff');
-        grd.addColorStop(0.7, '#d3f8d3');
+        grd.addColorStop(0.7, '#60d060');
         background.setColor(grd);
 
         //the rest of this stuff will happen in a game loop
@@ -71,11 +72,11 @@
           pokemon1.update();
           pokemon2.update();
           background.render(gui.context, 0, 0);
+          backgroundImg.render(gui.context, 0, 0);
           pokemon1.render(gui.context, 0, 0);
           pokemon2.render(gui.context, 0, 0);
           menu.render(gui.context, 0, 0);
           status1.render(gui.context, 0, 0);
-          status1.hp = status1.hp + 1;
           status2.render(gui.context, 0, 0);
 
         }
