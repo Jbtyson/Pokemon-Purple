@@ -117,7 +117,10 @@ StatusBar.prototype = Object.create(Renderable.prototype, {
     this.healthBar.dimensions.x = (this.hp / this.maxhp) * (hbarSize - 8);
     this.expBar.dimensions.x = (this.exp / this.maxexp) * expBarW;
     this.ratio.setText(this.hp + " / " + this.maxhp);
-
+    this.healthBar.update();
+    this.lvlBox.update();
+    this.expBar.update();
+    this.ratio.update();
   }},
   render: {value: function(context, xoff, yoff) {
     //and now because we declartivelly designed our sub-gui we just render it all

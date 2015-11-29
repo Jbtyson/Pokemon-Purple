@@ -13,6 +13,8 @@
     <script src="statusbar.js"></script>
     <script src="button.js"></script>
     <script src="battlemenu.js"></script>
+    <script src="gif.js"></script>
+
     <script>
 
       function onLoad() {
@@ -21,10 +23,17 @@
         gui.init();
         //gui.context.globalCompositeOperation = "overlay";
 
+        //how we setup the two status bars
         var status1 = new StatusBar(gui, "Hitmonlee", 31, 30, 150, 50, 100);
         status1.setPosition(350, 220);
         var status2 = new StatusBar(gui, "Alakazam", 31, 120, 150, 50, 100);
         status2.setPosition(10, 10);
+        var pokemon1 = new RenderableImage(gui, "img/back-106.gif", 3.5);
+        pokemon1.setPosition(60, 130);
+        var pokemon2 = new RenderableImage(gui, "img/front-65.gif", 2.2);
+        pokemon2.setPosition(375, 40);
+
+        //how we setup the menu
         var menu = new BattleMenu(gui, 145, 120, 50, 50);
         menu.setPosition(0, 325);
         menu.onFight = function() {
@@ -39,26 +48,38 @@
         menu.onRun = function() {
           alert("run!");
         }
+        //attach the menu to the gui so it can receive input
+        gui.add(menu);
+
+        //lets add a nice background
         var background = new Rectangle(gui, 600, 450);
         var grd = gui.context.createLinearGradient(0,0,0,450);
         grd.addColorStop(0, '#ccffff');
         grd.addColorStop(0.7, '#d3f8d3');
         background.setColor(grd);
 
-        //make sure everything is updated
-        status1.update();
-        status2.update();
-        menu.update()
-        background.update();
+        //the rest of this stuff will happen in a game loop
 
-        //attach the menu to the gui so it can receive input
-        gui.add(menu);
 
         //now render everything in the right order
-        background.render(gui.context, 0, 0);
-        menu.render(gui.context, 0, 0);
-        status1.render(gui.context, 0, 0);
-        status2.render(gui.context, 0, 0);
+        function render() {
+          //make sure everything is updated
+          status1.update();
+          status2.update();
+          menu.update()
+          background.update();
+          pokemon1.update();
+          pokemon2.update();
+          background.render(gui.context, 0, 0);
+          pokemon1.render(gui.context, 0, 0);
+          pokemon2.render(gui.context, 0, 0);
+          menu.render(gui.context, 0, 0);
+          status1.render(gui.context, 0, 0);
+          status1.hp = status1.hp + 1;
+          status2.render(gui.context, 0, 0);
+
+        }
+        setInterval(render, 1000);
       }
     </script>
   </header>
