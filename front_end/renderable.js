@@ -5,6 +5,8 @@ function Renderable(gui) {
   this.nextPos = { x:0, y:0 };
 }
 
+//TODO: add set dimensions
+
 Renderable.prototype = {
   setPosition: function(sx, sy) {
     this.nextPos = { x:sx, y:sy };

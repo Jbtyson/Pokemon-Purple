@@ -10,6 +10,7 @@
     <script src="vbox.js"></script>
     <script src="text.js"></script>
     <script src="rectangle.js"></script>
+    <script src="statusbar.js"></script>
 
     <script>
 
@@ -17,41 +18,31 @@
         var canvas = document.getElementById("myCanvas");
         gui = new Gui(canvas);
         gui.init();
-        var fight = new Text(gui, 50, 10);
-        fight.setText("Fight");
-        fight.onClick = function(x, y) { alert("click"); }
-        var run = new Text(gui, 50, 10);
-        run.setText("Run");
-        run.setColor("blue");
-        var bag = new Text(gui, 50, 10);
-        bag.setText("Bag");
-        var pokemon = new Text(gui, 50, 10);
-        pokemon.setText("Pokemon");
-        var pkhbox1 = new HBox(gui, 10);
-        pkhbox1.addAll([fight, bag]);
-        var pkhbox2 = new HBox(gui, 10);
-        pkhbox2.addAll([pokemon, run]);
-        var pkvbox = new VBox(gui, 10);
-        pkvbox.setPosition(200, 300);
-        pkvbox.addAll([pkhbox1, pkhbox2]);
 
-        var testBox = new Rectangle(gui, 100, 100, 300, 10);
-        testBox.setColor("green");
+        var status1 = new StatusBar(gui, "Hitmonlee", 31, 120, 150, 50, 100);
+        status1.setPosition(350, 220);
+        var status2 = new StatusBar(gui, "Alakazam", 31, 120, 150, 50, 100);
+        status2.setPosition(10, 10);
 
-        gui.add(pkvbox);
-        gui.add(testBox);
+        var background = new Rectangle(gui, 600, 450);
+        var grd = gui.context.createLinearGradient(0,0,0,450);
+        grd.addColorStop(0, '#ccffff');
+        grd.addColorStop(0.7, '#d3f8d3');
+        background.setColor(grd);
 
-        pkvbox.update();
-        testBox.update();
+        status1.update();
+        status2.update();
+        background.update();
+        gui.add(status1);
+        gui.add(status2);
 
-        pkvbox.render(gui.context, 0, 0);
-        testBox.render(gui.context, 0, 0);
-
-        console.log(testBox);
+        background.render(gui.context, 0, 0);
+        status1.render(gui.context, 0, 0);
+        status2.render(gui.context, 0, 0);
       }
     </script>
   </header>
   <body onload="onLoad()">
-    <canvas id="myCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+    <canvas id="myCanvas" width="600" height="450" style="border:1px solid #000000;"></canvas>
   </body>
 </html>

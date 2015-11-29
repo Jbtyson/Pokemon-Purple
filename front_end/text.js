@@ -24,7 +24,7 @@ Text.prototype = Object.create(Colorable.prototype, {
     this.font = this.nextFont;
   }},
   renderWithColor: {value: function(context, xoff, yoff) {
-    context.textBaseline = "top";
+    context.textBaseline = "hanging";
     context.font = this.font;
     context.fillText(this.rendertext, this.position.x + xoff, this.position.y + yoff);
   }}
