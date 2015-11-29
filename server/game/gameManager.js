@@ -1,6 +1,9 @@
 // gameManager.js
+var RegionManager = require("./regionManager.js").RegionManager;
+
 var GameManager = function() {
     var users = [];
+    var regionManager;
 
     var addUser = function(user) {
       users.push(user);
@@ -11,17 +14,8 @@ var GameManager = function() {
     }
 
     var startGame = function() {
-      initTimers();
-    }
-
-    var initTimers = function() {
-      // TODO: move this to the region manager
-      var updateRegions = function() {
-        console.log("Beginning region update...");
-        regionManager.standardUpdate();
-        console.log("Region update complete.");
-      }
-      var regionTimeoutId = setInterval(updateRegions, 1000);
+      regionManager = new RegionManager();
+      regionManager.init();
     }
 
     return {

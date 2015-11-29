@@ -8,6 +8,7 @@ var util = require("util"),
     PlayerService = require("./services/playerService/playerService").PlayerService,
     PokemonService = require("./services/pokemonService/pokemonService").PokemonService,
     ItemService = require("./services/itemService/itemService").ItemService,
+    RegionService = require("./services/regionService/regionService").RegionService,
     // game
     GameManager = require("./game/gameManager").GameManager;
 
@@ -25,7 +26,8 @@ var db;
 var userService,
     playerService,
     pokemonService,
-    itemService;
+    itemService,
+    regionService;
 
 function init() {
   console.log("Initializing...");
@@ -41,6 +43,7 @@ function init() {
   playerService = new PlayerService(db);
   pokemonService = new PokemonService(db);
   itemService = new ItemService(db);
+  regionService = new RegionService(db);
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);
