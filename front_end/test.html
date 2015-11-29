@@ -11,32 +11,52 @@
     <script src="text.js"></script>
     <script src="rectangle.js"></script>
     <script src="statusbar.js"></script>
-
+    <script src="button.js"></script>
+    <script src="battlemenu.js"></script>
     <script>
 
       function onLoad() {
         var canvas = document.getElementById("myCanvas");
         gui = new Gui(canvas);
         gui.init();
+        //gui.context.globalCompositeOperation = "overlay";
 
-        var status1 = new StatusBar(gui, "Hitmonlee", 31, 120, 150, 50, 100);
+        var status1 = new StatusBar(gui, "Hitmonlee", 31, 30, 150, 50, 100);
         status1.setPosition(350, 220);
         var status2 = new StatusBar(gui, "Alakazam", 31, 120, 150, 50, 100);
         status2.setPosition(10, 10);
-
+        var menu = new BattleMenu(gui, 145, 120, 50, 50);
+        menu.setPosition(0, 325);
+        menu.onFight = function() {
+          alert("fight!");
+        }
+        menu.onBag = function() {
+          alert("bag!");
+        }
+        menu.onPoke = function() {
+          alert("pokemon!");
+        }
+        menu.onRun = function() {
+          alert("run!");
+        }
         var background = new Rectangle(gui, 600, 450);
         var grd = gui.context.createLinearGradient(0,0,0,450);
         grd.addColorStop(0, '#ccffff');
         grd.addColorStop(0.7, '#d3f8d3');
         background.setColor(grd);
 
+        //make sure everything is updated
         status1.update();
         status2.update();
+        menu.update()
         background.update();
-        gui.add(status1);
-        gui.add(status2);
 
+        //attach the menu to the gui so it can receive input
+        gui.add(menu);
+
+        //now render everything in the right order
         background.render(gui.context, 0, 0);
+        menu.render(gui.context, 0, 0);
         status1.render(gui.context, 0, 0);
         status2.render(gui.context, 0, 0);
       }

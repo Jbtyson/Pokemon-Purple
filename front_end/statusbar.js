@@ -1,17 +1,40 @@
 //abstract colorable class
 //Jake Ehrlich
 
-//the nice thing about realtive postions is that you can
+var mainBoxW = 240;
+var mainBoxH = 97;
+var expBarAlloc = 23;
+
+var hbarY = 40;
+var hbarX = 55;
+var hbarSize = 165;
+var hbarH = 16;
+
+var lvlX = 20;
+var lvlY = 15;
+
+var ratioW = 60;
+var ratioH = 30;
+
+var expBarX = 35;
+var expBarY = 85;
+var expBarW = mainBoxW - expBarX - 6;
+var expBarH = 7;
+
+//the nice thing about realtive positions is that you can
 //design sub guis quite nicely
 //They do wind up being rather large however which isn't as nice
 function StatusBar(gui, name, lvl, hp, maxhp, exp, maxexp) {
   Renderable.call(this, gui);
 
-  //the main box
-  var mainBoxW = 240;
-  var mainBoxH = 97;
-  var expBarAlloc = 23;
+  this.name = name;
+  this.lvl = lvl;
+  this.hp = hp;
+  this.maxhp = maxhp;
+  this.exp = exp;
+  this.maxexp = maxexp;
 
+  //the main box
   this.backRect = new Rectangle(gui, mainBoxW, mainBoxH);
   this.backRect.setColor("darkslategray");
   this.backRect.update();
@@ -29,11 +52,6 @@ function StatusBar(gui, name, lvl, hp, maxhp, exp, maxexp) {
   this.nameBox.update();
 
   //the health bar stuff
-  var hbarY = 40;
-  var hbarX = 55;
-  var hbarSize = 165;
-  var hbarH = 16;
-
   this.backHealth = new Rectangle(gui, hbarSize + 22, hbarH);
   this.backHealth.setPosition(hbarX - 22, hbarY);
   this.backHealth.setColor("dimgrey");
@@ -49,33 +67,26 @@ function StatusBar(gui, name, lvl, hp, maxhp, exp, maxexp) {
   this.healthBar.setColor("green");
   this.healthBar.update();
 
-  this.hp = new Text(gui, 20, 20);
-  this.hp.setPosition(hbarX - 20, hbarY + 1);
-  this.hp.setText("HP");
-  this.hp.setFont("14px Arial Black");
-  this.hp.setColor("darkorange");
-  this.hp.update();
+  this.hpBox = new Text(gui, 20, 20);
+  this.hpBox.setPosition(hbarX - 20, hbarY + 1);
+  this.hpBox.setText("HP");
+  this.hpBox.setFont("14px Arial Black");
+  this.hpBox.setColor("darkorange");
+  this.hpBox.update();
 
-  var ratioW = 60;
-  var ratioH = 30;
   this.ratio = new Text(gui, ratioW, ratioH);
-  this.ratio.setText(hp + " / " + maxhp)
+  this.ratio.setText(hp + " / " + maxhp);
   this.ratio.setPosition(hbarX + hbarSize - ratioW - 5, hbarY + hbarH + 5);
   this.ratio.setFont("14px Arial");
   this.ratio.update();
 
   //the experience stuff
-  var expBarX = 35;
-  var expBarY = 85;
-  var expBarW = mainBoxW - expBarX - 6;
-  var expBarH = 7;
-
-  this.exp = new Text(gui, 25, 30);
-  this.exp.setPosition(expBarX - 25, expBarY - 1);
-  this.exp.setText("EXP");
-  this.exp.setFont("10px Arial Black");
-  this.exp.setColor("yellow");
-  this.exp.update();
+  this.expBox = new Text(gui, 25, 30);
+  this.expBox.setPosition(expBarX - 25, expBarY - 1);
+  this.expBox.setText("EXP");
+  this.expBox.setFont("10px Arial Black");
+  this.expBox.setColor("yellow");
+  this.expBox.update();
 
   this.expBar = new Rectangle(gui, (exp / maxexp) * expBarW, expBarH);
   this.expBar.setPosition(expBarX, expBarY);
@@ -88,21 +99,28 @@ function StatusBar(gui, name, lvl, hp, maxhp, exp, maxexp) {
   this.expBack.update();
 
   //lvl
-  var lvlX = 20;
-  var lvlY = 15;
-
-  this.lvl = new Text(gui, 20, 20);
-  this.lvl.setPosition(mainBoxW - 30 - lvlX, lvlY);
-  this.lvl.setText("Lvl " + lvl);
-  this.lvl.setFont("14px Arial");
-  this.lvl.update();
+  this.lvlBox = new Text(gui, 20, 20);
+  this.lvlBox.setPosition(mainBoxW - 30 - lvlX, lvlY);
+  this.lvlBox.setText("Lvl " + lvl);
+  this.lvlBox.setFont("14px Arial");
+  this.lvlBox.update();
 
 }
 
 StatusBar.prototype = Object.create(Renderable.prototype, {
+  update: {value : function() {
+    Renderable.prototype.update.apply(this);
+    this.nameBox.setText(this.name);
+    this.nameBox.update();
+    this.lvlBox.setText("Lvl " + this.lvl);
+
+    this.healthBar.dimensions.x = (this.hp / this.maxhp) * (hbarSize - 8);
+    this.expBar.dimensions.x = (this.exp / this.maxexp) * expBarW;
+    this.ratio.setText(this.hp + " / " + this.maxhp);
+
+  }},
   render: {value: function(context, xoff, yoff) {
     //and now because we declartivelly designed our sub-gui we just render it all
-    console.log(this.position);
     var xoff = xoff + this.position.x;
     var yoff = yoff + this.position.y;
     this.backRect.render(context, xoff, yoff);
@@ -110,12 +128,12 @@ StatusBar.prototype = Object.create(Renderable.prototype, {
     this.nameBox.render(context, xoff, yoff);
     this.backHealth.render(context, xoff, yoff);
     this.foreHealth.render(context, xoff, yoff);
-    this.hp.render(context, xoff, yoff);
+    this.hpBox.render(context, xoff, yoff);
     this.healthBar.render(context, xoff, yoff);
-    this.exp.render(context, xoff, yoff);
+    this.expBox.render(context, xoff, yoff);
     this.expBack.render(context, xoff, yoff);
     this.expBar.render(context, xoff, yoff);
-    this.lvl.render(context, xoff, yoff);
+    this.lvlBox.render(context, xoff, yoff);
     this.ratio.render(context, xoff, yoff);
   }}
 });

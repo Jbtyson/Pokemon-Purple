@@ -7,7 +7,7 @@ function VBox(gui, spacing) {
 }
 
 VBox.prototype = Object.create(Group.prototype, {
-  nextPostion: {value: function(lastPos, lastDim) {
+  nextPosition: {value: function(lastPos, lastDim) {
     return {y:lastPos.y + lastDim.y + this.spacing, x:lastPos.x};
   }},
   reduceX: {value: function(x1, x2) {

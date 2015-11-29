@@ -22,22 +22,20 @@ Group.prototype = Object.create(Renderable.prototype, {
     return Math.max(x1, x2);
   }},
 
-  nextPostion: {value: function(lastPos, lastDim) {
+  nextPosition: {value: function(lastPos, lastDim) {
     return lastPos;
   }},
 
   onClick: {value: function(x, y) {
     var x = x - this.position.x;
     var y = y - this.position.y;
-    var pos = this.postion;
+    var pos = {x:0, y:0};
     for (var i = 0; i < this.children.length; i++) {
 			var dim = this.children[i].dimensions;
-      console.log(pos, dim, x, y);
       if(this.children[i].onClick != null && inBox(pos, dim, x, y)) {
-        console.log("found it!");
         this.children[i].onClick(x, y);
       }
-      pos = this.nextPostion(pos, dim);
+      pos = this.nextPosition(pos, dim);
     }
   }},
 
@@ -71,7 +69,7 @@ Group.prototype = Object.create(Renderable.prototype, {
     var pos = {x : xoff + this.position.x, y : yoff + this.position.y}
     for (var i = 0; i < this.children.length; i++) {
       this.children[i].render(context, pos.x, pos.y);
-      pos = this.nextPostion(pos, this.children[i].dimensions);
+      pos = this.nextPosition(pos, this.children[i].dimensions);
     }
   }}
 });

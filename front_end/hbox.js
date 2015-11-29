@@ -7,7 +7,7 @@ function HBox(gui, spacing) {
 }
 
 HBox.prototype = Object.create(Group.prototype, {
-  nextPostion: {value: function(lastPos, lastDim) {
+  nextPosition: {value: function(lastPos, lastDim) {
     return {x:lastPos.x + lastDim.x + this.spacing, y:lastPos.y};
   }},
   reduceX: {value: function(x1, x2) {
