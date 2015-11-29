@@ -1,9 +1,9 @@
 //rectangle
 //Jake Ehrlich
 
-function Rectangle(gui, color, x, y, w, h) {
+function Rectangle(gui, x, y, w, h) {
   Colorable.call(this, gui);
-  this.position = {x:x, y:y};
+  this.setPosition(x, y);
   this.dimensions = {x:w, y:h};
 }
 

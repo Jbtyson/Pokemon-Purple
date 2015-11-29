@@ -6,7 +6,7 @@ function Renderable(gui) {
 }
 
 Renderable.prototype = {
-  setPostion: function(sx, sy) {
+  setPosition: function(sx, sy) {
     this.nextPos = { x:sx, y:sy };
   },
   update: function() {

@@ -9,6 +9,7 @@
     <script src="hbox.js"></script>
     <script src="vbox.js"></script>
     <script src="text.js"></script>
+    <script src="rectangle.js"></script>
 
     <script>
 
@@ -31,12 +32,22 @@
         var pkhbox2 = new HBox(gui, 10);
         pkhbox2.addAll([pokemon, run]);
         var pkvbox = new VBox(gui, 10);
-        pkvbox.setPostion(200, 300);
+        pkvbox.setPosition(200, 300);
         pkvbox.addAll([pkhbox1, pkhbox2]);
-        pkvbox.update();
-        pkvbox.render(gui.context, 0, 0);
+
+        var testBox = new Rectangle(gui, 100, 100, 300, 10);
+        testBox.setColor("green");
+
         gui.add(pkvbox);
-        console.log(gui);
+        gui.add(testBox);
+
+        pkvbox.update();
+        testBox.update();
+
+        pkvbox.render(gui.context, 0, 0);
+        testBox.render(gui.context, 0, 0);
+
+        console.log(testBox);
       }
     </script>
   </header>
