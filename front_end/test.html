@@ -13,6 +13,7 @@
     <script src="statusbar.js"></script>
     <script src="button.js"></script>
     <script src="battlemenu.js"></script>
+    <script src="classic.js"></script>
     <script src="gif.js"></script>
 
     <script>
@@ -34,8 +35,10 @@
         pokemon2.setPosition(360, 75);
 
         //how we setup the menu
-        var menu = new BattleMenu(gui, 145, 105, 40, 50);
+        var menu = new ClassicBattleMenu(gui, 600, 110);
         menu.setPosition(0, 340);
+        menu.messageBox.setText("What will Hitmonlee\ndo next?");
+        menu.messageBox.update();
         menu.onFight = function() {
           alert("fight!");
         }
@@ -67,7 +70,7 @@
           //make sure everything is updated
           status1.update();
           status2.update();
-          menu.update()
+          menu.update();
           background.update();
           pokemon1.update();
           pokemon2.update();
@@ -78,7 +81,6 @@
           menu.render(gui.context, 0, 0);
           status1.render(gui.context, 0, 0);
           status2.render(gui.context, 0, 0);
-
         }
         setInterval(render, 1000);
       }

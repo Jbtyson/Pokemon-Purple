@@ -111,12 +111,13 @@ StatusBar.prototype = Object.create(Renderable.prototype, {
   update: {value : function() {
     Renderable.prototype.update.apply(this);
     this.nameBox.setText(this.name);
-    this.nameBox.update();
     this.lvlBox.setText("Lvl " + this.lvl);
-
     this.healthBar.dimensions.x = (this.hp / this.maxhp) * (hbarSize - 8);
     this.expBar.dimensions.x = (this.exp / this.maxexp) * expBarW;
     this.ratio.setText(this.hp + " / " + this.maxhp);
+
+    //TODO: make a update list?
+    this.nameBox.update();
     this.healthBar.update();
     this.lvlBox.update();
     this.expBar.update();
@@ -126,6 +127,8 @@ StatusBar.prototype = Object.create(Renderable.prototype, {
     //and now because we declartivelly designed our sub-gui we just render it all
     var xoff = xoff + this.position.x;
     var yoff = yoff + this.position.y;
+
+    //TODO: make a rendering list?
     this.backRect.render(context, xoff, yoff);
     this.foreRect.render(context, xoff, yoff);
     this.nameBox.render(context, xoff, yoff);

@@ -5,7 +5,7 @@ function Text(gui, width, height) {
   this.position = { x:0, y:0 };
   this.rendertext = ""
   this.text = "";
-  this.font = "12px serif";
+  this.font = "14px Arial";
   this.nextFont = this.font;
   this.parent = null;
   this.onClick = null;
