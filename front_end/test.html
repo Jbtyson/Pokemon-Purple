@@ -1,0 +1,39 @@
+
+<html>
+  <header>
+    <title>This is title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="hbox.js"></script>
+    <script src="vbox.js"></script>
+    <script src="text.js"></script>
+    <script src="gui.js"></script>
+    <script>
+      function onLoad() {
+        var canvas = document.getElementById("myCanvas");
+        gui = new Gui(canvas);
+        //gui.init();
+        var fight = new Text(gui, 50, 10);
+        fight.text = "Fight";
+        fight.onClick = function(x, y) { alert("click"); }
+        var run = new Text(gui, 50, 10);
+        run.text = "Run";
+        var bag = new Text(gui, 50, 10);
+        bag.text = "Bag";
+        var pokemon = new Text(gui, 50, 10);
+        pokemon.text = "Pokemon";
+        var pkhbox1 = new HBox(gui, 10);
+        pkhbox1.addAll([fight, bag]);
+        var pkhbox2 = new HBox(gui, 10);
+        pkhbox2.addAll([pokemon, run]);
+        var pkvbox = new VBox(gui, 10);
+        pkvbox.addAll([pkhbox1, pkhbox2]);
+        pkvbox.spacing = 5;
+        pkvbox.update();
+        pkvbox.render(gui.context, 200, 300);
+      }
+    </script>
+  </header>
+  <body onload="onLoad()">
+    <canvas id="myCanvas" width="800" height="600" style="border:1px solid #000000;"></canvas>
+  </body>
+</html>
