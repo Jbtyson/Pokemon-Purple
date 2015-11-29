@@ -4,6 +4,7 @@
     <title>This is title</title>
     <script src="gui.js"></script>
     <script src="renderable.js"></script>
+    <script src="colorable.js"></script>
     <script src="group.js"></script>
     <script src="hbox.js"></script>
     <script src="vbox.js"></script>
@@ -16,22 +17,22 @@
         gui = new Gui(canvas);
         gui.init();
         var fight = new Text(gui, 50, 10);
-        fight.text = "Fight";
+        fight.setText("Fight");
         fight.onClick = function(x, y) { alert("click"); }
         var run = new Text(gui, 50, 10);
-        run.text = "Run";
+        run.setText("Run");
+        run.setColor("blue");
         var bag = new Text(gui, 50, 10);
-        bag.text = "Bag";
+        bag.setText("Bag");
         var pokemon = new Text(gui, 50, 10);
-        pokemon.text = "Pokemon";
+        pokemon.setText("Pokemon");
         var pkhbox1 = new HBox(gui, 10);
         pkhbox1.addAll([fight, bag]);
         var pkhbox2 = new HBox(gui, 10);
         pkhbox2.addAll([pokemon, run]);
         var pkvbox = new VBox(gui, 10);
-        pkvbox.position = {x:200, y:300};
+        pkvbox.setPostion(200, 300);
         pkvbox.addAll([pkhbox1, pkhbox2]);
-        pkvbox.spacing = 5;
         pkvbox.update();
         pkvbox.render(gui.context, 0, 0);
         gui.add(pkvbox);

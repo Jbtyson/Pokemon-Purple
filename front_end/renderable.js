@@ -10,9 +10,9 @@ Renderable.prototype = {
     this.nextPos = { x:sx, y:sy };
   },
   update: function() {
-    this.postion = this.nextPos;
+    this.position = this.nextPos;
   },
   render: function(context) {
-    //nothing in here for now
+
   }
 }
