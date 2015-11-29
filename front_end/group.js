@@ -27,13 +27,14 @@ Group.prototype = Object.create(Renderable.prototype, {
   }},
 
   onClick: {value: function(x, y) {
-    alert("test!");
-    x = x - this.postion.x;
-    y = y - this.postion.y;
-    var pos = Object.create(this.postion);
+    var x = x - this.position.x;
+    var y = y - this.position.y;
+    var pos = this.postion;
     for (var i = 0; i < this.children.length; i++) {
 			var dim = this.children[i].dimensions;
-      if(inBox(pos, dim, x, y)) {
+      console.log(pos, dim, x, y);
+      if(this.children[i].onClick != null && inBox(pos, dim, x, y)) {
+        console.log("found it!");
         this.children[i].onClick(x, y);
       }
       pos = this.nextPostion(pos, dim);
@@ -51,7 +52,7 @@ Group.prototype = Object.create(Renderable.prototype, {
     var height = 0;
 
     Renderable.prototype.update.apply(this);
-    
+
     this.children.push(...this.toAdd);
     this.toAdd = [];
 

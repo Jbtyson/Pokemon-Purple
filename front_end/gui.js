@@ -6,8 +6,6 @@ function between(x, base, width) {
 }
 
 function inBox(pos, dim, x, y) {
-		console.log(pos, dim, x, y);
-		//var dim = convert(elem.parent, elem.dimensions);
     return between(x, pos.x, dim.x) && between(y, pos.y, dim.y);
 }
 
@@ -27,7 +25,6 @@ Gui.prototype = {
     this.objects.push(elem);
 	},
   onClick: function(event) {
-		console.log(this.canvas.offsetLeft, this.canvas.offsetTop);
 		var x = event.pageX - this.canvas.offsetLeft,
         y = event.pageY - this.canvas.offsetTop;
 		for (var i = 0; i < this.objects.length; i++) {
