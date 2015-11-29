@@ -2,16 +2,19 @@
 <html>
   <header>
     <title>This is title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="gui.js"></script>
+    <script src="renderable.js"></script>
+    <script src="group.js"></script>
     <script src="hbox.js"></script>
     <script src="vbox.js"></script>
     <script src="text.js"></script>
-    <script src="gui.js"></script>
+
     <script>
+
       function onLoad() {
         var canvas = document.getElementById("myCanvas");
         gui = new Gui(canvas);
-        //gui.init();
+        gui.init();
         var fight = new Text(gui, 50, 10);
         fight.text = "Fight";
         fight.onClick = function(x, y) { alert("click"); }
@@ -26,10 +29,13 @@
         var pkhbox2 = new HBox(gui, 10);
         pkhbox2.addAll([pokemon, run]);
         var pkvbox = new VBox(gui, 10);
+        pkvbox.position = {x:200, y:300};
         pkvbox.addAll([pkhbox1, pkhbox2]);
         pkvbox.spacing = 5;
         pkvbox.update();
-        pkvbox.render(gui.context, 200, 300);
+        pkvbox.render(gui.context, 0, 0);
+        gui.add(pkvbox);
+        console.log(gui);
       }
     </script>
   </header>
