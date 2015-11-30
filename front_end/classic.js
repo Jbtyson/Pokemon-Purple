@@ -7,6 +7,9 @@
 function ClassicBattleMenu(gui, mainBoxW, mainBoxH) {
   Renderable.call(this, gui);
 
+  this.dimensions.x = mainBoxW;
+  this.dimensions.y = mainBoxH;
+
   this.backRect = new Rectangle(gui, mainBoxW, mainBoxH);
   this.backRect.setColor("darkslategrey");
   this.backRect.update();
@@ -76,12 +79,21 @@ function ClassicBattleMenu(gui, mainBoxW, mainBoxH) {
   this.messageBox.setFont("20px Arial");
   this.messageBox.setPosition(20, 20);
   this.messageBox.update();
+
+  //finally setup the event handlers
+  var self = this;
+  this.fight.onClick = function(x, y) { self.onFight(); }
+  this.run.onClick = function(x, y) { self.onRun(); }
+  this.pokemon.onClick = function(x, y) { self.onPoke(); }
+  this.bag.onClick = function(x, y) { self.onBag(); }
 }
 
 ClassicBattleMenu.prototype = Object.create(Renderable.prototype, {
   update: {value : function() {
     Renderable.prototype.update.apply(this);
-
+  }},
+  onClick: {value : function(x, y) {
+    this.mainBox.onClick(x - this.position.x, y - this.position.y);
   }},
   render: {value: function(context, xoff, yoff) {
     var xoff = xoff + this.position.x;
