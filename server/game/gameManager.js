@@ -13,8 +13,8 @@ var GameManager = function() {
       return -1;
     }
 
-    var startGame = function() {
-      regionManager = new RegionManager();
+    var startGame = function(regionService) {
+      regionManager = new RegionManager(regionService);
       regionManager.init();
     }
 

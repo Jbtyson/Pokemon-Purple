@@ -51,7 +51,7 @@ function init() {
   console.log("=======================");
   setEventHandlers();
 
-  gameManager.startGame();
+  gameManager.startGame(regionService);
 }
 
 var setEventHandlers = function() {
