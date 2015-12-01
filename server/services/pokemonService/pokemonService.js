@@ -14,10 +14,16 @@ var PokemonService = function(db) {
       return pkmn;
     }
 
+    var retrieveAllWildPokemon = function() {
+      var pkmn = pokemonDbao.retrieveAllWildPokemon();
+      return pkmn;
+    }
+
     return {
       pokemonDbao: pokemonDbao,
       retrievePokemonInstanceById: retrievePokemonInstanceById,
-      retrievePokemonById: retrievePokemonById
+      retrievePokemonById: retrievePokemonById,
+      retrieveAllWildPokemon: retrieveAllWildPokemon
     }
 };
 exports.PokemonService = PokemonService;

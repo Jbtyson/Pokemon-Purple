@@ -51,7 +51,7 @@ function init() {
   console.log("=======================");
   setEventHandlers();
 
-  gameManager.startGame(regionService);
+  gameManager.startGame(regionService, pokemonService, playerService);
 }
 
 var setEventHandlers = function() {

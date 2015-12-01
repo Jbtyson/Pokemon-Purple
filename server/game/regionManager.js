@@ -2,7 +2,7 @@
 var Region = require("./region.js").Region;
 
 var RegionManager = function(_regionService) {
-    var regionService = _regionService
+    var regionService = _regionService;
     var regions = [];
 
     var init = function() {
@@ -15,6 +15,7 @@ var RegionManager = function(_regionService) {
       regions = regionService.retrieveAllRegions();
       console.log("Region update complete.");
     }
+
 
     return {
       regions: regions,

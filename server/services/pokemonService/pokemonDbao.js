@@ -37,10 +37,20 @@ var PokemonDbao = function(_db) {
       return pkmn;
     }
 
+    var retrieveAllWildPokemon = function() {
+      var query = "CALL sp_retrieveAllWildPokemon()";
+      var results = db.query(query);
+
+      // TODO: Actually implements this
+      var pkmn = [];
+      return pkmn;
+    }
+
     return {
       db: db,
       retrievePokemonInstanceById: retrievePokemonInstanceById,
-      retrievePokemonId: retrievePokemonById
+      retrievePokemonId: retrievePokemonById,
+      retrieveAllWildPokemon: retrieveAllWildPokemon
     }
 };
 exports.PokemonDbao = PokemonDbao;
