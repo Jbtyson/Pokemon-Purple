@@ -7,11 +7,11 @@ var PlayerManager = function(_playerService) {
 
   }
 
-  var newPlayerConnected = function() {
-
+  var newPlayerConnected = function(player) {
+    players[player] = player;
   }
 
-  var playerDisconnected = function() {
+  var playerDisconnected = function (player) {
 
   }
 

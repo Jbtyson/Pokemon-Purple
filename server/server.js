@@ -61,12 +61,9 @@ var setEventHandlers = function() {
 var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
   client.on("disconnect", onClientDisconnect);
-
-  // user messages
   client.on("authenticate", onAuthenticate);
-
-  // player messages
   client.on("retrieve party", onRetrieveParty);
+  client.on("tryCatchWildPokemon", onTryCatchWildPokemon);
 }
 
 // Attempt authentication based on username and password
@@ -86,28 +83,17 @@ function onRetrieveParty(message) {
 
   response = playerSerivce.retrievePlayerById(playerId)
   this.emit("party", response);
-
-  // needs to be moved to playerService
-  /*
-  util.log(this.id + "requesting party of player: " + message.playerId);
-  var party = db.retrieveParty(message.playerId);
-
-  if(party == NULL) {
-    // retrieve party failed
-    this.emit("party error");
-  }
-  else {
-    //retrieve party was successful
-    this.emit("party", {party:party});
-  }*/
 }
-/*
-// Retrieve a specific pokemon instance based on their id
-function onRetrievePokemonInstance(message) {
-  util.log(this.id + "requesting pokemon instance: " + message.pokemonId + " - " + message.pokemonInstId);
-  var pkmnInst = db.retrievePokemonInstance(message.pokemonId, message.pokemonInstId);
 
-}*/
+// Attempts to catch wild pokemon
+function onTryCatchWildPokemon(message) {
+  var playerId = message.playerId,
+      pokemonInstanceId = message.PokemonInstanceId,
+      response;
+
+  response = gameManager.wildPokemonManager.onTryCatchWildPokemon(playerId, pokemonInstnaceId);
+  this.emit("tryCatchWildPokemonResult", response);
+}
 
 function onClientDisconnect() {
     util.log("Player has disconnected: "+this.id);

@@ -11,6 +11,7 @@ var GameManager = function() {
 
     var addUser = function(user) {
       users.push(user);
+      playerManager.newPlayerConnected(user.player);
     }
 
     var removeUser = function(user) {
@@ -27,6 +28,9 @@ var GameManager = function() {
     }
 
     return {
+      regionManager: regionManager,
+      wildPokemonManager: wildPokemonManager,
+      playerManager: playerManager,
       users: users,
       addUser: addUser,
       removeUser: removeUser,

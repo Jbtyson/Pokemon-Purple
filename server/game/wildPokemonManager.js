@@ -19,20 +19,23 @@ var WildPokemonManager = function(_pokemonService) {
       console.log("Wild pokemon refresh complete.");
     }
 
-    var onCatchWildPokemon = function(playerId, pokemonInstanceId) {
+    var onTryCatchWildPokemon = function(playerId, pokemonInstanceId) {
+      var response = {
+        success: false
+      };
+
       if(!pokemonInstances[pokemonInstanceId]) {
         console.log("Error, pokemon instance " + pokemonInstanceId + " could not be found.");
       }
-      var success;
 
       var rand = Math.random(100);
       if(rand <= pokemonInstances[pokemonInstanceId]) {
         pokemonCaught(playerId, pokemonInstanceId);
-        success = true;
+        response.success = true;
       }
       else {
         pokemonFailedToBeCaught(playerId, pokemonInstanceId);
-        success = false;
+        response.success = false;
       }
 
       return success;
@@ -54,7 +57,7 @@ var WildPokemonManager = function(_pokemonService) {
       pokemonInstances: pokemonInstances,
       init: init,
       refreshPokemonInstances: refreshPokemonInstances,
-      onCatchWildPokemon: onCatchWildPokemon
+      onTryCatchWildPokemon: onTryCatchWildPokemon
     }
 };
 exports.WildPokemonManager = WildPokemonManager;
