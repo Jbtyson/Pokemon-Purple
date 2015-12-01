@@ -25,9 +25,9 @@ var RegionDbao = function(_db) {
 
     // Retrieve all regions currently active
     var retrieveAllRegions = function() {
-      var query = "CALL sp_retrieveAllRegions";
+      var query = "CALL sp_retrieveAllRegions()";
       var results = db.query(query);
-
+      
       var regions;
       if(!results || !results[0]) {
         regions = "NULL"
