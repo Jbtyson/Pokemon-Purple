@@ -7,6 +7,13 @@ function Group(gui) {
 
 Group.prototype = Object.create(Renderable.prototype, {
 
+  shift: {value: function(elem) {
+    if(elem.parent == null) {
+      elem.parent = this;
+      this.toAdd.shift();
+    }
+  }},
+
   add: {value: function(elem) {
     if(elem.parent == null) {
       elem.parent = this;
