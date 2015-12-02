@@ -16,6 +16,12 @@ function Gui(canvas) {
 	this.canvas = canvas;
 }
 
+function renderList(lst, context, xoff, yoff) {
+  for(var i = 0; i < lst.length; ++i) {
+		lst[i].render(context, xoff, yoff);
+	}
+}
+
 Gui.prototype = {
 	init: function() {
 		var obj = this;

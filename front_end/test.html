@@ -15,6 +15,7 @@
     <script src="battlemenu.js"></script>
     <script src="classic.js"></script>
     <script src="gif.js"></script>
+    <script src="movebar.js"></script>
 
     <script>
 
@@ -35,10 +36,14 @@
         pokemon2.setPosition(360, 75);
 
         //how we setup the menu
-        var menu = new ClassicBattleMenu(gui, 600, 110);
+        move1 = {'name':"High Jump Kick", 'type':'Fighting', 'pp':12, 'maxpp':15}
+        move2 = {'name':"Brick Break", 'type':'Fighting', 'pp':12, 'maxpp':20}
+        move3 = {'name':"Low Kick", 'type':'Fighting', 'pp':12, 'maxpp':15}
+        move4 = {'name':"Strength", 'type':'Normal', 'pp':12, 'maxpp':20}
+        var menu = new MoveBar(gui, 600, 110, 200, [move1, move2, move3, move4]);
         menu.setPosition(0, 340);
-        menu.messageBox.setText("What will Hitmonlee\ndo next?");
-        menu.messageBox.update();
+        //menu.messageBox.setText("What will Hitmonlee\ndo next?");
+        //menu.messageBox.update();
         menu.onFight = function() {
           alert("fight!");
         }
@@ -81,8 +86,10 @@
           menu.render(gui.context, 0, 0);
           status1.render(gui.context, 0, 0);
           status2.render(gui.context, 0, 0);
+          status1.hp = (status1.hp + 1) % status1.maxhp;
+          status1.exp = (status1.exp + 4) % status1.maxexp;
         }
-        setInterval(render, 1000);
+        setInterval(render, 16);
       }
     </script>
   </header>

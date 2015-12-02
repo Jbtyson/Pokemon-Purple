@@ -98,15 +98,9 @@ ClassicBattleMenu.prototype = Object.create(Renderable.prototype, {
   render: {value: function(context, xoff, yoff) {
     var xoff = xoff + this.position.x;
     var yoff = yoff + this.position.y;
-
-    this.backRect.render(context, xoff, yoff);
-    this.foreRect1.render(context, xoff, yoff);
-    this.foreRect2.render(context, xoff, yoff);
-    this.menuBox.render(context, xoff, yoff);
-    this.menuBoxBoarder.render(context, xoff, yoff);
-    this.menuBoxFore.render(context, xoff, yoff);
-    this.mainBox.render(context, xoff, yoff);
-    this.messageBox.render(context, xoff, yoff);
+    renderList([this.backRect, this.foreRect1, this.foreRect2,
+                this.menuBox, this.menuBoxBoarder, this.menuBoxFore,
+                this.mainBox, this.messageBox], context, xoff, yoff);
   }}
 });
 ClassicBattleMenu.prototype.constructor = ClassicBattleMenu;
