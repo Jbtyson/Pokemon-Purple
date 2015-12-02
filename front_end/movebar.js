@@ -108,7 +108,6 @@ MoveBar.prototype = Object.create(Renderable.prototype, {
   }},
   onClick: {value : function(x, y) {
     this.mainBox.onClick(x - this.position.x, y - this.position.y);
-    console.log(this.gobtn.position, this.gobtn.dimensions, x, y);
     if(inBox(this.gobtn.position, this.gobtn.dimensions, x - this.position.x, y - this.position.y)) {
       this.gobtn.onClick(x, y);
     }

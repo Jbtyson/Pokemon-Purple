@@ -17,6 +17,7 @@
     <script src="gif.js"></script>
     <script src="movebar.js"></script>
     <script src="battle.js"></script>
+    <script src="items.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script>
@@ -60,16 +61,28 @@
         menu.onMove = function(num) {
           alert(moves[num].name);
         }
-        gui.add(menu); //attach the menu to the gui so it can receive input
+        //gui.add(menu); //attach the menu to the gui so it can receive input
 
+
+        var items = new BagMenu(gui, 600, 450, 120, 160);
+        items.add("x1 \t\t\t  Bicycle", function() {alert("Jake: Noah...this is not the time or place for that");});
+        items.add("x1 \t\t\t  Helix Fossil", function() {alert("All hail the helix fossil!");});
+        items.add("x99 \t\t\t Master Ball", function() {alert("How did you get so many?");});
+        items.onBack = function() {
+          alert("well, you tried to go back...hope that helps");
+        }
+        gui.attach(items);
         //now the "loop" ... but not really
         function render() {
           //make sure everything is updated
-          menu.update();
-          battle.update();
+          //menu.update();
+          //battle.update();
           //now render
-          battle.render(gui.context, 0, 0);
-          menu.render(gui.context, 0, 0);
+          //battle.render(gui.context, 0, 0);
+          //menu.render(gui.context, 0, 0);
+
+          items.update();
+          items.render(gui.context, 0, 0);
         }
         setInterval(render, 100);
       }

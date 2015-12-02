@@ -27,8 +27,11 @@ Gui.prototype = {
 		var obj = this;
     this.canvas.addEventListener('click', function(event) { obj.onClick(event) }, false);
 	},
-	add: function(elem) {
+	attach: function(elem) {
     this.objects.push(elem);
+	},
+	detach: function(elem) {
+		this.objects.splice(this.objects.indexOf(elem), 1);
 	},
   onClick: function(event) {
 		var x = event.pageX - this.canvas.offsetLeft,
