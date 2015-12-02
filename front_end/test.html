@@ -16,6 +16,7 @@
     <script src="classic.js"></script>
     <script src="gif.js"></script>
     <script src="movebar.js"></script>
+    <script src="battle.js"></script>
 
     <script>
 
@@ -23,73 +24,54 @@
         var canvas = document.getElementById("myCanvas");
         gui = new Gui(canvas);
         gui.init();
-        //gui.context.globalCompositeOperation = "overlay";
 
-        //how we setup the two status bars
-        var status1 = new StatusBar(gui, "Hitmonlee", 31, 30, 150, 50, 100);
-        status1.setPosition(350, 240);
-        var status2 = new StatusBar(gui, "Alakazam", 31, 120, 150, 50, 100);
-        status2.setPosition(10, 10);
-        var pokemon1 = new RenderableImage(gui, "img/back-106.gif", 3.3);
-        pokemon1.setPosition(60, 130);
-        var pokemon2 = new RenderableImage(gui, "img/front-65.gif", 2.2);
-        pokemon2.setPosition(360, 75);
+        //define a battle
+        var pk1 = {
+          name:'Hitmonlee',
+          hp:30,
+          maxhp:150,
+          lvl:31,
+          exp:50,
+          maxexp:100,
+          src:'img/back-106.gif'
+        }
+        var pk2 = {
+          name:'Alakazam',
+          hp:150,
+          maxhp:150,
+          lvl:99,
+          exp:27,
+          maxexp:100,
+          src:'img/front-65.gif'
+        }
+        var battle = new Battle(gui, pk1, pk2);
 
-        //how we setup the menu
-        move1 = {'name':"High Jump Kick", 'type':'Fighting', 'pp':12, 'maxpp':15}
-        move2 = {'name':"Brick Break", 'type':'Fighting', 'pp':12, 'maxpp':20}
-        move3 = {'name':"Low Kick", 'type':'Fighting', 'pp':12, 'maxpp':15}
-        move4 = {'name':"Strength", 'type':'Normal', 'pp':12, 'maxpp':20}
-        var menu = new MoveBar(gui, 600, 110, 200, [move1, move2, move3, move4]);
+        //define a menu
+        var move1 = {'name':"High Jump Kick", 'type':'Fighting', 'pp':12, 'maxpp':15}
+        var move2 = {'name':"Brick Break", 'type':'Fighting', 'pp':12, 'maxpp':20}
+        var move3 = {'name':"Low Kick", 'type':'Fighting', 'pp':12, 'maxpp':15}
+        var move4 = {'name':"Strength", 'type':'Normal', 'pp':12, 'maxpp':20}
+        moves = [move1, move2, move3, move4];
+        var menu = new MoveBar(gui, 600, 110, 200, moves);
         menu.setPosition(0, 340);
-        //menu.messageBox.setText("What will Hitmonlee\ndo next?");
-        //menu.messageBox.update();
-        menu.onFight = function() {
-          alert("fight!");
+        menu.onGo = function() {
+          alert("go!");
         }
-        menu.onBag = function() {
-          alert("bag!");
+        menu.onMove = function(num) {
+          alert(moves[num].name);
         }
-        menu.onPoke = function() {
-          alert("pokemon!");
-        }
-        menu.onRun = function() {
-          alert("run!");
-        }
-        //attach the menu to the gui so it can receive input
-        gui.add(menu);
+        gui.add(menu); //attach the menu to the gui so it can receive input
 
-        //lets add a nice background
-        var backgroundImg = new RenderableImage(gui, "img/test.gif", 2.4);
-        var background = new Rectangle(gui, 600, 450);
-        var grd = gui.context.createLinearGradient(0,0,0,450);
-        grd.addColorStop(0, '#ccffff');
-        grd.addColorStop(0.7, '#60d060');
-        background.setColor(grd);
-
-        //the rest of this stuff will happen in a game loop
-
-
-        //now render everything in the right order
+        //now the "loop" ... but not really
         function render() {
           //make sure everything is updated
-          status1.update();
-          status2.update();
           menu.update();
-          background.update();
-          pokemon1.update();
-          pokemon2.update();
-          background.render(gui.context, 0, 0);
-          backgroundImg.render(gui.context, 0, 0);
-          pokemon1.render(gui.context, 0, 0);
-          pokemon2.render(gui.context, 0, 0);
+          battle.update();
+          //now render
+          battle.render(gui.context, 0, 0);
           menu.render(gui.context, 0, 0);
-          status1.render(gui.context, 0, 0);
-          status2.render(gui.context, 0, 0);
-          status1.hp = (status1.hp + 1) % status1.maxhp;
-          status1.exp = (status1.exp + 4) % status1.maxexp;
         }
-        setInterval(render, 16);
+        setInterval(render, 100);
       }
     </script>
   </header>

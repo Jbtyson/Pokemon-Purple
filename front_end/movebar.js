@@ -72,22 +72,34 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
   this.mainBox.update();
 
   this.pptxt = new Text(gui, 24, 24);
-  this.pptxt.setPosition(mainBoxW - moveBoxW + 24, 24);
+  this.pptxt.setPosition(mainBoxW - moveBoxW + 24, 16);
   this.pptxt.setFont('22px Arial');
   this.pptxt.setText('PP');
   this.pptxt.update();
 
   this.ratio = new Text(gui, 60, 24);
-  this.ratio.setPosition(mainBoxW - 100, 24);
+  this.ratio.setPosition(mainBoxW - 100, 16);
   this.ratio.setFont('22px Arial');
   this.ratio.setText(moves[this.movenum].pp + ' / ' + moves[this.movenum].maxpp);
   this.ratio.update();
 
   this.type = new Text(gui, 60, 24);
-  this.type.setPosition(mainBoxW - moveBoxW + 24, 64);
+  this.type.setPosition(mainBoxW - moveBoxW + 24, 40);
   this.type.setFont('22px Arial');
   this.type.setText('TYPE' + ' / ' + moves[this.movenum].type);
   this.type.update();
+
+  this.gobtn = new Button(gui, 150, 32, "green", "go", 64, 12);
+  this.gobtn.setPosition(mainBoxW - moveBoxW + 24, 64);
+  this.gobtn.update();
+
+  //set the event handlers
+  var self = this;
+  this.gobtn.onClick = function(x, y) { self.onGo(); }
+  this.move1.onClick = function(x, y) { self.onMove(0); }
+  this.move2.onClick = function(x, y) { self.onMove(1); }
+  this.move3.onClick = function(x, y) { self.onMove(2); }
+  this.move4.onClick = function(x, y) { self.onMove(3); }
 }
 
 MoveBar.prototype = Object.create(Renderable.prototype, {
@@ -96,13 +108,17 @@ MoveBar.prototype = Object.create(Renderable.prototype, {
   }},
   onClick: {value : function(x, y) {
     this.mainBox.onClick(x - this.position.x, y - this.position.y);
+    console.log(this.gobtn.position, this.gobtn.dimensions, x, y);
+    if(inBox(this.gobtn.position, this.gobtn.dimensions, x - this.position.x, y - this.position.y)) {
+      this.gobtn.onClick(x, y);
+    }
   }},
   render: {value: function(context, xoff, yoff) {
     var xoff = xoff + this.position.x;
     var yoff = yoff + this.position.y;
     renderList([this.backRect, this.menuBoxBoarder, this.menuBoxFore,
                 this.moveBoxBack, this.moveBoxFore, this.mainBox,
-                this.pptxt, this.ratio, this.type],
+                this.pptxt, this.ratio, this.type, this.gobtn],
       context, xoff, yoff);
   }}
 });

@@ -16,9 +16,9 @@ function Button(gui, w, h, color, text, xoff, yoff) {
   this.button.setColor(color);
   this.button.update();
 
-  this.fore = new Rectangle(gui, w - 8, h - 8);
-  this.fore.setPosition(8, 8);
-  this.fore.setColor("#00000077");
+  //this.fore = new Rectangle(gui, w - 8, h - 8);
+  //this.fore.setPosition(8, 8);
+  //this.fore.setColor("#00000077");
 
   this.textBox = new Text(gui, w, h);
   this.textBox.setText(text);
