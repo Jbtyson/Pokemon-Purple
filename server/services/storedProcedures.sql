@@ -1,3 +1,5 @@
+DELIMITER //
+
 DROP PROCEDURE IF EXISTS sp_retrieveRegion
 //
 CREATE PROCEDURE sp_retrieveRegion(
@@ -26,10 +28,18 @@ CREATE PROCEDURE sp_addRegion(
   in length int,
   in width int,
   in name VARCHAR(50),
-  in description VARCHAR(500)
+  in description VARCHAR(250)
 )
 BEGIN
   INSERT INTO Regions
   VALUES (regionId, latitude, longitude, length, width, name, description);
+END
+//
+
+DROP PROCEDURE IF EXISTS sp_retrieveAllWildPokemon
+//
+CREATE PROCEDURE sp_retrieveAllWildPokemon()
+BEGIN
+  SELECT * FROM PokemonInstances;
 END
 //

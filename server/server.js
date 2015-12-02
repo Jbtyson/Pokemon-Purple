@@ -14,9 +14,9 @@ var util = require("util"),
 
 
 var PORT = 8080,
-    DB_HOST = "mysql.cis.ksu.edu";
-    DB_USERNAME = "jbtyson";
-    DB_PASSWORD = "secretpassword"
+    DB_HOST = "localhost";
+    DB_USERNAME = "root";
+    DB_PASSWORD = "password"
     DB_NAME = "jbtyson";
 
 var socket;
