@@ -12,12 +12,13 @@
     <script src="rectangle.js"></script>
     <script src="statusbar.js"></script>
     <script src="button.js"></script>
-    <script src="battlemenu.js"></script>
+    <script src="menu.js"></script>
     <script src="classic.js"></script>
     <script src="gif.js"></script>
     <script src="movebar.js"></script>
     <script src="battle.js"></script>
     <script src="items.js"></script>
+    <script src="pokemonList.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script>
@@ -64,14 +65,32 @@
         //gui.add(menu); //attach the menu to the gui so it can receive input
 
 
-        var items = new BagMenu(gui, 600, 450, 120, 160);
+        var items = new BagMenu(gui, "Items", 600, 450, 120, 160);
         items.add("x1 \t\t\t  Bicycle", function() {alert("Jake: Noah...this is not the time or place for that");});
         items.add("x1 \t\t\t  Helix Fossil", function() {alert("All hail the helix fossil!");});
         items.add("x99 \t\t\t Master Ball", function() {alert("How did you get so many?");});
         items.onBack = function() {
           alert("well, you tried to go back...hope that helps");
         }
-        gui.attach(items);
+        //gui.attach(items);
+
+        var pokemon = new PokemonList(gui);
+        pokemon.add("Jolteon", 50, 100, 100, function() {});
+        pokemon.add("Hitmonlee", 50, 100, 100, function() {});
+        pokemon.add("Alakazam", 50, 100, 100, function() {});
+        pokemon.add("Starmie", 50, 100, 100, function() {});
+        pokemon.add("Jynx", 50, 100, 100, function() {});
+        pokemon.add("Arcanine", 50, 100, 100, function() {});
+        //gui.attach(pokemon);
+
+        var mainmenu = new MainMenu(gui, 600 / 4 - 5, 120, 40, 40);
+        mainmenu.setPosition(0, 150)
+        mainmenu.onPokemon = function() {
+          pokemon.update();
+          pokemon.render(gui.context, 0, 0);
+          //while(true) {}
+        }
+        gui.attach(mainmenu);
         //now the "loop" ... but not really
         function render() {
           //make sure everything is updated
@@ -81,10 +100,11 @@
           //battle.render(gui.context, 0, 0);
           //menu.render(gui.context, 0, 0);
 
-          items.update();
-          items.render(gui.context, 0, 0);
+          mainmenu.update();
+          mainmenu.render(gui.context, 0, 0);
         }
-        setInterval(render, 100);
+        render();
+        //setInterval(render, 100);
       }
     </script>
   </header>

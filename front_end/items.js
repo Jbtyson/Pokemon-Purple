@@ -4,13 +4,13 @@
 //the nice thing about realtive positions is that you can
 //design sub guis quite nicely
 //They do wind up being rather large however which isn't as nice
-function BagMenu(gui, mainBoxW, mainBoxH, blueBoxH, sideBoxW) {
+function BagMenu(gui, title, mainBoxW, mainBoxH, blueBoxH, sideBoxW) {
   Renderable.call(this, gui);
 
   this.dimensions.x = mainBoxW;
   this.dimensions.y = mainBoxH;
 
-  this.itemsLabel = new Button(gui, sideBoxW, 64, "orange", "Items", 50, 24);
+  this.itemsLabel = new Button(gui, sideBoxW, 64, "orange", title, 50, 24);
   this.itemsLabel.textBox.setFont('22px Arial');
   this.itemsLabel.textBox.setColor('black');
   this.itemsLabel.textBox.update();
