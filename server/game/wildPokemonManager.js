@@ -61,7 +61,7 @@ var WildPokemonManager = function(_pokemonService) {
       init: init,
       refreshPokemonInstances: refreshPokemonInstances,
       onTryCatchWildPokemon: onTryCatchWildPokemon,
-      onSaerchForWildPokemon: onTryCatchWildPokemon
+      onSearchForWildPokemon: onSearchForWildPokemon
     }
 };
 exports.WildPokemonManager = WildPokemonManager;
