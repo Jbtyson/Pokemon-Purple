@@ -9,7 +9,7 @@ var Db = function(host, username, password, database) {
       database: database
     });
 
-    var query = function(query, params, callback) {
+    var query = function(query, callback, params) {
       if (!!params) {
         connection.query(query, params, function(err, rows) {
           if(err) {

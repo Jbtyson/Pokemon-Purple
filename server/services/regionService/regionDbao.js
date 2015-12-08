@@ -34,6 +34,7 @@ var RegionDbao = function(_db) {
       var query = "CALL sp_retrieveAllRegions()";
       db.query(query, function(results) {
         var regions;
+        console.log(results);
         if(!results || !results[0]) {
           regions = "NULL"
         }
