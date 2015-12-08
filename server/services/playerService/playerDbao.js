@@ -10,7 +10,6 @@ var PlayerDbao = function(_db) {
       var params = [playerId];
       db.query(query, function(results) {
         var party;
-        console.log(results);
         if(results.length > 0) {
           party = [];
           for(i = 0; i < results.length; i++) {

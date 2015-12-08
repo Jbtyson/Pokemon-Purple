@@ -25,7 +25,6 @@ var UserService = function(db) {
             playerId: playerId
           };
           response.user = clientUser;
-          console.log(response);
         }
 
         callback(response);

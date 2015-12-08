@@ -53,7 +53,18 @@ var WildPokemonManager = function(_pokemonService) {
     }
 
     var onSearchForWildPokemon = function(playerId, geoLocation, callback) {
-      callback({ message: "im going to go play ark now" });
+      // get the users first pokemon for the battle
+      playerService.retrievePartyByPlayerId(playerId, function(party) {
+        var response = {
+          selectedPokemonInstance: null,
+          wildPokemon: null
+        }
+
+        selectedPokemonInstance = party[0];
+
+        response.selectedPokemonInstance = selectedPokemonInstance;
+        callback(response);
+      });
     }
 
     return {

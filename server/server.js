@@ -114,7 +114,6 @@ function onSearchForWildPokemon(message) {
       response;
 
   var _this = this;
-  console.log(gameManager);
   gameManager.wildPokemonManager.onSearchForWildPokemon(playerId, geoLocation, function(response) {
     _this.emit("searchForWildPokemonResult", response);
   });

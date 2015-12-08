@@ -42,7 +42,6 @@ var PokemonDbao = function(_db) {
     var retrieveAllWildPokemon = function(callback) {
       var query = "CALL sp_retrieveAllWildPokemon()";
       db.query(query, function(results) {
-        console.log(results);
         // TODO: Actually implements this
         var pkmn = [];
         callback(results);
