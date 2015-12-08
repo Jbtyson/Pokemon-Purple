@@ -42,6 +42,25 @@ BEGIN
 END
 //
 
+DROP PROCEDURE IF EXISTS sp_retrievePokemonInstanceById
+//
+CREATE PROCEDURE sp_retrievePokemonInstanceById(
+  in pokemonInstanceId int
+)
+BEGIN
+  SELECT * FROM `PokemonInstances` PI
+  JOIN InstanceStats IST
+  ON IST.pokemon_instance_id=PI.pokemon_instance_id
+  JOIN Stats S
+  ON S.stats_id=IST.stats_id
+  JOIN InstanceOfPokemon IP
+  ON IP.pokemon_instance_id=PI.pokemon_instance_id
+  JOIN BasePokemon BP
+  ON BP.pokemon_id=IP.pokemon_id
+  WHERE pokemon_instance_id=pokemonInstanceId;
+END
+//
+
 DROP PROCEDURE IF EXISTS sp_retrievePokemonInstancesInParty
 //
 CREATE PROCEDURE sp_retrievePokemonInstancesInParty(
