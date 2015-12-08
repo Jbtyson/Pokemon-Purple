@@ -11,6 +11,7 @@ var PlayerDbao = function(_db) {
       db.query(query, function(results) {
         var party;
         if(results.length > 0) {
+          console.log(results);
           party = [];
           for(i = 0; i < results.length; i++) {
             var pkmn = new PokemonInstance(
