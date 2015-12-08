@@ -6,7 +6,7 @@ var PlayerService = function(db) {
 
     // Retrieve the data for all of the pokemon instances in a party belonging to a playerid
     var retrievePartyByPlayerId = function(playerId, callback) {
-      playerDbao.retrieveParty(playerId, function(party) {
+      playerDbao.retrievePartyByPlayerId(playerId, function(party) {
         callback(party);
       });
     }

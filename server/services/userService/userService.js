@@ -11,7 +11,7 @@ var UserService = function(db) {
         var response = {
           success: false,
           user: null
-        }
+        };
 
         var user = new User(socket, username, password)
 

@@ -1,8 +1,7 @@
 // pokemonInstance.js
-var PokemonInstance = function(mod, base, maxHp, curHp, att, spcAtt, def,
+var PokemonInstance = function(base, maxHp, curHp, att, spcAtt, def,
                         spcDef, spd, id) {
-    var mod,
-        base,
+    var base,
         maxHp,
         curHp,
         att,
@@ -13,7 +12,6 @@ var PokemonInstance = function(mod, base, maxHp, curHp, att, spcAtt, def,
         id
 
     return {
-      mod: mod,
       base: base,
       maxHp: maxHp,
       curHp: curHp,

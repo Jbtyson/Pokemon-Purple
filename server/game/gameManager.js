@@ -26,6 +26,10 @@ var GameManager = function(regionService, pokemonService, playerService) {
       pokemonService.retrieveAllWildPokemon(function(results) {
         console.log(results);
       });
+
+      playerService.retrievePartyByPlayerId(0, function(results) {
+        console.log(results);
+      });
     }
 
     return {

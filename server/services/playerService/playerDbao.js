@@ -1,18 +1,31 @@
 // playerDbao.js
+var PokemonInstance = require("../../game/pokemonInstance.js").PokemonInstance
+
 var PlayerDbao = function(_db) {
     var db = _db
 
     // Retrieve the data for all of the pokemon instances in a party belonging to a playerid
     var retrievePartyByPlayerId = function(playerId, callback) {
-      var query = "SELECT * FROM Pokemon_Instances JOIN Parties ON Pokemon_Instances.pokemon_instance_id = Parties.pokemon_instance_id WHERE Parties.player_id=" + playerId;
+      var query = "CALL sp_retrievePokemonInstancesInParty(?);";
+      var params = [playerId];
       db.query(query, function(results) {
         var party;
+        console.log(results);
         if(results.length > 0) {
-          party = new Party();
-          for(i = 0; i < rows.length; i++) {
-            // TODO: Pull the actual data out of the rows for this
-            var pkmn = new PokemonInstance();
-            party.addPokemon(pkmn);
+          party = [];
+          for(i = 0; i < results.length; i++) {
+            var pkmn = new PokemonInstance(
+              null,
+              results.max_hp,
+              results.cur_hp,
+              results.attack,
+              results.special_attack,
+              results.defense,
+              results.special_defense,
+              results.speed,
+              results.pokemon_instance_id
+            );
+            party.push(pkmn);
           }
         }
         // no results
@@ -21,7 +34,7 @@ var PlayerDbao = function(_db) {
         }
 
         callback(party);
-      });
+      }, params);
     }
 
     // Adds a speceified pokemon instance id to a player's party
