@@ -7,7 +7,7 @@ var RegionManager = function(_regionService) {
 
     var init = function() {
       updateRegions();
-      var regionTimeoutId = setInterval(updateRegions, 10000);
+      //var regionTimeoutId = setInterval(updateRegions, 10000);
     }
 
     var updateRegions = function() {
@@ -15,7 +15,6 @@ var RegionManager = function(_regionService) {
       regionService.retrieveAllRegions(function(_regions) {
         regions = _regions
         console.log("Region update complete.");
-        console.log(regions);
       });
     }
 

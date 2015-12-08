@@ -4,8 +4,7 @@ socket = io('http://localhost:8080');
 //socket = io.connect("http://localhost", {port: 8080, transports: ["websocket"]});
 
 socket.on("connect", onSocketConnected);
-socket.on("auth failed", onAuthFailed);
-socket.on("auth success", onAuthSuccess);
+socket.on("authResult", onAuthSuccess);
 socket.on("disconnect", onSocketDisconnect);
 
 function onSocketConnected() {
@@ -13,10 +12,6 @@ function onSocketConnected() {
     console.log("Logging in with admin, test");
     socket.emit("authenticate", {username: "admin", password: "password"});
 };
-
-function onAuthFailed() {
-  console.log("Authentication failed.");
-}
 
 function onAuthSuccess(user) {
   console.log("Authentication successful.");
