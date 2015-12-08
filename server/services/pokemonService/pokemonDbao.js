@@ -10,11 +10,27 @@ var PokemonDbao = function(_db) {
       db.query(query, function(results) {
         var pkmnInst;
         if(!!results && !!results[0]) {
-          // TODO: Actually pull the pokemon instace data down
-          pkmnInst = new PokemonInstance();
+          pkmnInst = new PokemonInstance(
+            {
+              name: results[0].name,
+              pokemonId: results[0].pokemon_id,
+            },
+            results[0].level,
+            results[0].name,
+            results[0].max_hp,
+            results[0].cur_hp,
+            results[0].attack,
+            results[0].special_attack,
+            results[0].defense,
+            results[0].special_defense,
+            results[0].speed,
+            results[0].current_xp,
+            results[0].xp_to_next_level,
+            results[0].pokemon_instance_id
+          );
         }
         else {
-          pkmnInst = "NULL";
+          pkmnInst = null;
         }
 
         callback(pkmnInst);

@@ -22,11 +22,18 @@ var PokemonService = function(db) {
       });
     }
 
+    var retrieveWildPokemonForDemo = function(callback) {
+      pokemonDbao.retrievePokemonInstanceById(2, function(pkmn) {
+        callback(pkmn);
+      });
+    }
+
     return {
       pokemonDbao: pokemonDbao,
       retrievePokemonInstanceById: retrievePokemonInstanceById,
       retrievePokemonById: retrievePokemonById,
-      retrieveAllWildPokemon: retrieveAllWildPokemon
+      retrieveAllWildPokemon: retrieveAllWildPokemon,
+      retrieveWildPokemonForDemo: retrieveWildPokemonForDemo
     }
 };
 exports.PokemonService = PokemonService;

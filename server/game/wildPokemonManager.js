@@ -62,9 +62,14 @@ var WildPokemonManager = function(_pokemonService, _playerService) {
         }
 
         selectedPokemonInstance = party[0];
-
         response.selectedPokemonInstance = selectedPokemonInstance;
-        callback(response);
+
+        pokemonService.retrieveWildPokemonForDemo(function(pokemonInstance) {
+          response.wildPokemon = pokemonInstance;
+
+          callback(response);
+        });
+
       });
     }
 
