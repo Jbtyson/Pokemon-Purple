@@ -1,6 +1,6 @@
 // pokemonInstance.js
 var PokemonInstance = function(_base, _level, _name, _maxHp, _curHp, _att, _spcAtt, _def,
-                        _spcDef, _spd, _id) {
+                        _spcDef, _spd, _xp, _xpToLevel, _id) {
     var base = _base,
         level = _level,
         name = _name,
