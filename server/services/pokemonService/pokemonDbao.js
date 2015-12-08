@@ -6,7 +6,7 @@ var PokemonDbao = function(_db) {
     var db = _db
 
     var retrievePokemonInstanceById = function(pkmnInstId, callback) {
-      var query = "SELECT * FROM BasePokemon WHERE pokemon_instance_id=" + pkmnInstId + ";";
+      var query = "SELECT * FROM PokemonInstances WHERE pokemon_instance_id=" + pkmnInstId + ";";
       db.query(query, function(results) {
         var pkmnInst;
         if(!!results && !!results[0]) {
