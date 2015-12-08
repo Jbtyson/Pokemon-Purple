@@ -80,8 +80,10 @@ function onAuthenticate(message) {
       password = message.password,
       response;
 
-  response = userService.attemptUserLogin(username, password)
-  this.emit("authResult", response);
+  var _this = this;
+  userService.attemptUserLogin(username, password, function(response) {
+    _this.emit("authResult", response);
+  });
 }
 
 // Retrieves a party for a specified party Id
