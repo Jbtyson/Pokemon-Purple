@@ -3,9 +3,8 @@ var util = require("util");
 var UserDbao = require("./userDbao").UserDbao;
 var User = require("./../../game/user").User;
 
-var UserService = function(db, _gameManager) {
+var UserService = function(db) {
     var userDbao = new UserDbao(db);
-    var gameManager = _gameManager;
 
     var attemptUserLogin = function(username, password, socket, callback) {
       userDbao.attemptUserLogin(username, password, function(playerId) {
@@ -19,7 +18,6 @@ var UserService = function(db, _gameManager) {
         if(playerId != -1) {
           util.log(user.username + " logged in with id: " + user.playerId);
           user.playerId = playerId
-          gameManager.addUser(user);
 
           response.success = true;
           var clientUser = {
