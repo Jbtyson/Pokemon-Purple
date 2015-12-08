@@ -9,64 +9,76 @@ function transition(machine, newstate) {
   handleState(machine);
 }
 
-function AuthState(machine) {
-  this.wait = new Text(machine.gui, 400, 80);
+function AuthState(gui) {
+  this.wait = new Text(gui, 400, 80);
   this.wait.setText("Please Login first.");
 }
 
 AuthState.prototype = {
   enter: function(machine) {},
   loop: function(machine) {
-    machine.wait.update();
-    machine.wait.render(gui.context, 0, 0);
+    this.wait.update();
+    this.wait.render(gui.context, 0, 0);
   },
-  exit: function(machine) {}
+  exit: function(machine) {
+    machine.gui.context.fillStyle = "white";
+    machine.gui.context.fillRect(0, 0, 600, 450);
+  }
 };
 
 function MainMenuState(machine) {
   var mainmenu = new MainMenu(gui, 600 / 4 - 5, 120, 40, 40);
   mainmenu.setPosition(0, 150);
-  mainmenu.onSearch = function() { transistion(machine, new SearchWait(machine)); };
-  mainmenu.onPC = function() { transistion(machine, new PcWait(machine)); };
-  mainmenu.onPokemon = function() { transistion(machine, new PokemonWait(machine)); };;
-  mainmenu.onPokedex = function() { transistion(machine, new PokedexWait(machine)); };;
+  mainmenu.onSearch = function() { transition(machine, new SearchWait(machine)); };
+  mainmenu.onPC = function() { transition(machine, new PcWait(machine)); };
+  mainmenu.onPokemon = function() { transition(machine, new PokemonWait(machine)); };;
+  mainmenu.onPokedex = function() { transition(machine, new PokedexWait(machine)); };;
   this.mainmenu = mainmenu;
   machine.gui.attach(this.mainmenu);
 }
 
 MainMenuState.prototype = {
-  enter: function(machine) {},
+  enter: function(machine) {
+    intro.play();
+  },
   loop: function(machine) {
     this.mainmenu.update();
     this.mainmenu.render(gui.context, 0, 0);
   },
-  exit: function(machine) {}
+  exit: function(machine) {
+    machine.gui.context.fillRect(0, 0, 600, 450);
+    intro.pause();
+  }
 }
 
 function SearchWait(machine) {
-  machine.socket.emit("search", {});
   this.wait = new Text(machine.gui, 400, 80);
   this.wait.setText("Waiting on server...");
 }
 SearchWait.prototype = {
-  enter: function(machine) { machine.gui.context.fillRect(0, 0, 600, 450); },
+  enter: function(machine) {
+    console.log(machine.user, machine.user.playerId);
+    machine.socket.emit("searchForWildPokemon", {playerId: machine.user.playerId});
+  },
   loop: function(machine) {
-    machine.wait.update();
-    machine.wait.render(gui.context, 0, 0);
+    this.wait.update();
+    this.wait.render(gui.context, 0, 0);
   },
   exit: function(machine) {}
 };
 
 function PokemonWait(machine) {
-  machine.socket.emit("pokemon", {});
+  machine.socket.emit("searchForWildPokemon", machine.user.playerId);
   this.wait = new Text(machine.gui, 400, 80);
   this.wait.setText("Waiting on server...");
 }
 PokemonWait.prototype = {
-  enter: function(machine) { machine.gui.context.fillRect(0, 0, 600, 450); },
+  enter: function(machine) {
+    machine.gui.context.fillRect(0, 0, 600, 450);
+  },
   loop: function(machine) {
-    machine.wait.update();
-    machine.wait.render(gui.context, 0, 0);
+    this.wait.update();
+    this.wait.render(gui.context, 0, 0);
   },
   exit: function(machine) {}
 };
@@ -79,8 +91,8 @@ function ItemWait(machine) {
 ItemWait.prototype = {
   enter: function(machine) { machine.gui.context.fillRect(0, 0, 600, 450); },
   loop: function(machine) {
-    machine.wait.update();
-    machine.wait.render(gui.context, 0, 0);
+    this.wait.update();
+    this.wait.render(gui.context, 0, 0);
   },
   exit: function(machine) {}
 };
@@ -93,38 +105,62 @@ function RunWait(machine) {
 RunWait.prototype = {
   enter: function(machine) { machine.gui.context.fillRect(0, 0, 600, 450); },
   loop: function(machine) {
-    machine.wait.update();
-    machine.wait.render(gui.context, 0, 0);
+    this.wait.update();
+    this.wait.render(gui.context, 0, 0);
   },
   exit: function(machine) {}
 };
 
-
 function BattleChooseState(machine, pk1, pk2) {
   this.battle = new Battle(gui, pk1, pk2);
   this.menu = new ClassicBattleMenu(gui, 600, 110);
-  this.menu.messageBox.setText("What will " + aux.pk1.name + " do next?");
-  //this.menu.onFight = function() { transition(machine, moveChoose, machine.aux); };
-  //this.menu.onPoke = function() { transition(machine, moveChoose, machine.aux); };;
-  //machine.aux.menu.onBag = aux.onBag;
-  //machine.aux.menu.onRun = aux.onRun;
-  gui.attach(aux.menu);
+  this.menu.setPosition(0, 450 - 110);
+  this.menu.messageBox.setText("What will " + pk1.name + " do next?");
+  this.battle.status1.animated = true;
+  this.menu.onFight = function() { transition(machine, new MoveChoose(machine, pk1, pk2)); };
+  this.menu.onPoke = function() {  };
+  this.menu.onBag = function() {  };
+  this.menu.onRun = function() {  };
 }
 
 BattleChooseState.prototype = {
   enter: function(machine) {
-
+    battle.play();
+    gui.attach(this.menu);
   },
   loop: function(machine) {
-    aux.battle.update();
-    aux.menu.update();
-    aux.battle.render(gui.context, 0, 0);
-    aux.menu.render(gui.context, 0, 0);
+    this.battle.update();
+    this.menu.update();
+    this.battle.render(gui.context, 0, 0);
+    this.menu.render(gui.context, 0, 0);
   },
   exit: function(machine) {
-    gui.detach(aux.menu);
+    gui.detach(this.menu);
+    battle.pause();
   }
 };
+
+function MoveChooseState(gui, pk1, pk2) {
+  this.battle = new Battle(gui, aux.pk1, aux.pk2);
+  this.menu = new MoveBar(gui, 600, 110, 200, aux.pk1.moves);
+}
+
+MoveChooseState.prototype = {
+  enter: function(gui, aux) {
+    gui.attach(this.menu);
+  },
+
+  loop: function(gui, aux) {
+    this.battle.update();
+    this.menu.update();
+    this.battle.render(gui.context, 0, 0);
+    this.menu.render(gui.context, 0, 0);
+  },
+
+  exit: function(gui, aux) {
+    gui.detach(aux.menu);
+  }
+}
 
 /*
 var pokemonChoose = {

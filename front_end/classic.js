@@ -91,6 +91,7 @@ function ClassicBattleMenu(gui, mainBoxW, mainBoxH) {
 ClassicBattleMenu.prototype = Object.create(Renderable.prototype, {
   update: {value : function() {
     Renderable.prototype.update.apply(this);
+    this.messageBox.update();
   }},
   onClick: {value : function(x, y) {
     this.mainBox.onClick(x - this.position.x, y - this.position.y);

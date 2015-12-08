@@ -33,6 +33,7 @@ function StatusBar(gui, name, lvl, hp, maxhp, exp, maxexp) {
   this.maxhp = maxhp;
   this.exp = exp;
   this.maxexp = maxexp;
+  this.animated = false;
 
   //the main box
   this.backRect = new Rectangle(gui, mainBoxW, mainBoxH);
@@ -127,6 +128,13 @@ StatusBar.prototype = Object.create(Renderable.prototype, {
     //and now because we declartivelly designed our sub-gui we just render it all
     var xoff = xoff + this.position.x;
     var yoff = yoff + this.position.y;
+
+    if(this.animated) {
+      var d = new Date();
+      var n = d.getTime();
+      var amp = 2;
+      yoff += Math.floor(amp * Math.sin(n / 200)); //every 5 seconds it completes half a peroid
+    }
 
     //TODO: make a rendering list?
     renderList([this.backRect, this.foreRect, this.nameBox, this.backHealth,
