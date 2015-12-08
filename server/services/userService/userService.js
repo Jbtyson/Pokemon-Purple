@@ -20,12 +20,14 @@ var UserService = function(db, _gameManager) {
           util.log(user.username + " logged in with id: " + user.playerId);
           user.playerId = playerId
           gameManager.addUser(user);
-          
+
           response.success = true;
-          response.user = {
-            username: user.name,
-            playerId: user.playerId
+          var clientUser = {
+            username: username,
+            playerId: playerId
           };
+          response.user = clientUser;
+          console.log(response);
         }
 
         callback(response);
