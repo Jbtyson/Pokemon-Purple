@@ -28,6 +28,7 @@ var userService,
     pokemonService,
     itemService,
     regionService;
+var gameManager;
 
 function init() {
   console.log("Initializing...");
@@ -37,13 +38,13 @@ function init() {
   db = new Db(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
   console.log("Db connection complete.")
 
-  gameManager = new GameManager();
-
-  userService = new UserService(db, gameManager);
+  userService = new UserService(db);
   playerService = new PlayerService(db);
   pokemonService = new PokemonService(db);
   itemService = new ItemService(db);
   regionService = new RegionService(db);
+
+  gameManager = new GameManager(regionService, pokemonService, playerService);
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);
@@ -113,6 +114,7 @@ function onSearchForWildPokemon(message) {
       response;
 
   var _this = this;
+  console.log(gameManager);
   gameManager.wildPokemonManager.onSearchForWildPokemon(playerId, geoLocation, function(response) {
     _this.emit("searchForWildPokemonResult", response);
   });

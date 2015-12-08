@@ -3,11 +3,11 @@ var RegionManager = require("./regionManager.js").RegionManager;
 var WildPokemonManager = require("./wildPokemonManager.js").WildPokemonManager;
 var PlayerManager = require("./playerManager.js").PlayerManager;
 
-var GameManager = function() {
+var GameManager = function(regionService, pokemonService, playerService) {
     var users = [];
-    var regionManager,
-        wildPokemonManager,
-        playerManager;
+    var regionManager = new RegionManager();
+    var wildPokemonManager = new WildPokemonManager();
+    var playerManager = new PlayerManager();
 
     var addUser = function(user) {
       users.push(user);
@@ -18,12 +18,9 @@ var GameManager = function() {
       return -1;
     }
 
-    var startGame = function(regionService, pokemonService, playerService) {
-      regionManager = new RegionManager(regionService);
+    var startGame = function() {
       regionManager.init();
-      wildPokemonManager = new WildPokemonManager(pokemonService);
       wildPokemonManager.init();
-      playerManager = new PlayerManager(playerService);
       playerManager.init();
 
       pokemonService.retrieveAllWildPokemon(function(results) {
