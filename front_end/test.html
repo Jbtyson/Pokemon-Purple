@@ -19,6 +19,7 @@
     <script src="battle.js"></script>
     <script src="items.js"></script>
     <script src="pokemonList.js"></script>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script>
@@ -84,7 +85,7 @@
         //gui.attach(pokemon);
 
         var mainmenu = new MainMenu(gui, 600 / 4 - 5, 120, 40, 40);
-        mainmenu.setPosition(0, 150)
+        mainmenu.setPosition(0, 150);
         mainmenu.onPokemon = function() {
           pokemon.update();
           pokemon.render(gui.context, 0, 0);

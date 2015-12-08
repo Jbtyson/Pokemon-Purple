@@ -17,7 +17,7 @@ function MainMenu(gui, w, h, xoff, yoff) {
     this.add(this.pokedex);
     var menu = this;
     this.search.onClick = function(x, y) { menu.onSearch(); };
-    this.pc.onClick = function(x, y) { menu.onPc(); };
+    this.pc.onClick = function(x, y) { menu.onPC(); };
     this.pokemon.onClick = function(x, y) { menu.onPokemon(); };
     this.pokedex.onClick = function(x, y) { menu.onPokedex(); };
 }
