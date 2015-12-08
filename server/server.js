@@ -13,7 +13,7 @@ var util = require("util"),
     GameManager = require("./game/gameManager").GameManager;
 
 
-var PORT = 12984,
+var PORT = 8080,
     DB_HOST = "mysql.cis.ksu.edu";
     DB_USERNAME = "jbtyson";
     DB_PASSWORD = "secretpassword"
