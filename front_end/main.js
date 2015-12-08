@@ -13,13 +13,11 @@ gui = new Gui(canvas);
 gui.init();
 
 var machine = {
-  state: auth,
+  state: new AuthState(),
   aux: {},
   gui: gui,
   socket: socket
 };
-
-handleState(machine);
 
 function onSocketConnected() {
     console.log("Connected to socket server");
@@ -40,4 +38,8 @@ function onAuthSuccess(user) {
 
 function onSocketDisconnect() {
     console.log("Disconnected from socket server");
+}
+
+function onLoad() {
+  handleState(machine);
 }
