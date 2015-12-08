@@ -64,6 +64,7 @@ var onSocketConnection = function(client) {
   client.on("authenticate", onAuthenticate);
   client.on("retrieve party", onRetrieveParty);
   client.on("tryCatchWildPokemon", onTryCatchWildPokemon);
+  client.on("searchForWildPokemon", onSearchForWildPokemon);
 }
 
 /** Attempt authentication based on username and password
@@ -111,8 +112,10 @@ function onSearchForWildPokemon(message) {
       geoLocation = message.geoLocation,
       response;
 
-  response = gameManager.wildPokemonManager.onSearchForWildPokemon(playerId, geoLocation);
-  this.emit("searchForWildPokemonResult", response);
+  var _this = this;
+  gameManager.wildPokemonManager.onSearchForWildPokemon(playerId, geoLocation, function(response) {
+    _this.emit("searchForWildPokemonResult", response);
+  });
 }
 
 // Use a move in a battle

@@ -52,6 +52,9 @@ var WildPokemonManager = function(_pokemonService) {
 
     }
 
+    var onSearchForWildPokemon = function(playerId, geoLocation, callback) {
+      callback({ message: "im going to go play ark now" });
+    }
 
     return {
       pokemonInstances: pokemonInstances,
