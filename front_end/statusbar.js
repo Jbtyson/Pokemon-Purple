@@ -129,18 +129,10 @@ StatusBar.prototype = Object.create(Renderable.prototype, {
     var yoff = yoff + this.position.y;
 
     //TODO: make a rendering list?
-    this.backRect.render(context, xoff, yoff);
-    this.foreRect.render(context, xoff, yoff);
-    this.nameBox.render(context, xoff, yoff);
-    this.backHealth.render(context, xoff, yoff);
-    this.foreHealth.render(context, xoff, yoff);
-    this.hpBox.render(context, xoff, yoff);
-    this.healthBar.render(context, xoff, yoff);
-    this.expBox.render(context, xoff, yoff);
-    this.expBack.render(context, xoff, yoff);
-    this.expBar.render(context, xoff, yoff);
-    this.lvlBox.render(context, xoff, yoff);
-    this.ratio.render(context, xoff, yoff);
+    renderList([this.backRect, this.foreRect, this.nameBox, this.backHealth,
+                this.foreHealth, this.hpBox, this.hpBox, this.healthBar,
+                this.expBox, this.expBack, this.expBar, this.lvlBox,
+                this.ratio], context, xoff, yoff);
   }}
 });
 StatusBar.prototype.constructor = StatusBar;

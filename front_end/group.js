@@ -7,11 +7,16 @@ function Group(gui) {
 
 Group.prototype = Object.create(Renderable.prototype, {
 
+  shift: {value: function(elem) {
+    //if(elem.parent == null) {
+      this.children.shift();
+    //}
+  }},
+
   add: {value: function(elem) {
-    if(elem.parent == null) {
-      elem.parent = this;
+    //if(elem.parent == null) {
       this.toAdd.push(elem);
-    }
+    //}
   }},
 
   reduceX: {value: function(y1, y2) {
@@ -33,7 +38,7 @@ Group.prototype = Object.create(Renderable.prototype, {
     for (var i = 0; i < this.children.length; i++) {
 			var dim = this.children[i].dimensions;
       if(this.children[i].onClick != null && inBox(pos, dim, x, y)) {
-        this.children[i].onClick(x, y);
+        this.children[i].onClick(x - pos.x, y - pos.y);
       }
       pos = this.nextPosition(pos, dim);
     }
