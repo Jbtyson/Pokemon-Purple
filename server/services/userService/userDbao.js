@@ -5,7 +5,7 @@ var UserDbao = function(_db) {
     var attemptUserLogin = function(username, password, callback) {
       var playerId;
 
-      var query = "SELECT player_id FROM Users WHERE username=\'" + username + "\' AND password=\'" + password + "\'";
+      var query = "SELECT user_id FROM Users WHERE username=\'" + username + "\' AND password=\'" + password + "\'";
       db.query(query, function(results) {
         // we only need the first result
         if(!!results && !!results[0]) {

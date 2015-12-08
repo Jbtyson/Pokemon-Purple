@@ -13,7 +13,7 @@ var PlayerDbao = function(_db) {
         if(results.length > 0) {
           console.log(results);
           party = [];
-          for(i = 0; i < results.length; i++) {
+          for(i = 0; i < results[0].length; i++) {
             var pkmn = new PokemonInstance(
               null,
               results[0][i].max_hp,
