@@ -57,7 +57,7 @@ BEGIN
   ON IP.pokemon_instance_id=PI.pokemon_instance_id
   JOIN BasePokemon BP
   ON BP.pokemon_id=IP.pokemon_id
-  WHERE pokemon_instance_id=pokemonInstanceId;
+  WHERE PI.pokemon_instance_id=pokemonInstanceId;
 END
 //
 
