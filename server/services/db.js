@@ -10,16 +10,14 @@ var Db = function(host, username, password, database) {
     });
 
     var query = function(query, params, callback) {
-      var result;
       if (!!params) {
-        connection.query(query, params, function(err, row) {
-          result = handleResults(err, rows);
+        connection.query(query, params, function(err, rows) {
           if(err) {
             console.log(err);
             callback("NULL");
           }
           else {
-            callback(result);
+            callback(rows);
           }
         });
       }
@@ -30,9 +28,8 @@ var Db = function(host, username, password, database) {
             callback("NULL");
           }
           else {
-            callback(result);
+            callback(rows);
           }
-          callback(result);
         });
       }
     }
