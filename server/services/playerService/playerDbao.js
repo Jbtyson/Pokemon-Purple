@@ -16,14 +16,14 @@ var PlayerDbao = function(_db) {
           for(i = 0; i < results.length; i++) {
             var pkmn = new PokemonInstance(
               null,
-              results.max_hp,
-              results.cur_hp,
-              results.attack,
-              results.special_attack,
-              results.defense,
-              results.special_defense,
-              results.speed,
-              results.pokemon_instance_id
+              results[0][i].max_hp,
+              results[0][i].cur_hp,
+              results[0][i].attack,
+              results[0][i].special_attack,
+              results[0][i].defense,
+              results[0][i].special_defense,
+              results[0][i].speed,
+              results[0][i].pokemon_instance_id
             );
             party.push(pkmn);
           }
