@@ -15,7 +15,12 @@ var PlayerDbao = function(_db) {
           party = [];
           for(i = 0; i < results[0].length; i++) {
             var pkmn = new PokemonInstance(
-              null,
+              {
+                name: results[0][i].name,
+                pokemonId: results[0][i].pokemon_id,
+              },
+              results[0][i].level,
+              results[0][i].name,
               results[0][i].max_hp,
               results[0][i].cur_hp,
               results[0][i].attack,

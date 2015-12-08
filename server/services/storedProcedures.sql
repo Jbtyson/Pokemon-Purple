@@ -55,6 +55,10 @@ BEGIN
   ON IST.pokemon_instance_id=PI.pokemon_instance_id
   JOIN Stats S
   ON S.stats_id=IST.stats_id
+  JOIN InstanceOfPokemon IP
+  ON IP.pokemon_instance_id=PI.pokemon_instance_id
+  JOIN BasePokemon BP
+  ON BP.pokemon_id=IP.pokemon_id
   WHERE player_id=playerId;
 END
 //
