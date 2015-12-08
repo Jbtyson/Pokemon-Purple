@@ -28,6 +28,8 @@ var PlayerDbao = function(_db) {
               results[0][i].defense,
               results[0][i].special_defense,
               results[0][i].speed,
+              results[0][i].current_xp,
+              results[0][i].xp_to_next_level,
               results[0][i].pokemon_instance_id
             );
             party.push(pkmn);
