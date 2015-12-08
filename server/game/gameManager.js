@@ -5,9 +5,9 @@ var PlayerManager = require("./playerManager.js").PlayerManager;
 
 var GameManager = function(regionService, pokemonService, playerService) {
     var users = [];
-    var regionManager = new RegionManager();
-    var wildPokemonManager = new WildPokemonManager();
-    var playerManager = new PlayerManager();
+    var regionManager = new RegionManager(regionService);
+    var wildPokemonManager = new WildPokemonManager(pokemonService);
+    var playerManager = new PlayerManager(playerService);
 
     var addUser = function(user) {
       users.push(user);
