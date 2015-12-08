@@ -4,19 +4,22 @@ var PokemonDbao = require("./pokemonDbao.js").PokemonDbao;
 var PokemonService = function(db) {
     var pokemonDbao = new PokemonDbao(db);
 
-    var retrievePokemonInstanceById = function(pkmnInstId) {
-      var pkmnInst = pokemonDbao.retrievePokemonInstanceById(pkmnInstId);
-      return pkmnInst;
+    var retrievePokemonInstanceById = function(pkmnInstId, callback) {
+      pokemonDbao.retrievePokemonInstanceById(pkmnInstId, function(pkmnInst) {
+        callback(pkmnInst);
+      });
     }
 
-    var retrievePokemonById = function(pkmnId) {
-      var pkmn = pokemonDbao.retrievePokemonById(pkmnId);
-      return pkmn;
+    var retrievePokemonById = function(pkmnId, callback) {
+      pokemonDbao.retrievePokemonById(pkmnId, function(pokemon) {
+        callback(pokemon);
+      });
     }
 
-    var retrieveAllWildPokemon = function() {
-      var pkmn = pokemonDbao.retrieveAllWildPokemon();
-      return pkmn;
+    var retrieveAllWildPokemon = function(callback) {
+      pokemonDbao.retrieveAllWildPokemon(function(pkmn) {
+        callback(pkmn);
+      });
     }
 
     return {

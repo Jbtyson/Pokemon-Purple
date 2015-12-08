@@ -9,29 +9,31 @@ var Db = function(host, username, password, database) {
       database: database
     });
 
-    var query = function(query, params) {
+    var query = function(query, params, callback) {
       var result;
       if (!!params) {
         connection.query(query, params, function(err, row) {
           result = handleResults(err, rows);
+          if(err) {
+            console.log(err);
+            callback("NULL");
+          }
+          else {
+            callback(result);
+          }
         });
       }
       else {
         connection.query(query, function(err, rows) {
-          result = handleResults(err, rows);
+          if(err) {
+            console.log(err);
+            callback("NULL");
+          }
+          else {
+            callback(result);
+          }
+          callback(result);
         });
-    }
-
-      return result;
-    }
-
-    var handleResults = function(err, rows) {
-      if(err) {
-        console.log(err);
-        return "NULL";
-      }
-      else {
-        return rows;
       }
     }
 

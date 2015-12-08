@@ -5,45 +5,48 @@ var Pokemon = require("./../../game/pokemon.js").Pokemon;
 var PokemonDbao = function(_db) {
     var db = _db
 
-    var retrievePokemonInstanceById = function(pkmnInstId) {
+    var retrievePokemonInstanceById = function(pkmnInstId, callback) {
       var query = "SELECT * FROM Pokemon_Instances WHERE pokemon_instance_id=" + pkmnInstId + ";";
-      var results = db.query(query);
+      db.query(query, function(results) {
+        var pkmnInst;
+        if(!!results && !!results[0]) {
+          // TODO: Actually pull the pokemon instace data down
+          pkmnInst = new PokemonInstance();
+        }
+        else {
+          pkmnInst = "NULL";
+        }
 
-      var pkmnInst;
-      if(!!results && !!results[0]) {
-        // TODO: Actually pull the pokemon instace data down
-        pkmnInst = new PokemonInstance();
-      }
-      else {
-        pkmnInst = "NULL";
-      }
+        callback(pkmnInst);
+      });
 
-      return pkmnInst;
+
     }
 
-    var retrievePokemonById = function(pkmnId) {
+    var retrievePokemonById = function(pkmnId, callback) {
       var query = "SELECT * FROM Pokemon WHERE pokemon_id=" + pkmnId + ";";
-      var results = db.query(query);
+      db.query(query, function(results) {
+        var pkmn;
+        if(!!results && !!results[0]) {
+          // TODO: Actually pull the pokemon instace data down
+          pkmn = new Pokemon();
+        }
+        else {
+          pkmn = "NULL";
+        }
 
-      var pkmn;
-      if(!!results && !!results[0]) {
-        // TODO: Actually pull the pokemon instace data down
-        pkmn = new Pokemon();
-      }
-      else {
-        pkmn = "NULL";
-      }
-
-      return pkmn;
+        callback(pkmn);
+      });
     }
 
-    var retrieveAllWildPokemon = function() {
+    var retrieveAllWildPokemon = function(callback) {
       var query = "CALL sp_retrieveAllWildPokemon()";
-      var results = db.query(query);
-
-      // TODO: Actually implements this
-      var pkmn = [];
-      return pkmn;
+      db.query(query, function(results) {
+        console.log(results);
+        // TODO: Actually implements this
+        var pkmn = [];
+        callback(results);
+      });
     }
 
     return {

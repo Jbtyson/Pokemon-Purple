@@ -4,12 +4,12 @@ var ItemDbao = require("./itemDbao.js").ItemDbao;
 var ItemService = function(db) {
     var itemDbao = new ItemDbao(db);
 
-    var retrieveItemById = function(itemId) {
-      return -1;
+    var retrieveItemById = function(itemId, callback) {
+      callback();
     }
 
-    var retrieveItemHeldByPokemon = function(pkmnInstId) {
-      return -1;
+    var retrieveItemHeldByPokemon = function(pkmnInstId, callback) {
+      callback();
     }
 
     return {

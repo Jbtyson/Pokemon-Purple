@@ -1,0 +1,10 @@
+Goal: Demonstrate a battle with a wild pokemon.
+
+Subsystems:
+Login server
+Player retrieval
+Party retrieval
+Start a battle with pokemon in region
+Attack back and forth (no items necessary)
+Catch the pokemon
+Show in party

@@ -25,6 +25,10 @@ var GameManager = function() {
       wildPokemonManager.init();
       playerManager = new PlayerManager(playerService);
       playerManager.init();
+
+      pokemonService.retrieveAllWildPokemon(function(results) {
+        console.log(results);
+      });
     }
 
     return {

@@ -4,59 +4,65 @@ var RegionDbao = function(_db) {
     var db = _db
 
     // Add a region to the db
-    var addRegion = function(region) {
-
+    var addRegion = function(region, callback) {
+      var query = "";
+      db.query(query, function(results) {
+        callback(results);
+      });
     }
 
     // Adds all regions in a list to the db
-    var addAllRegions = function(regions) {
-
+    var addAllRegions = function(regions, callback) {
+      var query = "";
+      db.query(query, function(results) {
+        callback(results);
+      });
     }
 
     // Retrieve a region with a specificed id
-    var retrieveRegion = function(regionId) {
+    var retrieveRegion = function(regionId, callback) {
       var query = "CALL sp_retrieveRegion(?)";
       var params = [regionId];
-      var result = db.query(query, params);
-
-      var region = new Region();
-      return region;
+      db.query(query, params, function(results) {
+        var region = new Region();
+        callback(region);
+      });
     }
 
     // Retrieve all regions currently active
-    var retrieveAllRegions = function() {
+    var retrieveAllRegions = function(callback) {
       var query = "CALL sp_retrieveAllRegions()";
-      var results = db.query(query);
-      
-      var regions;
-      if(!results || !results[0]) {
-        regions = "NULL"
-      }
-      else {
-        regions = [];
-        for(i = 0; i < results.length; i++) {
-          var region = new Region();
-          regions.puish(region);
+      db.query(query, function(results) {
+        var regions;
+        if(!results || !results[0]) {
+          regions = "NULL"
         }
-      }
+        else {
+          regions = [];
+          for(i = 0; i < results.length; i++) {
+            var region = new Region();
+            regions.push(region);
+          }
+        }
 
-      return regions;
+        callback(regions);
+      });
     }
 
     // Clear the regions in the db
-    var clearRegions = function() {
+    var clearRegions = function(callback) {
       var query = "CALL sp_clearRegions";
-      var results = db.query(query);
+      db.query(query, function(results) {
+        var success;
+        if(!results || !results.affectedRows) {
+          success = fale;
+        }
+        else {
+          success = true;
+        }
 
-      var success;
-      if(!results || !results.affectedRows) {
-        success = fale;
-      }
-      else {
-        success = true;
-      }
-
-      return success;
+        callback(success);
+      });
     }
 
     return {

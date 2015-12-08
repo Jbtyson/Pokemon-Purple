@@ -6,7 +6,7 @@ var WildPokemonManager = function(_pokemonService) {
     var pokemonInstances = {};
 
     var init = function() {
-      refreshPokemonInstances();
+      //refreshPokemonInstances();
     }
 
     var refreshPokemonInstances = function() {

@@ -6,14 +6,17 @@ var RegionManager = function(_regionService) {
     var regions = [];
 
     var init = function() {
-      regions = regionService.retrieveAllRegions();
-      var regionTimeoutId = setInterval(updateRegions, 2000);
+      updateRegions();
+      var regionTimeoutId = setInterval(updateRegions, 10000);
     }
 
     var updateRegions = function() {
       console.log("Beginning region update...");
-      regions = regionService.retrieveAllRegions();
-      console.log("Region update complete.");
+      regionService.retrieveAllRegions(function(_regions) {
+        regions = _regions
+        console.log("Region update complete.");
+        console.log(regions);
+      });
     }
 
 

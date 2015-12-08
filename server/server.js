@@ -66,7 +66,15 @@ var onSocketConnection = function(client) {
   client.on("tryCatchWildPokemon", onTryCatchWildPokemon);
 }
 
-// Attempt authentication based on username and password
+/** Attempt authentication based on username and password
+ * "authenticate" message expects:
+ * string username
+ * string password
+ *
+ * <returns>
+ * boolean: success
+ * User: user
+*/
 function onAuthenticate(message) {
   var username = message.username,
       password = message.password,
@@ -93,6 +101,27 @@ function onTryCatchWildPokemon(message) {
 
   response = gameManager.wildPokemonManager.onTryCatchWildPokemon(playerId, pokemonInstnaceId);
   this.emit("tryCatchWildPokemonResult", response);
+}
+
+// Search for a wile pokemon to battle
+function onSearchForWildPokemon(message) {
+  var playerId = message.playerId,
+      geoLocation = message.geoLocation,
+      response;
+
+  response = gameManager.wildPokemonManager.onSearchForWildPokemon(playerId, geoLocation);
+  this.emit("searchForWildPokemonResult", response);
+}
+
+// Use a move in a battle
+function onBattleMoveSelected(message) {
+  var playerId = message.playerId,
+      pokemonInstanceId = message.pokmonInstanceId,
+      moveId = message.moveId,
+      response;
+
+  response = gameManager.battleManager.onBattleMoveSelected(playerId, pokemonInstanceId, moveId);
+  this.emit("pokemonBattleMoveSelectedResult", response);
 }
 
 function onClientDisconnect() {

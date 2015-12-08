@@ -7,25 +7,24 @@ var UserService = function(db, _gameManager) {
     var userDbao = new UserDbao(db);
     var gameManager = _gameManager;
 
-    var attemptUserLogin = function(username, password) {
-      var response = {
-        success: false,
-        user: "NULL"
-      }
+    var attemptUserLogin = function(username, password, callback) {
+      userDbao.attemptUserLogin(username, password, function(playerId) {
+        var response = {
+          success: false,
+          user: "NULL"
+        }
 
-      var user = new User(this, username, password)
-      user.playerId = userDbao.attemptUserLogin(user.username, user.password);
+        var user = new User(this, username, password)
 
-      if(user.playerId != -1) {
-        util.log(user.username + " logged in with id: " + user.playerId);
+        if(user.playerId != -1) {
+          util.log(user.username + " logged in with id: " + user.playerId);
+          gameManager.addUser(user);
+          response.success = true;
+          response.user = user;
+        }
 
-        gameManager.addUser(user);
-
-        response.success = true;
-        response.user = user;
-      }
-
-      return response;
+        callback(response);
+      });
     }
 
     return {
