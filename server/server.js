@@ -49,6 +49,7 @@ function init() {
   console.log("Initialization complete.");
   socket = io.listen(PORT);
   global.socket = socket;
+  global.io = io;
   console.log("Listening on port " + PORT);
   console.log("=======================");
   setEventHandlers();
