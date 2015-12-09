@@ -146,3 +146,15 @@ BEGIN
   WHERE user_id=playerId;
 END
 //
+
+DROP PROCEDURE IF EXISTS sp_attemptAuth
+//
+CREATE PROCEDURE sp_attemptAuth(
+  in username varchar(25),
+  in password varchar(25)
+)
+BEGIN
+  SELECT user_id AS playerId FROM Users U
+  WHERE U.username=username AND U.password=password;
+END
+//

@@ -3,13 +3,13 @@ var UserDbao = function(_db) {
     var db = _db
 
     var attemptUserLogin = function(username, password, callback) {
-      var playerId;
-
-      var query = "SELECT user_id FROM Users WHERE username=\'" + username + "\' AND password=\'" + password + "\'";
+      var query = "CALL sp_attemptAuth(?, ?)";
+      var params = [username, password];
       db.query(query, function(results) {
+        var playerId;
         // we only need the first result
-        if(!!results && !!results[0]) {
-          playerId = results[0].user_id;
+        if(!!results && !!results[0] && results[0][0]) {
+          playerId = results[0][0].user_id;
         }
         // no results
         else {
@@ -17,7 +17,7 @@ var UserDbao = function(_db) {
         }
 
         callback(playerId);
-      });
+      }, params);
     }
 
     return {
