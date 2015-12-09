@@ -61,7 +61,7 @@ var WildPokemonManager = function(_gameManager, _pokemonService, _playerService)
           selectedPokemonInstance: null,
           wildPokemon: null
         }
-
+        console.log(party);
         selectedPokemonInstance = party[0];
         pokemonService.retrieveMovesForPokemonInstance(selectedPokemonInstance.id, function(moves) {
           selectedPokemonInstance.moves = moves;
