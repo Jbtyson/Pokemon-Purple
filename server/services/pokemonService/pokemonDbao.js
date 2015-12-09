@@ -62,11 +62,32 @@ var PokemonDbao = function(_db) {
       });
     }
 
+    var retrieveAllTypeRelations = function(callback) {
+      var query = "CALL sp_retrieveAllTypeRelations()";
+      db.query(query, function(results) {
+        var relations = [];
+
+        for(i = 0; i < 18; i++) {
+          relations.push([]);
+        }
+
+        for(i = 0; i < results[0].length; i++) {
+          var attackingTypeId = results[0][i].attacking_type_id;
+          var defendingTypeId = results[0][i].defending_type_id;
+          var modifier = results[0][i].modifier;
+          relations[attackingTypeId][defendingTypeId] = modifier;
+        }
+
+        callback(relations);
+      });
+    }
+
     return {
       db: db,
       retrievePokemonInstanceById: retrievePokemonInstanceById,
       retrievePokemonId: retrievePokemonById,
-      retrieveAllWildPokemon: retrieveAllWildPokemon
+      retrieveAllWildPokemon: retrieveAllWildPokemon,
+      retrieveAllTypeRelations: retrieveAllTypeRelations
     }
 };
 exports.PokemonDbao = PokemonDbao;
