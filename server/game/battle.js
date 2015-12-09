@@ -7,7 +7,7 @@ var Battle = function(id, _players, _pokemon) {
 
     var onMoveSelected = function(playerId, moveId, callback) {
       console.log(players);
-      if(players[playerTurn].playerId !== playerId) {
+      if(players[playerTurn] !== playerId) {
         response = { ERROR: "Incorrect player's turn." }
         callback(reponse);
         return;
