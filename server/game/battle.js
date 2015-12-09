@@ -19,6 +19,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         attackingPokemonInstanceId: pokemonInstanceId,
         usedMove: null
       }
+
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
       var move;
@@ -29,33 +30,32 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         }
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
-
-      if(wildPokemonBattle) {
-        if(defendingPokemon.curHp <= 0) {
-          var playerVictory = true;
-          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory);
-        }
-      }
-
       switchTurns();
       callback(response);
 
       if(wildPokemonBattle) {
-        var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
-        attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
-
-        if(attackingPokemon.curHp <= 0) {
-          var playerVictory = false;
-          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory);
+        // check for player victory
+        if(defendingPokemon.curHp === 0) {
+          var playerVictory = true;
+          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory, battleId);
         }
 
+        // perform random attack
+        var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
+        attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
         response.usedMove = defendingPokemon.moves[rand];
         response.attackingPokemonInstanceId = defendingPokemon.id;
-
         switchTurns();
+        // busy wait for demo
         setTimeout(function() {
           callback(response);
         }, 2500);
+
+        // check for player loss
+        if(attackingPokemon.curHp <= 0) {
+          var playerVictory = false;
+          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory, battleId);
+        }
       }
     }
 
@@ -70,6 +70,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
 
     var performMove = function(attackingPokemon, defendingPokemon, move) {
       if(move.pp > 0) {
+        move.pp--;
         var attack;
         var defense;
         if(true) { //move is physical
@@ -91,7 +92,9 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         modifier = 1; //calculateModifier(move.typeId, attackingPokemon.types, defendingPokemon.types);
         finalDamage = Math.ceil(baseDamage * modifier);
         defendingPokemon.curHp -= finalDamage;
-        move.pp--;
+        if(defendingPokemon.curHp <= 0) {
+          defendingPokemon.curHp = 0;
+        }
       }
 
       return defendingPokemon;

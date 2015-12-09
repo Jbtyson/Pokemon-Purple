@@ -36,8 +36,15 @@ var BattleManager = function(_pokemonService) {
       return typeModifiers[attackingTypeId][defendingTypeId];
     }
 
-    var resolveWildPokemonBattle = function(playerVictory) {
-      
+    var resolveWildPokemonBattle = function(playerVictory, battleId) {
+      var playerId;
+      for(i = 0, i < battles.length; i++) {
+        if(battles[i].battleId === battleId) {
+          playerId = battles[i].players[0];
+          battles.splice(i, 1);
+        }
+      }
+      global.gameManager.messageUser("battleResult", { victory: playerVictory });
     }
 
     return {
