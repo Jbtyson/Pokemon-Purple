@@ -20,9 +20,11 @@ var Battle = function(id, _players, _pokemon) {
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
       var move;
+      console.log(attackingPokemon.moves)
       for(i = 0; i < attackingPokemon.moves.length; i++) {
         if(attackingPokemon.moves[i].moveId = moveId) {
           move = attackingPokemon.moves[i];
+          console.log("here");
         }
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
