@@ -69,6 +69,10 @@ var Battle = function(id, _players, _pokemon) {
         baseDamage = calculateDamage(attackingPokemon.level, move.power, attack, defense);
         modifier = 1; //calculateModifier(move.typeId, attackingPokemon.types, defendingPokemon.types);
         finalDamage = baseDamage * modifier;
+        console.log("baseDamage >>>>>>" + baseDamage);
+        console.log("level >>>>>>" + level);
+        console.log("attack >>>>>>" + attack);
+        console.log("defense >>>>>>" + defense);
         console.log("final damage >>>>>>" + finalDamage);
         defendingPokemon.curHp -= finalDamage;
         move.pp--;
