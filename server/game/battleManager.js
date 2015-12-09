@@ -46,7 +46,7 @@ var BattleManager = function(_pokemonService) {
 
     var onRunFromBattle = function(playerId, callback) {
       for(i = 0; i < battles.length; i++) {
-        for(j = 0; players.length; j++) {
+        for(j = 0; battles[i].players.length; j++) {
           if(battles[i].players[j] === playerId) {
             battles.splice(i, 1);
           }
