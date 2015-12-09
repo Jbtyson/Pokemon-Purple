@@ -35,7 +35,7 @@ var PokemonDbao = function(_db) {
       }, params);
     }
 
-    var retrieveMovesForPokemonInstance(pokemonInstanceId, callback) {
+    var retrieveMovesForPokemonInstance = function(pokemonInstanceId, callback) {
       var query = "CALL sp_retrievePokemonInstanceMoves(?)";
       params = [pokemonInstanceId];
       db.query(query, function(results) {
