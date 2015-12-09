@@ -160,7 +160,7 @@ function onRunFromBattle(message) {
   var playerId = message.playerId;
 
   var _this = this;
-  gameMangager.battleManager.onRunFromBattle(playerId, function(response) {
+  gameManager.battleManager.onRunFromBattle(playerId, function(response) {
     _this.emit("runFromBattleResult", response);
   });
 }
