@@ -86,7 +86,7 @@ function onAuthenticate(message) {
       password = message.password;
 
   var _this = this;
-  userService.attemptUserLogin(username, password, this, function(response) {
+  userService.attemptUserLogin(username, password, _this, function(response) {
     _this.emit("authResult", response);
   });
 }
