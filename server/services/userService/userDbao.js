@@ -9,7 +9,7 @@ var UserDbao = function(_db) {
         var playerId;
         // we only need the first result
         if(!!results && !!results[0] && results[0][0]) {
-          playerId = results[0][0].user_id;
+          playerId = results[0].user_id;
         }
         // no results
         else {
