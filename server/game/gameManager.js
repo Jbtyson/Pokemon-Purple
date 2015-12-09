@@ -33,7 +33,7 @@ var GameManager = function(regionService, pokemonService, playerService) {
           console.log(message);
           console.log(users[i].socket);
           users[i].socket.emit(messageType, message);
-          global.sockets.connected(users[i].socket.id).emit(messageType, message);
+          global.socket.sockets.connected(users[i].socket.id).emit(messageType, message);
         }
       }
     }
