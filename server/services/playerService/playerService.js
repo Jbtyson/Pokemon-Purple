@@ -25,11 +25,18 @@ var PlayerService = function(db) {
       });
     }
 
+    var retrievePcByPlayerId = function(playerId, callback) {
+      playerDbao.retrievePcByPlayerId(playerId, function(pokemon) {
+        callback(pokemon);
+      });
+    }
+
     return {
       playerDbao: playerDbao,
       retrievePartyByPlayerId: retrievePartyByPlayerId,
       addPokemonToParty: addPokemonToParty,
-      removePokemonFromParty: removePokemonFromParty
+      removePokemonFromParty: removePokemonFromParty,
+      retrievePcByPlayerId: retrievePcByPlayerId
     }
 };
 exports.PlayerService = PlayerService;

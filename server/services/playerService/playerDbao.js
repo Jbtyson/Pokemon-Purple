@@ -4,6 +4,31 @@ var PokemonInstance = require("../../game/pokemonInstance.js").PokemonInstance
 var PlayerDbao = function(_db) {
     var db = _db
 
+    var createInstanceFromDataRow = function(row) {
+      var base = {
+        name: row.name,
+        pokemonId: row.pokemon_id
+      }
+
+      var pkmn = new PokemonInstance(
+        base,
+        row.level,
+        row.name,
+        row.max_hp,
+        row.cur_hp,
+        row.attack,
+        row.special_attack,
+        row.defense,
+        row.special_defense,
+        row.speed,
+        row.current_xp,
+        row.xp_to_next_level,
+        row.pokemon_instance_id
+      );
+
+      return pkmn;
+    }
+
     // Retrieve the data for all of the pokemon instances in a party belonging to a playerid
     var retrievePartyByPlayerId = function(playerId, callback) {
       var query = "CALL sp_retrievePokemonInstancesInParty(?);";
@@ -49,7 +74,6 @@ var PlayerDbao = function(_db) {
       db.query(query, function(results) {
         callback(!!results.affectedRows);
       });
-
     }
 
     // Removes a specified pokemons instance id from a players party
@@ -60,11 +84,30 @@ var PlayerDbao = function(_db) {
       });
     }
 
+    var retrievePcByPlayerId = function(playerId, callback) {
+      var query = "CALL sp_retrievePcByPlayerId(?)"
+      var params = [playerId];
+      db.query(query, function(results) {
+        var pokemon = [];
+        for(i = 0; i < results[0].length; i++) {
+          var pokemon = {
+            name: results[0][i].name,
+            pokemonId:results[0][i].pokemon_id,
+            pokemonInstanceId:results[0][i].pokemon_instance_id
+          }
+          pokemon.push(pokemonInstance);
+        }
+
+        callback(pokemon)
+      }, params);
+    }
+
     return {
       db: db,
       retrievePartyByPlayerId: retrievePartyByPlayerId,
       addPokemonToParty: addPokemonToParty,
-      removePokemonFromParty: removePokemonFromParty
+      removePokemonFromParty: removePokemonFromParty,
+      retrievePcByPlayerId: retrievePcByPlayerId
     }
 };
 exports.PlayerDbao = PlayerDbao;

@@ -69,6 +69,7 @@ var onSocketConnection = function(client) {
   client.on("searchForWildPokemon", onSearchForWildPokemon);
   client.on("battleMoveSelected", onBattleMoveSelected);
   client.on("retrievePokedex", onRetrievePokedex);
+  client.on("retrievePc", onRetrievePc);
 }
 
 /** Attempt authentication based on username and password
@@ -139,6 +140,15 @@ function onRetrievePokedex(message) {
   var _this = this;
   pokemonService.retrieveAllBasePokemon(function(response) {
     _this.emit("retrievePokedexResult", response);
+  });
+}
+
+function onRetrievePokedex(message) {
+  var playerId = message.playerId;
+
+  var _this = this;
+  pokemonService.retrievePcByPlayerId(playerId, function(response) {
+    _this.emit("retrievePcResult", response);
   });
 }
 

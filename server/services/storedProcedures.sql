@@ -131,3 +131,18 @@ BEGIN
   SELECT * FROM BasePokemon;
 END
 //
+
+DROP PROCEDURE IF EXISTS sp_retrievePcByPlayerId
+//
+CREATE PROCEDURE sp_retrievePcByPlayerId(
+  in playerId int
+)
+BEGIN
+  SELECT PIB.pokemon_instance_id, BP.pokemon_id, BP.name FROM PokemonInBox PIB
+  JOIN InstanceOfPokemon IOP
+  ON IOP.pokemon_instance_id=PIB.pokemon_instance_id
+  JOIN BasePokemon BP
+  ON BP.pokemon_id=IOP.pokemon_id
+  WHERE user_id=playerId;
+END
+//
