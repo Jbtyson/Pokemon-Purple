@@ -31,6 +31,7 @@ var GameManager = function(regionService, pokemonService, playerService) {
         if(users[i].playerId === userId) {
           console.log("Sending user message: " + messageType);
           console.log(message);
+          console.log(users[i].socket);
           users[i].socket.emit(messageType, message);
         }
       }
