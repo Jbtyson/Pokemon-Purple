@@ -44,12 +44,25 @@ var BattleManager = function(_pokemonService) {
       }
     }
 
+    var onRunFromBattle = function(playerId, callback) {
+      for(i = 0; i < battles.length; i++) {
+        for(j = 0; players.length; j++) {
+          if(battles[i].players[j] === playerId) {
+            battles.splice(i, 1);
+          }
+        }
+      }
+
+      callback({});
+    }
+
     return {
       battles: battles,
       init: init,
       onMoveSelected: onMoveSelected,
       createBattleWithWildPokemon: createBattleWithWildPokemon,
-      resolveWildPokemonBattle: resolveWildPokemonBattle
+      resolveWildPokemonBattle: resolveWildPokemonBattle,
+      onRunFromBattle: onRunFromBattle
     }
 };
 exports.BattleManager = BattleManager;
