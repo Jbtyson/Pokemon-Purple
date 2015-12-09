@@ -177,7 +177,7 @@ function onSwitchActivePokemon(message) {
   });
 }
 
-function onRetreiveItemsInBag(message) {
+function onRetrieveItemsInBag(message) {
   var playerId = message.playerId;
 
   var _this = this;
