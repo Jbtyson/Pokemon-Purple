@@ -181,7 +181,7 @@ function onRetrieveItemsInBag(message) {
   var playerId = message.playerId;
 
   var _this = this;
-  itemService.retrieveAllItemsInBag(playerId, function(response) {
+  itemService.retrieveItemsInBag(playerId, function(response) {
     _this.emit("retrieveItemsInBagResult", response);
   });
 }
