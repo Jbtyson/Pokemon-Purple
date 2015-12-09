@@ -18,8 +18,8 @@ var BattleManager = function(_pokemonService) {
     }
 
     var onMoveSelected = function(playerId, pokemonInstanceId, moveId, callback) {
-      battles[0].onMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
-        callback(response);
+      battles[0].onMoveSelected(playerId, pokemonInstanceId, moveId, function(responseType, response) {
+        callback(responseType, response);
       });
     }
 
@@ -44,7 +44,6 @@ var BattleManager = function(_pokemonService) {
           battles.splice(i, 1);
         }
       }
-      global.gameManager.messageUser(playerId, "battleResult", { victory: playerVictory });
     }
 
     return {

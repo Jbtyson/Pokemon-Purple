@@ -31,13 +31,17 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
       switchTurns();
-      callback(response);
+      callback("moveSelectedResult", response);
 
       if(wildPokemonBattle) {
         // check for player victory
         if(defendingPokemon.curHp === 0) {
           var playerVictory = true;
-          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory, battleId);
+          response = {
+            victory: playerVictory,
+          }
+          global.gameManager.battleManager.resolveWildPokemonBattle(battleId);
+          callback("battleResult", response)
           return;
         }
 
@@ -49,13 +53,17 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         switchTurns();
         // busy wait for demo
         setTimeout(function() {
-          callback(response);
+          callback("moveSelectedResult", response);
         }, 2500);
 
         // check for player loss
         if(attackingPokemon.curHp <= 0) {
           var playerVictory = false;
-          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory, battleId);
+          response = {
+            victory: playerVictory,
+          }
+          global.gameManager.battleManager.resolveWildPokemonBattle(battleId);
+          callback("battleResult", response)
           return;
         }
       }

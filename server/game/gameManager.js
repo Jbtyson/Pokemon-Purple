@@ -26,18 +26,6 @@ var GameManager = function(regionService, pokemonService, playerService) {
       playerManager.init();
     }
 
-    var messageUser = function(userId, messageType, message) {
-      for(i = 0; i < users.length; i++) {
-        if(users[i].playerId === userId) {
-          console.log("Sending user message: " + messageType);
-          console.log(message);
-          console.log(users[i].socket);
-          users[i].socket.emit(messageType, message);
-          global.sendMessage(users[i].socket.id, messageType, message);
-        }
-      }
-    }
-
     return {
       regionManager: regionManager,
       wildPokemonManager: wildPokemonManager,
@@ -46,8 +34,7 @@ var GameManager = function(regionService, pokemonService, playerService) {
       users: users,
       addUser: addUser,
       removeUser: removeUser,
-      startGame: startGame,
-      messageUser: messageUser
+      startGame: startGame
     }
 };
 exports.GameManager = GameManager;

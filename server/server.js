@@ -45,11 +45,8 @@ function init() {
 
   gameManager = new GameManager(regionService, pokemonService, playerService);
   global.gameManager = gameManager;
-  global.clients = {};
   console.log("Initialization complete.");
   socket = io.listen(PORT);
-  global.socket = socket;
-  global.io = io;
   console.log("Listening on port " + PORT);
   console.log("=======================");
   setEventHandlers();
@@ -63,7 +60,6 @@ var setEventHandlers = function() {
 
 var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
-  global.clients[client.id] = client;
   client.on("disconnect", onClientDisconnect);
   client.on("authenticate", onAuthenticate);
   client.on("retrieveParty", onRetrieveParty);
@@ -137,8 +133,8 @@ function onBattleMoveSelected(message) {
       moveId = message.moveId;
 
   var _this = this;
-  gameManager.battleManager.onMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
-    _this.emit("battleMoveSelectedResult", response);
+  gameManager.battleManager.onMoveSelected(playerId, pokemonInstanceId, moveId, function(responseType, response) {
+    _this.emit(responseType, response);
   });
 }
 
