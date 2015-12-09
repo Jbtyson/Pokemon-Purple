@@ -48,6 +48,7 @@ var Battle = function(id, _players, _pokemon) {
     }
 
     var performMove = function(attackingPokemon, defendingPokemon, move) {
+      console.log(move);
       if(move.pp > 0) {
         var attack;
         var defense;
