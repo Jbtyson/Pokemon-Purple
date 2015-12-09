@@ -16,8 +16,8 @@ var UserService = function(db) {
         var user = new User(socket, username, password)
 
         if(playerId != -1) {
-          util.log(user.username + " logged in with id: " + user.playerId);
           user.playerId = playerId
+          util.log(user.username + " logged in with id: " + user.playerId);
 
           response.success = true;
           var clientUser = {
