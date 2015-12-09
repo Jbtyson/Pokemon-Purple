@@ -36,7 +36,7 @@ var BattleManager = function(_pokemonService) {
         pokemon1: playerPokemonInstance,
         pokemon2: wildPokemonInstance
       };
-      var battle = new Battle(this, battleId, playerIds, pokemons);
+      var battle = new Battle(battleId, playerIds, pokemons);
       battles.push(battle);
     }
 
