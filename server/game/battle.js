@@ -42,7 +42,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
           }
           global.gameManager.battleManager.resolveWildPokemonBattle(battleId);
           callback("battleResult", response)
-          //return;
+          return;
         }
 
         // perform random attack
