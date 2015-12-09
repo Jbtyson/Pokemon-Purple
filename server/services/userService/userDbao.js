@@ -15,7 +15,7 @@ var UserDbao = function(_db) {
         else {
           playerId = -1
         }
-
+        console.log(">>>>>>>>>>>>>" + playerId);
         callback(playerId);
       }, params);
     }
