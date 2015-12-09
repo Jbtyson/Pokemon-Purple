@@ -141,24 +141,31 @@ BattleChooseState.prototype = {
 };
 
 function MoveChooseState(machine, pk1, pk2) {
+  console.log(pk1);
+  console.log(pk1.moves);
   this.battle = new Battle(machine.gui, pk1, pk2);
   this.menu = new MoveBar(machine.gui, 600, 110, 200, pk1.moves);
+  this.menu.setPosition(0, 450 - 110);
+  this.menu.onGo = function(move) {
+    machine.socket.emit("battleMoveSelected", {playerId: machine.user.playerId, moveId: move.moveId, pokemonInstanceId: pk1.id});
+  }
 }
 
 MoveChooseState.prototype = {
-  enter: function(gui, aux) {
-    gui.attach(this.menu);
+  enter: function(machine, aux) {
+    battle.play();
+    machine.gui.attach(this.menu);
   },
 
-  loop: function(gui, aux) {
+  loop: function(machine, aux) {
     this.battle.update();
     this.menu.update();
-    this.battle.render(gui.context, 0, 0);
-    this.menu.render(gui.context, 0, 0);
+    this.battle.render(machine.gui.context, 0, 0);
+    this.menu.render(machine.gui.context, 0, 0);
   },
 
-  exit: function(gui, aux) {
-    gui.detach(this.menu);
+  exit: function(machine, aux) {
+    machine.gui.detach(this.menu);
   }
 }
 

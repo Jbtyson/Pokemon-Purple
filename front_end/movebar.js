@@ -8,6 +8,7 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
   Renderable.call(this, gui);
 
   this.movenum = 0;
+  this.moves = moves;
 
   this.dimensions.x = mainBoxW;
   this.dimensions.y = mainBoxH;
@@ -46,7 +47,11 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
 
   this.move2 = new Text(gui, (mainBoxW - moveBoxW - 64) / 2, 48);
   this.move2.setFont('22px Arial');
-  this.move2.setText(moves[1].name);
+  if(moves.length > 1) {
+    this.move2.setText(moves[1].name);
+  } else {
+    this.move2.setText("-");
+  }
 
   left.add(this.move1);
   left.add(this.move2);
@@ -54,11 +59,19 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
 
   this.move3 = new Text(gui, (moveBoxW - 64) / 2, 48);
   this.move3.setFont('22px Arial');
-  this.move3.setText(moves[2].name);
+  if(moves.length > 2) {
+    this.move3.setText(moves[2].name);
+  } else {
+    this.move3.setText("-");
+  }
 
   this.move4 = new Text(gui, (moveBoxW - 64) / 2, 48);
   this.move4.setFont('22px Arial');
-  this.move4.setText(moves[3].name);
+  if(moves.length > 3) {
+    this.move4.setText(moves[3].name);
+  } else {
+    this.move4.setText("-");
+  }
 
   this.moves = moves;
 
@@ -95,19 +108,24 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
 
   //set the event handlers
   var self = this;
+  var setMovenum = function(n) {
+    if(moves.length > n) {
+      self.movenum = n;
+    }
+  }
   this.gobtn.onClick = function(x, y) { self.onGo(moves[self.movenum]); }
-  this.move1.onClick = function(x, y) { self.movenum = 0; }
-  this.move2.onClick = function(x, y) { self.movenum = 1; }
-  this.move3.onClick = function(x, y) { self.movenum = 2; }
-  this.move4.onClick = function(x, y) { self.movenum = 3; }
+  this.move1.onClick = function(x, y) { setMovenum(0); }
+  this.move2.onClick = function(x, y) { setMovenum(1); }
+  this.move3.onClick = function(x, y) { setMovenum(2); }
+  this.move4.onClick = function(x, y) { setMovenum(3); }
 }
 
 MoveBar.prototype = Object.create(Renderable.prototype, {
   update: {value : function() {
     Renderable.prototype.update.apply(this);
-    this.ratio.setText(moves[this.movenum].pp + ' / ' + moves[this.movenum].maxpp);
+    this.ratio.setText(this.moves[this.movenum].pp + ' / ' + this.moves[this.movenum].maxpp);
     this.ratio.update();
-    this.type.setText('TYPE' + ' / ' + moves[this.movenum].type);
+    this.type.setText('TYPE' + ' / ' + this.moves[this.movenum].type);
     this.type.update();
   }},
   onClick: {value : function(x, y) {
