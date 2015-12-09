@@ -126,7 +126,7 @@ function onSearchForWildPokemon(message) {
 // Use a move in a battle
 function onBattleMoveSelected(message) {
   var playerId = message.playerId,
-      pokemonInstanceId = message.pokmonInstanceId,
+      pokemonInstanceId = message.pokemonInstanceId,
       moveId = message.moveId;
 
   var _this = this;
