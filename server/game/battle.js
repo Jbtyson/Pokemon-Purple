@@ -40,7 +40,7 @@ var Battle = function(id, _players, _pokemon) {
         switchTurns();
         setTimeout(function() {
           callback(response);
-        }, 5000);
+        }, 2500);
       }
     }
 
