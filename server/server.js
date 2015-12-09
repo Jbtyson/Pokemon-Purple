@@ -67,6 +67,7 @@ var onSocketConnection = function(client) {
   client.on("retrieve party", onRetrieveParty);
   client.on("tryCatchWildPokemon", onTryCatchWildPokemon);
   client.on("searchForWildPokemon", onSearchForWildPokemon);
+  client.on("battleMoveSelected", onBattleMoveSelected);
 }
 
 /** Attempt authentication based on username and password
@@ -129,7 +130,7 @@ function onBattleMoveSelected(message) {
 
   var _this = this;
   gameManager.battleManager.onBattleMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
-    _this.emit("pokemonBattleMoveSelectedResult", response);
+    _this.emit("battleMoveSelectedResult", response);
   });
 }
 
