@@ -95,7 +95,7 @@ function onRetrieveParty(message) {
   var playerId = message.playerId;
 
   var _this = this;
-  playerService.retrievePlayerById(playerId, function(response) {
+  playerService.retrievePartyByPlayerId(playerId, function(response) {
     _this.emit("retrievePartyResult", response);
   });
 }
