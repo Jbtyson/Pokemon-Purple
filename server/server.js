@@ -31,7 +31,6 @@ var gameManager;
 
 function init() {
   console.log("Initializing...");
-  global.io = io;
   users = [];
 
   console.log("Connecting to db...");
@@ -49,6 +48,7 @@ function init() {
   global.clients = {};
   console.log("Initialization complete.");
   socket = io.listen(PORT);
+  global.socket = socket;
   console.log("Listening on port " + PORT);
   console.log("=======================");
   setEventHandlers();
