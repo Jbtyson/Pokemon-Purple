@@ -27,6 +27,7 @@ var UserService = function(db) {
           response.user = clientUser;
         }
 
+        global.gameManager.addUser(user);
         callback(response);
       });
     }
