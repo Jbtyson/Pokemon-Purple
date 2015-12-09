@@ -46,7 +46,7 @@ function init() {
 
   gameManager = new GameManager(regionService, pokemonService, playerService);
   global.gameManager = gameManager;
-
+  gloal.clients = {};
   console.log("Initialization complete.");
   socket = io.listen(PORT);
   console.log("Listening on port " + PORT);
@@ -62,7 +62,7 @@ var setEventHandlers = function() {
 
 var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
-  client.emit("test", {});
+  global.clients[client.id] = client;
   client.on("disconnect", onClientDisconnect);
   client.on("authenticate", onAuthenticate);
   client.on("retrieveParty", onRetrieveParty);
