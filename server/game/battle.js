@@ -146,7 +146,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
       var response = {
         players: players,
         pokemon: pokemon,
-        attackingPokemonInstanceId: pokemonInstanceId,
+        attackingPokemonInstanceId: pokemonInstance.id,
         usedMove: null
       }
 
