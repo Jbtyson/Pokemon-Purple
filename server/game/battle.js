@@ -55,7 +55,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         // check for player loss
         if(attackingPokemon.curHp <= 0) {
           var playerVictory = false;
-          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory, battleId);\
+          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory, battleId);
           return;
         }
       }
