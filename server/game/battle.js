@@ -19,17 +19,13 @@ var Battle = function(id, _players, _pokemon) {
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
       var move;
-      console.log("rip " + attackingPokemon.moves[0].moveId)
       for(i = 0; i < attackingPokemon.moves.length; i++) {
         if(attackingPokemon.moves[i].moveId === moveId) {
           move = attackingPokemon.moves[i];
-          console.log("here");
         }
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
       switchTurns();
-      console.log("RESPONSE:");
-      console.log(response);
       callback(response);
 
       if(players[1] === "AI") {
@@ -63,7 +59,7 @@ var Battle = function(id, _players, _pokemon) {
           defense = defendingPokemon.specialDefense;
         }
         var level;
-        if(calculateCritical) {
+        if(determineCritical(attackingPokemon.speed)) {
           level = attackingPokemon.level * 2;
         }
         else {
@@ -84,7 +80,7 @@ var Battle = function(id, _players, _pokemon) {
       return damage;
     }
 
-    var calculateCritMod = function(speed) {
+    var determineCritical = function(speed) {
       var chance = speed / 256;
       var rand = Math.random() * 100;
       return chance <= rand;
