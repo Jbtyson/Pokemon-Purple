@@ -151,7 +151,7 @@ function onRetrievePc(message) {
   var playerId = message.playerId;
 
   var _this = this;
-  pokemonService.retrievePcByPlayerId(playerId, function(response) {
+  playerService.retrievePcByPlayerId(playerId, function(response) {
     _this.emit("retrievePcResult", response);
   });
 }
