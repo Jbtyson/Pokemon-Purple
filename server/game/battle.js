@@ -22,7 +22,7 @@ var Battle = function(id, _players, _pokemon) {
       var move;
       for(i = 0; i < attackingPokemon.moves.length; i++) {
         if(attackingPokemon.moves[i].moveId = moveId) {
-          move = atttackingPokemon.moves[i];
+          move = attackingPokemon.moves[i];
         }
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
