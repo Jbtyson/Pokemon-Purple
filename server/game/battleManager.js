@@ -49,12 +49,12 @@ var BattleManager = function(_pokemonService) {
         for(j = 0; battles[i].players.length; j++) {
           if(battles[i].players[j] === playerId) {
             battles.splice(i, 1);
+            callback({});
             return;
           }
         }
       }
 
-      callback({});
     }
 
     var onSwitchActivePokemon = function(playerId, pokemonInstanceId, callback) {
