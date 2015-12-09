@@ -91,7 +91,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         baseDamage = calculateDamage(attackingPokemon.level, move.power, attack, defense);
         modifier = 1; //calculateModifier(move.typeId, attackingPokemon.types, defendingPokemon.types);
         finalDamage = Math.ceil(baseDamage * modifier);
-        defendingPokemon.curHp -= finalDamage;
+        defendingPokemon.curHp -= 100; //finalDamage;
         if(defendingPokemon.curHp <= 0) {
           defendingPokemon.curHp = 0;
         }
