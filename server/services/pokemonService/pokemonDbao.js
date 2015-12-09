@@ -35,6 +35,26 @@ var PokemonDbao = function(_db) {
       }, params);
     }
 
+    var retrieveMovesForPokemonInstance(pokemonInstanceId, callback) {
+      var query = "CALL sp_retrievePokemonInstanceMoves(?)";
+      params = [pokemonInstanceId];
+      db.query(query, function(results) {
+        moves = [];
+        for(i = 0; i < results; i++) {
+          var move = {
+            name: results[0][i].name,
+            accuracy: results[0][i].accuracy,
+            power: results[0][i].power,
+            pp: results[0][i].pp,
+            type: resulst[0][i].type,
+            moveId: results[0][i].move_id
+          }
+        }
+
+        callback(moves);
+      }, params);
+    }
+
     var retrievePokemonById = function(pkmnId, callback) {
       var query = "SELECT * FROM Pokemon WHERE pokemon_id=" + pkmnId + ";";
       db.query(query, function(results) {
@@ -85,7 +105,8 @@ var PokemonDbao = function(_db) {
       retrievePokemonInstanceById: retrievePokemonInstanceById,
       retrievePokemonId: retrievePokemonById,
       retrieveAllWildPokemon: retrieveAllWildPokemon,
-      retrieveAllTypeRelations: retrieveAllTypeRelations
+      retrieveAllTypeRelations: retrieveAllTypeRelations,
+      retrieveMovesForPokemonInstance: retrieveMovesForPokemonInstance
     }
 };
 exports.PokemonDbao = PokemonDbao;

@@ -63,15 +63,20 @@ var WildPokemonManager = function(_gameManager, _pokemonService, _playerService)
         }
 
         selectedPokemonInstance = party[0];
-        response.selectedPokemonInstance = selectedPokemonInstance;
+        pokemonService.retrieveMovesForPokemonInstance(selectedPokemonInstance.pokemonInstanceId, function(moves) {
+          selectedPokemonInstance.moves = moves;
+          response.selectedPokemonInstance = selectedPokemonInstance;
 
-        pokemonService.retrieveWildPokemonForDemo(function(pokemonInstance) {
-          global.gameManager.battleManager.createBattleWithWildPokemon(playerId, selectedPokemonInstance, pokemonInstance);
+          pokemonService.retrieveWildPokemonForDemo(function(pokemonInstance) {
 
-          response.wildPokemon = pokemonInstance;
-          callback(response);
+            pokemonService.retrieveMovesForPokemonInstance(pokemonInstance.pokemonInstanceId, function(moves1) {
+              pokemonInstance.moves = moves1;
+              global.gameManager.battleManager.createBattleWithWildPokemon(playerId, selectedPokemonInstance, pokemonInstance);
+              response.wildPokemon = pokemonInstance;
+              callback(response);
+            });
+          });
         });
-
       });
     }
 
