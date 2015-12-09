@@ -47,6 +47,7 @@ var PokemonDbao = function(_db) {
             accuracy: results[0][i].accuracy,
             power: results[0][i].power,
             pp: results[0][i].pp,
+            maxPp: pp, //TODO: implement this
             type: results[0][i].type,
             moveId: results[0][i].move_id
           }
