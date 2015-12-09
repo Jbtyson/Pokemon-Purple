@@ -153,10 +153,10 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
       // perform random attack
       var attackingPokemon = pokemon[1];
       var defendingPokemon = pokemon[0];
-      var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
-      attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
-      response.usedMove = defendingPokemon.moves[rand];
-      response.attackingPokemonInstanceId = defendingPokemon.id;
+      var rand = Math.floor(Math.random() * attackingPokemon.moves.length);
+      defendingPokemon = performMove(attackingPokemon, defendingPokemon, attackingPokemon.moves[rand]);
+      response.usedMove = attackingPokemon.moves[rand];
+      response.attackingPokemonInstanceId = attackingPokemon.id;
       switchTurns();
       // busy wait for demo
       setTimeout(function() {
