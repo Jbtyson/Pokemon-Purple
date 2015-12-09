@@ -37,10 +37,8 @@ var BattleManager = function(_pokemonService) {
     }
 
     var resolveWildPokemonBattle = function(playerVictory, battleId) {
-      var playerId;
       for(i = 0; i < battles.length; i++) {
         if(battles[i].battleId === battleId) {
-          playerId = battles[i].players[0];
           battles.splice(i, 1);
         }
       }

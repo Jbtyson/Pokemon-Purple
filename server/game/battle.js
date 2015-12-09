@@ -31,7 +31,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
       switchTurns();
-      callback("moveSelectedResult", response);
+      callback("battleMoveSelectedResult", response);
 
       if(wildPokemonBattle) {
         // check for player victory
@@ -53,7 +53,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         switchTurns();
         // busy wait for demo
         setTimeout(function() {
-          callback("moveSelectedResult", response);
+          callback("battleMoveSelectedResult", response);
         }, 2500);
 
         // check for player loss
