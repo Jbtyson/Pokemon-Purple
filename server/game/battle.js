@@ -37,7 +37,9 @@ var Battle = function(id, _players, _pokemon) {
         response.attackingPokemonInstanceId = defendingPokemon.id;
 
         switchTurns();
-        callback(response);
+        setTimeout(function() {
+          callback(response);
+        }, 5000);
       }
     }
 
