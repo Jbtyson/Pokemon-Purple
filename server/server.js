@@ -62,6 +62,7 @@ var setEventHandlers = function() {
 
 var onSocketConnection = function(client) {
   util.log("New player has connected: " + client.id);
+  client.emit("test", {});
   client.on("disconnect", onClientDisconnect);
   client.on("authenticate", onAuthenticate);
   client.on("retrieveParty", onRetrieveParty);
