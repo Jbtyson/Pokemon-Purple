@@ -40,6 +40,12 @@ var PokemonService = function(db) {
       });
     }
 
+    var retrieveAllBasePokemon = function(callback) {
+      pokemonDbao.retrieveAllBasePokemon(function(basePokemon) {
+        callback(basePokemon);
+      });
+    }
+
     return {
       pokemonDbao: pokemonDbao,
       retrievePokemonInstanceById: retrievePokemonInstanceById,

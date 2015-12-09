@@ -102,6 +102,22 @@ var PokemonDbao = function(_db) {
       });
     }
 
+    var retrieveAllBasePokemon = function(callback) {
+      var query = "CALL sp_retrieveAllBasePokemon";
+      db.query(query, function(results) {
+        var basePokemon = [];
+        for(i = 0; i < results[0].length; i++) {
+          var pokemon = {
+            pokemonId: results[0][i].pokemon_id,
+            name: results[0][i].name
+          }
+          basePokemon.push(pokemon);
+        }
+
+        callback(basePokemon);
+      });
+    }
+
     return {
       db: db,
       retrievePokemonInstanceById: retrievePokemonInstanceById,

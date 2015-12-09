@@ -123,3 +123,11 @@ BEGIN
   VALUES (playerId, pokemonInstanceId);
 END
 //
+
+DROP PROCEDURE IF EXISTS sp_retrieveAllBasePokemon
+//
+CREATE PROCEDURE sp_retrieveAllBasePokemon()
+BEGIN
+  SELECT * FROM BasePokemon;
+END
+//

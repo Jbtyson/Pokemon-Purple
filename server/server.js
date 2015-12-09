@@ -125,12 +125,18 @@ function onSearchForWildPokemon(message) {
 function onBattleMoveSelected(message) {
   var playerId = message.playerId,
       pokemonInstanceId = message.pokmonInstanceId,
-      moveId = message.moveId,
-      response;
+      moveId = message.moveId;
 
   var _this = this;
   gameManager.battleManager.onMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
     _this.emit("battleMoveSelectedResult", response);
+  });
+}
+
+function onRetrievePokedex(message) {
+  var _this = this;
+  pokemonService.retrieveAllBasePokemon(function(response) {
+    _this.emit("retrievePokedexResult", response);
   });
 }
 
