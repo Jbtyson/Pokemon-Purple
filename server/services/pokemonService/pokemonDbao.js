@@ -36,9 +36,11 @@ var PokemonDbao = function(_db) {
     }
 
     var retrieveMovesForPokemonInstance = function(pokemonInstanceId, callback) {
+      console.log("ID: " + pokemonInstanceId);
       var query = "CALL sp_retrievePokemonInstanceMoves(?)";
       params = [pokemonInstanceId];
       db.query(query, function(results) {
+        console.log(results);
         moves = [];
 
         for(i = 0; i < results; i++) {
