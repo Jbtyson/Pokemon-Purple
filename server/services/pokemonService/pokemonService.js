@@ -53,7 +53,8 @@ var PokemonService = function(db) {
       retrieveAllWildPokemon: retrieveAllWildPokemon,
       retrieveWildPokemonForDemo: retrieveWildPokemonForDemo,
       retrieveAllTypeRelations: retrieveAllTypeRelations,
-      retrieveMovesForPokemonInstance: retrieveMovesForPokemonInstance
+      retrieveMovesForPokemonInstance: retrieveMovesForPokemonInstance,
+      retrieveAllBasePokemon: retrieveAllBasePokemon
     }
 };
 exports.PokemonService = PokemonService;

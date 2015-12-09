@@ -16,7 +16,7 @@ var Battle = function(id, _players, _pokemon) {
         players: players,
         pokemon: pokemon,
         attackingPokemonInstanceId: pokemonInstanceId,
-        usedMoveId: moveId
+        usedMove: null
       }
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
@@ -24,6 +24,7 @@ var Battle = function(id, _players, _pokemon) {
       for(i = 0; i < attackingPokemon.moves.length; i++) {
         if(attackingPokemon.moves[i].moveId === moveId) {
           move = attackingPokemon.moves[i];
+          response.usedMove = move;
         }
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
@@ -33,7 +34,7 @@ var Battle = function(id, _players, _pokemon) {
       if(players[1] === "AI") {
         var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
         attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
-        response.usedMoveId = defendingPokemon.moves[rand].moveId;
+        response.usedMove = defendingPokemon.moves[rand];
         response.attackingPokemonInstanceId = defendingPokemon.id;
 
         switchTurns();

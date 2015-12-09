@@ -124,7 +124,8 @@ var PokemonDbao = function(_db) {
       retrievePokemonId: retrievePokemonById,
       retrieveAllWildPokemon: retrieveAllWildPokemon,
       retrieveAllTypeRelations: retrieveAllTypeRelations,
-      retrieveMovesForPokemonInstance: retrieveMovesForPokemonInstance
+      retrieveMovesForPokemonInstance: retrieveMovesForPokemonInstance,
+      retrieveAllBasePokemon: retrieveAllBasePokemon
     }
 };
 exports.PokemonDbao = PokemonDbao;

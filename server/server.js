@@ -68,6 +68,7 @@ var onSocketConnection = function(client) {
   client.on("tryCatchWildPokemon", onTryCatchWildPokemon);
   client.on("searchForWildPokemon", onSearchForWildPokemon);
   client.on("battleMoveSelected", onBattleMoveSelected);
+  client.on("retrievePokedex", onRetrievePokedex);
 }
 
 /** Attempt authentication based on username and password
