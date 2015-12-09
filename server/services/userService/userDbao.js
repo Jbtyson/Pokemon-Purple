@@ -8,15 +8,13 @@ var UserDbao = function(_db) {
       db.query(query, function(results) {
         var playerId;
         // we only need the first result
-        console.log(results);
         if(!!results && !!results[0] && results[0][0]) {
-          playerId = results[0][0].user_id;
+          playerId = results[0][0].playerId;
         }
         // no results
         else {
           playerId = -1
         }
-        console.log(">>>>>>>>>>>>>" + playerId);
         callback(playerId);
       }, params);
     }
