@@ -92,6 +92,7 @@ var PlayerDbao = function(_db) {
         for(i = 0; i < results[0].length; i++) {
           var pokemonInstance = {
             name: results[0][i].name,
+            level: results[0][i].level,
             pokemonId:results[0][i].pokemon_id,
             pokemonInstanceId:results[0][i].pokemon_instance_id
           }

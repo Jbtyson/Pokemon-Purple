@@ -69,6 +69,7 @@ var onSocketConnection = function(client) {
   client.on("retrievePokedex", onRetrievePokedex);
   client.on("retrievePc", onRetrievePc);
   client.on("runFromBattle", onRunFromBattle);
+  client.on("switchActivePokemon", onRunFromBattle);
 }
 
 global.sendMessage = function(clientId, messageType, message) {
@@ -164,6 +165,17 @@ function onRunFromBattle(message) {
     _this.emit("runFromBattleResult", response);
   });
 }
+
+function onRunFromBattle(message) {
+  var playerId = message.playerId;
+
+  var _this = this;
+  gameManager.battleManager.onRunFromBattle(playerId, function(response) {
+    _this.emit("runFromBattleResult", response);
+  });
+}
+
+
 
 function onClientDisconnect() {
     util.log("Player has disconnected: "+this.id);

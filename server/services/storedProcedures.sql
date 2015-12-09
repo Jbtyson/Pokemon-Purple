@@ -81,7 +81,7 @@ BEGIN
   WHERE player_id=playerId;
 END
 //
-
+5
 DROP PROCEDURE IF EXISTS sp_retrievePokemonInstanceMoves
 //
 CREATE PROCEDURE sp_retrievePokemonInstanceMoves(
@@ -138,11 +138,13 @@ CREATE PROCEDURE sp_retrievePcByPlayerId(
   in playerId int
 )
 BEGIN
-  SELECT PIB.pokemon_instance_id, BP.pokemon_id, BP.name FROM PokemonInBox PIB
+  SELECT PIB.pokemon_instance_id, BP.pokemon_id, BP.name, PI.level FROM PokemonInBox PIB
   JOIN InstanceOfPokemon IOP
   ON IOP.pokemon_instance_id=PIB.pokemon_instance_id
   JOIN BasePokemon BP
   ON BP.pokemon_id=IOP.pokemon_id
+  JOIN PokemonInstances PI
+  ON PI.pokemon_instance_id=PIB.pokemon_instance_id
   WHERE user_id=playerId;
 END
 //
