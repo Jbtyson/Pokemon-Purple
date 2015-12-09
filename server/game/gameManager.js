@@ -32,9 +32,6 @@ var GameManager = function(regionService, pokemonService, playerService) {
           console.log("Sending user message: " + messageType);
           console.log(message);
           users[i].socket.emit(messageType, message);
-          console.log(users[i].socket.emit);
-          console.log(users[i].socket.id);
-          global.io.emit(messageType, message);
         }
       }
     }
