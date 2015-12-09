@@ -134,6 +134,7 @@ function onBattleMoveSelected(message) {
 
   var _this = this;
   gameManager.battleManager.onMoveSelected(playerId, pokemonInstanceId, moveId, function(responseType, response) {
+    console.log("sending message type: " + responseType);
     _this.emit(responseType, response);
   });
 }
