@@ -44,7 +44,7 @@ var BattleManager = function(_pokemonService) {
           battles.splice(i, 1);
         }
       }
-      global.gameManager.messageUser("battleResult", { victory: playerVictory });
+      global.gameManager.messageUser(playerId, "battleResult", { victory: playerVictory });
     }
 
     return {
