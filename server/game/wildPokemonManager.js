@@ -63,13 +63,13 @@ var WildPokemonManager = function(_gameManager, _pokemonService, _playerService)
         }
 
         selectedPokemonInstance = party[0];
-        pokemonService.retrieveMovesForPokemonInstance(selectedPokemonInstance.pokemonInstanceId, function(moves) {
+        pokemonService.retrieveMovesForPokemonInstance(selectedPokemonInstance.id, function(moves) {
           selectedPokemonInstance.moves = moves;
           response.selectedPokemonInstance = selectedPokemonInstance;
 
           pokemonService.retrieveWildPokemonForDemo(function(pokemonInstance) {
 
-            pokemonService.retrieveMovesForPokemonInstance(pokemonInstance.pokemonInstanceId, function(moves1) {
+            pokemonService.retrieveMovesForPokemonInstance(pokemonInstance.id, function(moves1) {
               pokemonInstance.moves = moves1;
               global.gameManager.battleManager.createBattleWithWildPokemon(playerId, selectedPokemonInstance, pokemonInstance);
               response.wildPokemon = pokemonInstance;
