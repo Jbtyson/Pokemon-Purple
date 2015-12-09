@@ -6,7 +6,6 @@ var Battle = function(id, _players, _pokemon) {
     var playerTurn = 0;
 
     var onMoveSelected = function(playerId, moveId, callback) {
-      console.log(players);
       if(players[playerTurn] !== playerId) {
         response = { ERROR: "Incorrect player's turn." }
         callback(reponse);
@@ -22,7 +21,7 @@ var Battle = function(id, _players, _pokemon) {
       var move;
       console.log(attackingPokemon.moves)
       for(i = 0; i < attackingPokemon.moves.length; i++) {
-        if(attackingPokemon.moves[i].moveId = moveId) {
+        if(attackingPokemon.moves[i].moveId === moveId) {
           move = attackingPokemon.moves[i];
           console.log("here");
         }
