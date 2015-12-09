@@ -130,7 +130,7 @@ function onBattleMoveSelected(message) {
 
   var _this = this;
   gameManager.battleManager.onMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
-    consoel.log("Response:");
+    console.log("Response:");
     console.log(response);
     _this.emit("battleMoveSelectedResult", response);
   });
