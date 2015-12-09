@@ -90,7 +90,7 @@ var PlayerDbao = function(_db) {
       db.query(query, function(results) {
         var pokemon = [];
         for(i = 0; i < results[0].length; i++) {
-          var pokemon = {
+          var pokemonInstance = {
             name: results[0][i].name,
             pokemonId:results[0][i].pokemon_id,
             pokemonInstanceId:results[0][i].pokemon_instance_id
