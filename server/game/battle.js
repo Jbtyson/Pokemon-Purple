@@ -27,11 +27,10 @@ var Battle = function(id, _players, _pokemon) {
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
       switchTurns();
 
-      console.log(response);
       callback(response);
 
       if(players[1] === "AI") {
-        var rand = Math.floor(Math.random() * 4);
+        var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
         attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
         switchTurns();
         callback(response);
