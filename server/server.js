@@ -46,7 +46,7 @@ function init() {
 
   gameManager = new GameManager(regionService, pokemonService, playerService);
   global.gameManager = gameManager;
-  gloal.clients = {};
+  global.clients = {};
   console.log("Initialization complete.");
   socket = io.listen(PORT);
   console.log("Listening on port " + PORT);
