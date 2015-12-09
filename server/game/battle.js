@@ -54,7 +54,7 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
         // busy wait for demo
         setTimeout(function() {
           callback("battleMoveSelectedResult", response);
-        }, 2500);
+        }, 1000);
 
         // check for player loss
         if(attackingPokemon.curHp <= 0) {
