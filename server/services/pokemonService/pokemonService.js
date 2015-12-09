@@ -34,13 +34,20 @@ var PokemonService = function(db) {
       });
     }
 
+    var retrieveMovesForPokemonInstance = function(pokemonInstanceId, callback) {
+      pokemonDbao.retrieveMovesForPokemonInstance(pokemonInstanceId, function(moves) {
+        callback(moves);
+      });
+    }
+
     return {
       pokemonDbao: pokemonDbao,
       retrievePokemonInstanceById: retrievePokemonInstanceById,
       retrievePokemonById: retrievePokemonById,
       retrieveAllWildPokemon: retrieveAllWildPokemon,
       retrieveWildPokemonForDemo: retrieveWildPokemonForDemo,
-      retrieveAllTypeRelations: retrieveAllTypeRelations
+      retrieveAllTypeRelations: retrieveAllTypeRelations,
+      retrieveMovesForPokemonInstance: retrieveMovesForPokemonInstance
     }
 };
 exports.PokemonService = PokemonService;
