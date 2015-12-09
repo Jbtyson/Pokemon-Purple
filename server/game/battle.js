@@ -146,14 +146,14 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
       var response = {
         players: players,
         pokemon: pokemon,
-        attackingPokemonInstanceId: pokemonInstance.id,
+        attackingPokemonInstanceId: null,
         usedMove: null
       }
 
       // perform random attack
-      var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
       var attackingPokemon = pokemon[1];
       var defendingPokemon = pokemon[0];
+      var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
       attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
       response.usedMove = defendingPokemon.moves[rand];
       response.attackingPokemonInstanceId = defendingPokemon.id;
