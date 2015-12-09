@@ -28,11 +28,11 @@ var BattleManager = function(_pokemonService) {
 
     var createBattleWithWildPokemon = function(playerId, playerPokemonInstance, wildPokemonInstance) {
       var battleId = battleIdCounter++;
-      playerIds = {
+      var playerIds = {
         player1: playerId,
         player2: "AI"
       };
-      pokemons = {
+      var pokemons = {
         pokemon1: playerPokemonInstance,
         pokemon2: wildPokemonInstance
       };
