@@ -44,7 +44,8 @@ var GameManager = function(regionService, pokemonService, playerService) {
       users: users,
       addUser: addUser,
       removeUser: removeUser,
-      startGame: startGame
+      startGame: startGame,
+      messageUser: messageUser
     }
 };
 exports.GameManager = GameManager;
