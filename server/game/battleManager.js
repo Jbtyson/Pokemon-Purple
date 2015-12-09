@@ -44,7 +44,8 @@ var BattleManager = function(_pokemonService) {
     return {
       battles: battles,
       init: init,
-      onMoveSelected: onMoveSelected
+      onMoveSelected: onMoveSelected,
+      createBattleWithWildPokemon: createBattleWithWildPokemon
     }
 };
 exports.BattleManager = BattleManager;
