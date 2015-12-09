@@ -40,6 +40,7 @@ Gui.prototype = {
 			var pos = this.objects[i].position;
 			var dim = this.objects[i].dimensions;
       if(this.objects[i].onClick != null && inBox(pos, dim, x, y)) {
+				console.log(pos, dim, x, y);
 				this.objects[i].onClick(x, y);
 			}
 		}

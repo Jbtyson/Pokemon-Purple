@@ -95,16 +95,20 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
 
   //set the event handlers
   var self = this;
-  this.gobtn.onClick = function(x, y) { self.onGo(); }
-  this.move1.onClick = function(x, y) { self.onMove(0); }
-  this.move2.onClick = function(x, y) { self.onMove(1); }
-  this.move3.onClick = function(x, y) { self.onMove(2); }
-  this.move4.onClick = function(x, y) { self.onMove(3); }
+  this.gobtn.onClick = function(x, y) { self.onGo(moves[self.movenum]); }
+  this.move1.onClick = function(x, y) { self.movenum = 0; }
+  this.move2.onClick = function(x, y) { self.movenum = 1; }
+  this.move3.onClick = function(x, y) { self.movenum = 2; }
+  this.move4.onClick = function(x, y) { self.movenum = 3; }
 }
 
 MoveBar.prototype = Object.create(Renderable.prototype, {
   update: {value : function() {
     Renderable.prototype.update.apply(this);
+    this.ratio.setText(moves[this.movenum].pp + ' / ' + moves[this.movenum].maxpp);
+    this.ratio.update();
+    this.type.setText('TYPE' + ' / ' + moves[this.movenum].type);
+    this.type.update();
   }},
   onClick: {value : function(x, y) {
     this.mainBox.onClick(x - this.position.x, y - this.position.y);

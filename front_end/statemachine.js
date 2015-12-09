@@ -28,7 +28,7 @@ AuthState.prototype = {
 
 function MainMenuState(machine) {
   var mainmenu = new MainMenu(gui, 600 / 4 - 5, 120, 40, 40);
-  mainmenu.setPosition(0, 150);
+  mainmenu.setPosition(0, 0);
   mainmenu.onSearch = function() { transition(machine, new SearchWait(machine)); };
   mainmenu.onPC = function() { transition(machine, new PcWait(machine)); };
   mainmenu.onPokemon = function() { transition(machine, new PokemonWait(machine)); };;
@@ -117,7 +117,7 @@ function BattleChooseState(machine, pk1, pk2) {
   this.menu.setPosition(0, 450 - 110);
   this.menu.messageBox.setText("What will " + pk1.name + " do next?");
   this.battle.status1.animated = true;
-  this.menu.onFight = function() { transition(machine, new MoveChoose(machine, pk1, pk2)); };
+  this.menu.onFight = function() { transition(machine, new MoveChooseState(machine, pk1, pk2)); };
   this.menu.onPoke = function() {  };
   this.menu.onBag = function() {  };
   this.menu.onRun = function() {  };
@@ -140,9 +140,9 @@ BattleChooseState.prototype = {
   }
 };
 
-function MoveChooseState(gui, pk1, pk2) {
-  this.battle = new Battle(gui, aux.pk1, aux.pk2);
-  this.menu = new MoveBar(gui, 600, 110, 200, aux.pk1.moves);
+function MoveChooseState(machine, pk1, pk2) {
+  this.battle = new Battle(machine.gui, pk1, pk2);
+  this.menu = new MoveBar(machine.gui, 600, 110, 200, pk1.moves);
 }
 
 MoveChooseState.prototype = {
@@ -158,7 +158,7 @@ MoveChooseState.prototype = {
   },
 
   exit: function(gui, aux) {
-    gui.detach(aux.menu);
+    gui.detach(this.menu);
   }
 }
 
