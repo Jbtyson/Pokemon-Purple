@@ -72,14 +72,19 @@ function dispatchClick(obj, x, y) {
 }
 
 BagMenu.prototype = Object.create(Renderable.prototype, {
-  add: {value : function(value, action) {
+  add: {value : function(value, action, optional) {
     var item = new Text(this.gui, 400, 30);
+    var hbox = new HBox(this.gui, 20);
     item.onClick = function(x, y) {
       action();
     }
     item.setText(value);
-    item.update();
-    this.vbox.add(item);
+    if(!!optional) {
+      hbox.add(optional);
+    }
+    hbox.add(item);
+    hbox.update();
+    this.vbox.add(hbox);
   }},
   onClick: {value : function(x, y) {
     var x = x - this.position.x;
