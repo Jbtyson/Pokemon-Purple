@@ -1,6 +1,5 @@
 // batleManager.js
-var Battle = function(_battleManager, id, players, pokemon) {
-    var battleManager = _battleManager;
+var Battle = function(id, players, pokemon) {
     var battleId = id;
     var players = [];
     var pokemon = [];
@@ -98,17 +97,16 @@ var Battle = function(_battleManager, id, players, pokemon) {
         stab = 1.5;
       }
 
-      var mod1 = battleManager.getTypeToTypeModifier(moveTypeId, defendingPokemonTypes[0]);
+      var mod1 = global.gameManager.battleManager.getTypeToTypeModifier(moveTypeId, defendingPokemonTypes[0]);
       var mod2 = 1;
       if(!!defendingPokemonTypes[1]) {
-        battleManager.getTypeToTypeModifier(moveTypeId, defendingPokemonTypes[1]);
+        global.gameManager.battleManager.getTypeToTypeModifier(moveTypeId, defendingPokemonTypes[1]);
       }
 
       return mod1 * mod2 * stab;
     }
 
     return {
-      battleManager: battleManager,
       battleId: battleId,
       players: players,
       pokemon: pokemon,
