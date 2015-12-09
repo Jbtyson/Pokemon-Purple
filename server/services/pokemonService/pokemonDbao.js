@@ -54,7 +54,7 @@ var PokemonDbao = function(_db) {
           }
           moves.push(move);
         }
-
+        console.log(moves);
         callback(moves);
       }, params);
     }
