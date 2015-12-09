@@ -43,7 +43,7 @@ var PokemonDbao = function(_db) {
         console.log(results);
         moves = [];
 
-        for(i = 0; i < results; i++) {
+        for(i = 0; i < results[0].length; i++) {
           var move = {
             name: results[0][i].name,
             accuracy: results[0][i].accuracy,
