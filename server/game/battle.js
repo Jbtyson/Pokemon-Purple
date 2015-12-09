@@ -52,12 +52,12 @@ var Battle = function(id, _players, _pokemon) {
         var attack;
         var defense;
         if(true) { //move is physical
-          attack = attackingPokemon.attack;
-          defense = defendingPokemon.defense;
+          attack = attackingPokemon.att;
+          defense = defendingPokemon.def;
         }
         else { // move is not special
-          attack = attackingPokemon.specialAttack;
-          defense = defendingPokemon.specialDefense;
+          attack = attackingPokemon.spcAtt;
+          defense = defendingPokemon.spcDef;
         }
         var level;
         if(determineCritical(attackingPokemon.speed)) {
