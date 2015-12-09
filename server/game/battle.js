@@ -1,8 +1,8 @@
 // batleManager.js
-var Battle = function(id, players, pokemon) {
+var Battle = function(id, _players, _pokemon) {
     var battleId = id;
-    var players = [];
-    var pokemon = [];
+    var players = _players;
+    var pokemon = _pokemon;
     var playerTurn = 0;
 
     var onMoveSelected = function(playerId, moveId, callback) {

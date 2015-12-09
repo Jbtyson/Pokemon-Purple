@@ -18,9 +18,6 @@ var BattleManager = function(_pokemonService) {
     }
 
     var onMoveSelected = function(playerId, moveId, callback) {
-      console.log("=====================================");
-      console.log(battles[0]);
-      console.log("=====================================");
       battles[0].onMoveSelected(playerId, moveId, function(response) {
         callback(response);
       });
@@ -37,9 +34,6 @@ var BattleManager = function(_pokemonService) {
         pokemon2: wildPokemonInstance
       };
       var battle = new Battle(battleId, playerIds, pokemons);
-      console.log("=====================================");
-      console.log(battle);
-      console.log("=====================================");
       battles.push(battle);
     }
 
