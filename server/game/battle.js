@@ -5,7 +5,7 @@ var Battle = function(id, _players, _pokemon) {
     var pokemon = _pokemon;
     var playerTurn = 0;
 
-    var onMoveSelected = function(playerId, moveId, callback) {
+    var onMoveSelected = function(playerId, pokemonInstanceId, moveId, callback) {
       if(players[playerTurn] !== playerId) {
         response = { ERROR: "Incorrect player's turn." }
         callback(reponse);
@@ -15,6 +15,7 @@ var Battle = function(id, _players, _pokemon) {
       var response = {
         players: players,
         pokemon: pokemon,
+        attackingPokemonInstanceId: pokemonInstanceId,
         usedMoveId: moveId
       }
       var attackingPokemon = pokemon[playerTurn];
@@ -27,12 +28,14 @@ var Battle = function(id, _players, _pokemon) {
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
       switchTurns();
-
       callback(response);
 
       if(players[1] === "AI") {
         var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
         attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
+        response.usedMoveId = defendingPokemon.moves[rand].moveId;
+        response.attackingPokemonInstanceId = defendingPokemon.id;
+
         switchTurns();
         callback(response);
       }

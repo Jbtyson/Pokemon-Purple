@@ -18,7 +18,7 @@ var BattleManager = function(_pokemonService) {
     }
 
     var onMoveSelected = function(playerId, pokemonInstanceId, moveId, callback) {
-      battles[0].onMoveSelected(playerId, moveId, function(response) {
+      battles[0].onMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
         callback(response);
       });
     }
