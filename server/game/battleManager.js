@@ -1,4 +1,6 @@
 // batleManager.js
+var Battle = require("./battle.js").Battle;
+
 var BattleManager = function(_pokemonService) {
     pokemonService = _pokemonService;
     var battles = [];
@@ -9,7 +11,7 @@ var BattleManager = function(_pokemonService) {
       buildTypeRelations();
     }
 
-    var buildTypeRelations() {
+    var buildTypeRelations =function() {
       pokemonService.retrieveAllTypeRelations(function(relations) {
         typeModifiers = relations;
       });
@@ -18,7 +20,7 @@ var BattleManager = function(_pokemonService) {
     var onMoveSelected = function(playerId, moveId, callback) {
       battles[0].onMoveSelected(playerId, moveId, function(response) {
         callback(response);
-      }));
+      });
     }
 
     var createBattleWithWildPokemon = function(playerId, playerPokemonInstance, wildPokemonInstance) {

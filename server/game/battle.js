@@ -21,7 +21,7 @@ var Battle = function(_battleManager, id, players, pokemon) {
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
       var move;
-      for(i = 0; i < attackingPokemon.moves.length) {
+      for(i = 0; i < attackingPokemon.moves.length; i++) {
         if(attackingPokemon.moves[i].moveId = moveId) {
           move = atttackingPokemon.moves[i];
         }
