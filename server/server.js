@@ -12,7 +12,6 @@ var util = require("util"),
     // game
     GameManager = require("./game/gameManager").GameManager;
 
-
 var PORT = 12345,
     DB_HOST = "mysql.cis.ksu.edu";
     DB_USERNAME = "jbtyson";
@@ -32,6 +31,7 @@ var gameManager;
 
 function init() {
   console.log("Initializing...");
+  global.io = io;
   users = [];
 
   console.log("Connecting to db...");
