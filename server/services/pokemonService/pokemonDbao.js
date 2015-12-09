@@ -40,6 +40,7 @@ var PokemonDbao = function(_db) {
       params = [pokemonInstanceId];
       db.query(query, function(results) {
         moves = [];
+
         for(i = 0; i < results; i++) {
           var move = {
             name: results[0][i].name,
@@ -49,6 +50,7 @@ var PokemonDbao = function(_db) {
             type: resulst[0][i].type,
             moveId: results[0][i].move_id
           }
+          moves.push(move);
         }
 
         callback(moves);
