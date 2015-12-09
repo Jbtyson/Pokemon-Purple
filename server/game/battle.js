@@ -26,6 +26,8 @@ var Battle = function(id, _players, _pokemon) {
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
       switchTurns();
+
+      console.log(response);
       callback(response);
 
       if(players[1] === "AI") {
