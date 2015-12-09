@@ -14,7 +14,8 @@ var Battle = function(id, _players, _pokemon) {
 
       var response = {
         players: players,
-        pokemon: pokemon
+        pokemon: pokemon,
+        usedMoveId: moveId
       }
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
@@ -47,7 +48,6 @@ var Battle = function(id, _players, _pokemon) {
     }
 
     var performMove = function(attackingPokemon, defendingPokemon, move) {
-      console.log(move);
       if(move.pp > 0) {
         var attack;
         var defense;
