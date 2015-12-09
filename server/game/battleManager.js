@@ -37,6 +37,9 @@ var BattleManager = function(_pokemonService) {
         pokemon2: wildPokemonInstance
       };
       var battle = new Battle(battleId, playerIds, pokemons);
+      console.log("=====================================");
+      console.log(battle);
+      console.log("=====================================");
       battles.push(battle);
     }
 
