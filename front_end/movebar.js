@@ -93,7 +93,7 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
   this.ratio = new Text(gui, 60, 24);
   this.ratio.setPosition(mainBoxW - 100, 16);
   this.ratio.setFont('22px Arial');
-  this.ratio.setText(moves[this.movenum].pp + ' / ' + moves[this.movenum].maxpp);
+  this.ratio.setText(moves[this.movenum].pp + ' / ' + moves[this.movenum].maxPp);
   this.ratio.update();
 
   this.type = new Text(gui, 60, 24);
@@ -123,7 +123,7 @@ function MoveBar(gui, mainBoxW, mainBoxH, moveBoxW, moves) {
 MoveBar.prototype = Object.create(Renderable.prototype, {
   update: {value : function() {
     Renderable.prototype.update.apply(this);
-    this.ratio.setText(this.moves[this.movenum].pp + ' / ' + this.moves[this.movenum].maxpp);
+    this.ratio.setText(this.moves[this.movenum].pp + ' / ' + this.moves[this.movenum].maxPp);
     this.ratio.update();
     this.type.setText('TYPE' + ' / ' + this.moves[this.movenum].type);
     this.type.update();

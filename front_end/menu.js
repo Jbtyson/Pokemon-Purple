@@ -14,13 +14,16 @@ function MainMenu(gui, w, h, xoff, yoff) {
     this.search = new Button(gui, w, h, "#b30000", "Search", xoff, yoff);
     this.search.textBox.setFont("16px Arial Black");
     this.pc = new Button(gui, w, h, "#000099", "PC", xoff, yoff);
+    this.pc.textBox.setPosition(xoff + 20, yoff);
     this.pc.textBox.setFont("16px Arial Black");
     this.pokemon = new Button(gui, w, h, "#00802b", "Pokemon", xoff, yoff);
     this.pokemon.textBox.setFont("16px Arial Black");
+    this.pokemon.textBox.setPosition(xoff - 5, yoff);
     this.pokedex = new Button(gui, w, h, "#b38600", "Pokedex", xoff, yoff);
     this.pokedex.textBox.setFont("16px Arial Black");
+    this.pokedex.textBox.setPosition(xoff - 5, yoff);
     this.background = new Rectangle(gui, 600, 450);
-    var grd = gui.context.createLinearGradient(0,0,0,450);
+    var grd = gui.context.createLinearGradient(0, 0, 0, 450);
     grd.addColorStop(0, '#ccffff');
     grd.addColorStop(0.7, '#60d060');
     this.background.setColor(grd);

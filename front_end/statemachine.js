@@ -111,6 +111,9 @@ RunWait.prototype = {
   exit: function(machine) {}
 };
 
+  enter: function(machine) {
+  },
+  loop: function(machine) {
 function BattleChooseState(machine, pk1, pk2) {
   this.battle = new Battle(gui, pk1, pk2);
   this.menu = new ClassicBattleMenu(gui, 600, 110);
@@ -152,19 +155,16 @@ function MoveChooseState(machine, pk1, pk2) {
 }
 
 MoveChooseState.prototype = {
-  enter: function(machine, aux) {
     battle.play();
     machine.gui.attach(this.menu);
   },
 
-  loop: function(machine, aux) {
     this.battle.update();
     this.menu.update();
     this.battle.render(machine.gui.context, 0, 0);
     this.menu.render(machine.gui.context, 0, 0);
   },
 
-  exit: function(machine, aux) {
     machine.gui.detach(this.menu);
   }
 }
