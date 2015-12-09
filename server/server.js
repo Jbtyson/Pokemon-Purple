@@ -143,7 +143,7 @@ function onRetrievePokedex(message) {
   });
 }
 
-function onRetrievePokedex(message) {
+function onRetrievePc(message) {
   var playerId = message.playerId;
 
   var _this = this;

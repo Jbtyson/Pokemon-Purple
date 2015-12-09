@@ -1,9 +1,10 @@
 // batleManager.js
-var Battle = function(id, _players, _pokemon) {
+var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
     var battleId = id;
     var players = _players;
     var pokemon = _pokemon;
     var playerTurn = 0;
+    var wildPokemonBattle = _wildPokemonBattle;
 
     var onMoveSelected = function(playerId, pokemonInstanceId, moveId, callback) {
       if(players[playerTurn] !== playerId) {
@@ -28,12 +29,26 @@ var Battle = function(id, _players, _pokemon) {
         }
       }
       defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
+
+      if(wildPokemonBattle) {
+        if(defendingPokemon.curHp <= 0) {
+          var playerVictory = true;
+          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory);
+        }
+      }
+
       switchTurns();
       callback(response);
 
-      if(players[1] === "AI") {
+      if(wildPokemonBattle) {
         var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
         attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
+
+        if(attackingPokemon.curHp <= 0) {
+          var playerVictory = false;
+          global.gameManager.battleManager.resolveWildPokemonBattle(playerVictory);
+        }
+
         response.usedMove = defendingPokemon.moves[rand];
         response.attackingPokemonInstanceId = defendingPokemon.id;
 
@@ -116,7 +131,8 @@ var Battle = function(id, _players, _pokemon) {
       players: players,
       pokemon: pokemon,
       playerTurn: playerTurn,
-      onMoveSelected: onMoveSelected
+      onMoveSelected: onMoveSelected,
+      wildPokemonBattle: wildPokemonBattle
     }
 };
 exports.Battle = Battle;

@@ -27,7 +27,8 @@ var BattleManager = function(_pokemonService) {
       var battleId = battleIdCounter++;
       var playerIds = [playerId, "AI"]
       var pokemons = [playerPokemonInstance, wildPokemonInstance];
-      var battle = new Battle(battleId, playerIds, pokemons);
+      var wildPokemonBattle = true;
+      var battle = new Battle(battleId, playerIds, pokemons, wildPokemonBattle);
       battles.push(battle);
     }
 
@@ -35,11 +36,16 @@ var BattleManager = function(_pokemonService) {
       return typeModifiers[attackingTypeId][defendingTypeId];
     }
 
+    var resolveWildPokemonBattle = function(playerVictory) {
+      
+    }
+
     return {
       battles: battles,
       init: init,
       onMoveSelected: onMoveSelected,
-      createBattleWithWildPokemon: createBattleWithWildPokemon
+      createBattleWithWildPokemon: createBattleWithWildPokemon,
+      resolveWildPokemonBattle: resolveWildPokemonBattle
     }
 };
 exports.BattleManager = BattleManager;
