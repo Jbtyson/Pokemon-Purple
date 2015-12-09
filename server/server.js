@@ -45,6 +45,7 @@ function init() {
   regionService = new RegionService(db);
 
   gameManager = new GameManager(regionService, pokemonService, playerService);
+  global.gameManager = gameManager;
 
   console.log("Initialization complete.");
   socket = io.listen(PORT);

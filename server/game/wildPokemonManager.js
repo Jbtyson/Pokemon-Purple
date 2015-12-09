@@ -67,7 +67,7 @@ var WildPokemonManager = function(_gameManager, _pokemonService, _playerService)
 
         pokemonService.retrieveWildPokemonForDemo(function(pokemonInstance) {
           console.log(gameManager);
-          gameManager.battleManager.createBattleWithWildPokemon(playerId, selectedPokemonInstance, pokemonInstance);
+          global.gameManager.battleManager.createBattleWithWildPokemon(playerId, selectedPokemonInstance, pokemonInstance);
 
           response.wildPokemon = pokemonInstance;
           callback(response);
