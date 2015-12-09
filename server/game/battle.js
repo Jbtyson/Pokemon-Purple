@@ -139,13 +139,39 @@ var Battle = function(id, _players, _pokemon, _wildPokemonBattle) {
       return mod1 * mod2 * stab;
     }
 
+    var switchActivePokemon = function(playerId, pokemonInstance, callback) {
+      //demo purposes this is hardcoded
+      pokemon[0] = pokemonInstance;
+
+      var response = {
+        players: players,
+        pokemon: pokemon,
+        attackingPokemonInstanceId: pokemonInstanceId,
+        usedMove: null
+      }
+
+      // perform random attack
+      var rand = Math.floor(Math.random() * defendingPokemon.moves.length);
+      var attackingPokemon = pokemon[1];
+      var defendingPokemon = pokemon[0];
+      attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
+      response.usedMove = defendingPokemon.moves[rand];
+      response.attackingPokemonInstanceId = defendingPokemon.id;
+      switchTurns();
+      // busy wait for demo
+      setTimeout(function() {
+        callback(response);
+      }, 1000);
+    }
+
     return {
       battleId: battleId,
       players: players,
       pokemon: pokemon,
       playerTurn: playerTurn,
       onMoveSelected: onMoveSelected,
-      wildPokemonBattle: wildPokemonBattle
+      wildPokemonBattle: wildPokemonBattle,
+      switchActivePokemon: switchActivePokemon
     }
 };
 exports.Battle = Battle;

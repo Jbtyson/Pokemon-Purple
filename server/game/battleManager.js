@@ -56,13 +56,35 @@ var BattleManager = function(_pokemonService) {
       callback({});
     }
 
+    var onSwitchActivePokemon = function(playerId, pokemonInstanceId, callback) {
+      pokemonService.retrievePokemonInstanceById(pokemonInstanceId, function(pokemonInstance) {
+        battleIndex = findBattleIndexOfPlayer(playerId);
+        battles[i].switchActivePokemon(playerId, pokemonInstance, function(response) {
+          
+        });
+      });
+    }
+
+    var findBattleIndexOfPlayer = function(playerId) {
+      for(i = 0; i < battles.length; i++) {
+        for(j = 0; players.length; j++) {
+          if(battles[i].players[j] === playerId) {
+            return i;
+          }
+        }
+      }
+
+      return -1;
+    }
+
     return {
       battles: battles,
       init: init,
       onMoveSelected: onMoveSelected,
       createBattleWithWildPokemon: createBattleWithWildPokemon,
       resolveWildPokemonBattle: resolveWildPokemonBattle,
-      onRunFromBattle: onRunFromBattle
+      onRunFromBattle: onRunFromBattle,
+      onSwitchActivePokemon: onSwitchActivePokemon
     }
 };
 exports.BattleManager = BattleManager;
