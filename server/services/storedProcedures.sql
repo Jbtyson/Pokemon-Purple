@@ -81,7 +81,7 @@ BEGIN
   WHERE player_id=playerId;
 END
 //
-5
+
 DROP PROCEDURE IF EXISTS sp_retrievePokemonInstanceMoves
 //
 CREATE PROCEDURE sp_retrievePokemonInstanceMoves(
@@ -158,5 +158,18 @@ CREATE PROCEDURE sp_attemptAuth(
 BEGIN
   SELECT user_id AS playerId FROM Users U
   WHERE U.username=username AND U.password=password;
+END
+//
+
+DROP PROCEDURE IF EXISTS sp_retrieveItemsInBag
+//
+CREATE PROCEDURE sp_retrieveItemsInBag(
+  in playerId int
+)
+BEGIN
+  SELECT I.item_id, I.name, I.description, IIB.quantity FROM Items I
+  JOIN ItemsInBag IIB
+  ON IIB.item_id=I.item_id
+  WHERE player_id=playerId;
 END
 //

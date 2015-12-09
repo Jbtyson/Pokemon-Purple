@@ -70,6 +70,7 @@ var onSocketConnection = function(client) {
   client.on("retrievePc", onRetrievePc);
   client.on("runFromBattle", onRunFromBattle);
   client.on("switchActivePokemon", onSwitchActivePokemon);
+  client.on("retrieveItemsInBag", onRetrieveItemsInBag);
 }
 
 global.sendMessage = function(clientId, messageType, message) {
@@ -176,7 +177,14 @@ function onSwitchActivePokemon(message) {
   });
 }
 
+function onRetreiveItemsInBag(message) {
+  var playerId = message.playerId;
 
+  var _this = this;
+  itemService.retrieveAllItemsInBag(playerId, function(response) {
+    _this.emit("retrieveItemsInBagResult", response);
+  });
+}
 
 function onClientDisconnect() {
     util.log("Player has disconnected: "+this.id);

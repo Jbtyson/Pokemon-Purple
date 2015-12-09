@@ -12,10 +12,17 @@ var ItemService = function(db) {
       callback();
     }
 
+    var retrieveItemsInBag = function(playerId, callback) {
+      itemDbao.retrieveItemsInBag(playerId, function(items) {
+        callback(items);
+      });
+    }
+
     return {
       itemDbao: itemDbao,
       retrieveItemById: retrieveItemById,
-      retrieveItemHeldByPokemon: retrieveItemHeldByPokemon
+      retrieveItemHeldByPokemon: retrieveItemHeldByPokemon,
+      retrieveItemsInBag: retrieveItemsInBag
     }
 };
 exports.ItemService = ItemService;
