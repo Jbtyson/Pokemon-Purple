@@ -33,7 +33,7 @@ var GameManager = function(regionService, pokemonService, playerService) {
       console.log(">>>>>>>>>>" +userId);
       for(i = 0; i < users.length; i++) {
         if(users.playerId === userId) {
-          console.log("Sending user message: " + messsageType);
+          console.log("Sending user message: " + messageType);
           console.log(message);
           users.socket.emit(messageType, message);
         }
