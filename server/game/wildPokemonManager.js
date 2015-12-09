@@ -1,7 +1,8 @@
 // wildPokemonManager.js
 var PokemonInstance = require("./pokemonInstance.js").PokemonInstance;
 
-var WildPokemonManager = function(_pokemonService, _playerService) {
+var WildPokemonManager = function(_gameManager, _pokemonService, _playerService) {
+    var gameManager = _gameManager;
     var pokemonService = _pokemonService;
     var playerService = _playerService;
     var pokemonInstances = {};
