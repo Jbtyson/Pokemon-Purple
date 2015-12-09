@@ -17,7 +17,6 @@ var Battle = function(id, _players, _pokemon) {
         players: players,
         pokemon: pokemon
       }
-
       var attackingPokemon = pokemon[playerTurn];
       var defendingPokemon = pokemon[1-playerTurn];
       var move;
