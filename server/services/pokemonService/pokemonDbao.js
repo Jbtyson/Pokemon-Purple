@@ -36,11 +36,9 @@ var PokemonDbao = function(_db) {
     }
 
     var retrieveMovesForPokemonInstance = function(pokemonInstanceId, callback) {
-      console.log("ID: " + pokemonInstanceId);
       var query = "CALL sp_retrievePokemonInstanceMoves(?)";
       params = [pokemonInstanceId];
       db.query(query, function(results) {
-        console.log(results);
         moves = [];
 
         for(i = 0; i < results[0].length; i++) {
@@ -49,12 +47,11 @@ var PokemonDbao = function(_db) {
             accuracy: results[0][i].accuracy,
             power: results[0][i].power,
             pp: results[0][i].pp,
-            type: resulst[0][i].type,
+            type: results[0][i].type,
             moveId: results[0][i].move_id
           }
           moves.push(move);
         }
-        console.log(moves);
         callback(moves);
       }, params);
     }
