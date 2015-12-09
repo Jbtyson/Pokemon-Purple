@@ -74,6 +74,10 @@ var onSocketConnection = function(client) {
   client.on("retrievePc", onRetrievePc);
 }
 
+global.sendMessage = function(clientId, messageType, message) {
+  io.sockets.connected(clientId).emit(messageType, message);
+}
+
 /** Attempt authentication based on username and password
  * "authenticate" message expects:
  * string username
