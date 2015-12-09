@@ -126,8 +126,10 @@ function onBattleMoveSelected(message) {
       moveId = message.moveId,
       response;
 
-  response = gameManager.battleManager.onBattleMoveSelected(playerId, pokemonInstanceId, moveId);
-  this.emit("pokemonBattleMoveSelectedResult", response);
+  var _this = this;
+  gameManager.battleManager.onBattleMoveSelected(playerId, pokemonInstanceId, moveId, function(response) {
+    _this.emit("pokemonBattleMoveSelectedResult", response);
+  });
 }
 
 function onClientDisconnect() {

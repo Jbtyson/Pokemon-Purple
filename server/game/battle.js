@@ -6,10 +6,6 @@ var Battle = function(_battleManager, id, players, pokemon) {
     var pokemon = [];
     var playerTurn = 0;
 
-    var init = function() {
-
-    }
-
     var onMoveSelected = function(playerId, moveId, callback) {
       if(players[playerTurn].playerId !== playerId) {
         response = { ERROR: "Incorrect player's turn." }
@@ -30,9 +26,26 @@ var Battle = function(_battleManager, id, players, pokemon) {
           move = atttackingPokemon.moves[i];
         }
       }
-      performMove(attackingPokemon, defendingPokemon, move);
+      defendingPokemon = performMove(attackingPokemon, defendingPokemon, move);
+      switchTurns();
 
       callback(response);
+
+      if(players[1] === "AI") {
+        var rand = Math.floor(Math.random() * 4);
+        attackingPokemon = performMove(defendingPokemon, attackingPokemon, defendingPokemon.moves[rand]);
+        switchTurns();
+        callback(response);
+      }
+    }
+
+    var switchTurns = function() {
+      if(playerTurn = 0) {
+        playerTurn = 1;
+      }
+      else {
+        playerTurn = 0;
+      }
     }
 
     var performMove = function(attackingPokemon, defendingPokemon, move) {
@@ -94,9 +107,12 @@ var Battle = function(_battleManager, id, players, pokemon) {
     }
 
     return {
-      battles: battles,
-      init: init,
-      onMoveSelected: onMoveSelected,
+      battleManager: battleManager,
+      battleId: battleId,
+      players: players,
+      pokemon: pokemon,
+      playerTurn: playerTurn,
+      onMoveSelected: onMoveSelected
     }
 };
 exports.Battle = Battle;

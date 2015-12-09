@@ -3,7 +3,7 @@ var BattleManager = function(_pokemonService) {
     pokemonService = _pokemonService;
     var battles = [];
     var typeModifiers = [];
-    var battleIdCount = 0;
+    var battleIdCounter = 0;
 
     var init = function() {
       buildTypeRelations();
@@ -15,13 +15,23 @@ var BattleManager = function(_pokemonService) {
       });
     }
 
-    var onMoveSelected = function() {
-
+    var onMoveSelected = function(playerId, moveId, callback) {
+      battles[0].onMoveSelected(playerId, moveId, function(response) {
+        callback(response);
+      }));
     }
 
-    var createBattleWithWildPokemon = function(playerId1, playerId2) {
-      var battle = new Battle(this, battleIdCount, playerId, pokemonInstanceId);
-      battleIdCount++;
+    var createBattleWithWildPokemon = function(playerId, playerPokemonInstance, wildPokemonInstance) {
+      var battleId = battleIdCounter++;
+      playerIds = {
+        player1: playerId,
+        player2: "AI"
+      };
+      pokemons = {
+        pokemon1: playerPokemonInstance,
+        pokemon2: wildPokemonInstance
+      };
+      var battle = new Battle(this, battleId, players, pokemons);
       battles.push(battle);
     }
 

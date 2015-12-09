@@ -33,8 +33,6 @@ var PokemonDbao = function(_db) {
 
         callback(pkmnInst);
       }, params);
-
-
     }
 
     var retrievePokemonById = function(pkmnId, callback) {
